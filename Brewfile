@@ -4,6 +4,7 @@ update
 # Upgrade any already-installed formulae
 upgrade
 
+install macvim
 # install git
 # install node
 
