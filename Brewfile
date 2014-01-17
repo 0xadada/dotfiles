@@ -5,7 +5,7 @@ update
 upgrade
 
 install macvim
-# install git
+linkapps --local
 # install node
 
 # Remove outdated versions from the cellar
