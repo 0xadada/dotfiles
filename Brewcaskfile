@@ -8,11 +8,12 @@ function installcask() {
 
 installcask dropbox
 installcask google-chrome
-installcask google-chrome-canary
-Firefox
-FileZilla
+# installcask google-chrome-canary
+installcask firefox
+installcask fileZilla
 installcask iterm2
-# TorBrowser?
-utorrent
+# installcask TorBrowser
+installcask macvim
+installcask utorrent
 installcask virtualbox
 installcask vlc
