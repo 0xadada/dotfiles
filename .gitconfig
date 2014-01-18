@@ -89,3 +89,7 @@
 
 [push]
 	default = matching
+
+[user]
+	name = Ron. Adams
+	email = eclip5e@ccs.neu.edu
