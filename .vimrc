@@ -1,5 +1,9 @@
 " Make Vim more useful
 set nocompatible
+
+" set the color palette
+colors molokai
+
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
 " Enhance command-line completion
@@ -38,8 +42,10 @@ set number
 syntax on
 " Highlight current line
 set cursorline
-" Make tabs as wide as two spaces
-set tabstop=2
+" Make tabs as wide as four spaces
+set tabstop=4
+" Make shift indent operation add four spaces
+set shiftwidth=4
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
