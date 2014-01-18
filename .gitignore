@@ -1,3 +1,7 @@
+# Editor temp files
+*.swp
+*.swo
+
 # Compiled Python files
 *.pyc
 
