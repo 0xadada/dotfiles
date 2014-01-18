@@ -1,3 +1,6 @@
+# Run this brew bundle to have homebrew install our basic packages:
+# $ brew bundle Brewfile
+
 # Make sure we’re using the latest Homebrew
 update
 
