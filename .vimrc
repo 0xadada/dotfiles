@@ -4,12 +4,18 @@ set nocompatible
 " set the color palette
 colors molokai
 
+" Allow cursor keys in insert mode
+set esckeys
+" Show the cursor position
+set ruler
+" set the visual mode selection to be exlusive rather than inclusive
+set selection=exclusive
+
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
 " Enhance command-line completion
 set wildmenu
-" Allow cursor keys in insert mode
-set esckeys
+
 " Allow backspace in insert mode
 set backspace=indent,eol,start
 " Optimize for fast terminal connections
@@ -63,8 +69,6 @@ set mouse=a
 set noerrorbells
 " Don’t reset cursor to start of line when moving around.
 set nostartofline
-" Show the cursor position
-set ruler
 " Don’t show the intro message when starting Vim
 set shortmess=atI
 " Show the current mode
