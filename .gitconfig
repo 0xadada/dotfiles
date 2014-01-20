@@ -39,6 +39,7 @@
 	whitespace = fix
 
 [core]
+	editor = mvim
 	# Use custom `.gitignore` and `.gitattributes`
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
@@ -69,10 +70,17 @@
 	added = yellow
 	changed = green
 	untracked = cyan
+[diff]
+	tool = diffmerge
+[difftool "diffmerge"]
+	cmd = "diffmerge \"$LOCAL\" \"$REMOTE\""
 [merge]
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
-
+	tool = diffmerge
+[mergetool "diffmerge"]
+	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+	trustExitCode = true
 # URL shorthands
 [url "git@github.com:"]
 	insteadOf = "gh:"
