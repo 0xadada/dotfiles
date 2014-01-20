@@ -12,6 +12,7 @@ installcask google-chrome
 installcask firefox
 installcask fileZilla
 installcask iterm2
+installcask macvim
 # installcask TorBrowser
 installcask utorrent
 installcask virtualbox
