@@ -52,6 +52,8 @@ set cursorline
 set tabstop=4
 " Make shift indent operation add four spaces
 set shiftwidth=4
+" Convert tabs to spaces upon tabpress
+set expandtab
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
