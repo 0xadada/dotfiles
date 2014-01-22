@@ -16,5 +16,6 @@ installcask iterm2
 installcask macvim
 # installcask TorBrowser
 installcask utorrent
+installcask vagrant
 installcask virtualbox
 installcask vlc
