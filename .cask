@@ -8,7 +8,7 @@ function installcask() {
 
 # installcask bitcoin-qt
 installcask bittorrent-sync
-installcask dropbox
+# installcask dropbox # dont use dropbox http://www.drop-dropbox.com
 installcask google-chrome
 # installcask google-chrome-canary
 installcask firefox
