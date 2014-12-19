@@ -23,7 +23,7 @@ export MANPAGER="less -X"
 export GREP_OPTIONS="--color=auto"
 
 # Add `~/bin` to the `$PATH`
-export PATH="$HOME/bin:$PATH"
+export PATH="$PATH:$HOME/bin"
 
 # Add XCode bin to the `$PATH`
-export PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
+export PATH="$PATH:/Applications/Xcode.app/Contents/Developer/usr/bin"
