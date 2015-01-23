@@ -7,9 +7,13 @@ update
 # Upgrade any already-installed formulae
 upgrade
 
-# Install some useful packages
-install node
+# Install system utilities
+install brew-cask
 install gpg
+
+# Install some dev tools
+install node
+install pyenv-virtualenv
 
 # Remove outdated versions from the cellar
 cleanup

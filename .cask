@@ -9,13 +9,12 @@ function installcask() {
 # installcask bitcoin-qt
 installcask bittorrent-sync
 # installcask dropbox # dont use dropbox http://www.drop-dropbox.com
-installcask google-chrome
+# installcask google-chrome
 # installcask google-chrome-canary
 installcask firefox
 installcask flash
 installcask filezilla
 installcask iterm2
-installcask macvim
 # various OSX QuickLook plugins
 installcask qlcolorcode
 installcask qlstephen
