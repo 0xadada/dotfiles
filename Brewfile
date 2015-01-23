@@ -13,7 +13,6 @@ install gpg
 
 # Install some dev tools
 install node
-install pyenv-virtualenv
 
 # Remove outdated versions from the cellar
 cleanup
