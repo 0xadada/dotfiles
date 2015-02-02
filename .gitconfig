@@ -39,7 +39,7 @@
 	whitespace = fix
 
 [core]
-	editor = mvim
+	editor = mvim -f
 	# Use custom `.gitignore` and `.gitattributes`
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
@@ -97,3 +97,6 @@
 
 [push]
 	default = matching
+[user]
+	name = 0xADADA
+	email = 0xadada.pub@0xadada.pub
