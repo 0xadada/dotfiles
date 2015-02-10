@@ -13,6 +13,7 @@ install gpg
 
 # Install some dev tools
 install node
+install ansible
 
 # Remove outdated versions from the cellar
 cleanup
