@@ -16,6 +16,7 @@ installcask firefox
 installcask flash
 installcask filezilla
 installcask iterm2
+installcask macvim
 # various OSX QuickLook plugins
 installcask qlcolorcode
 installcask qlstephen
