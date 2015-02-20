@@ -1,3 +1,5 @@
+#!/bin/sh
+
 function install_or_upgrade_package {
   local package_name=$1; shift 1;
 
