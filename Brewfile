@@ -1,19 +1,9 @@
-# Run this brew bundle to have homebrew install our basic packages:
-# $ brew bundle Brewfile
-
-# Make sure we’re using the latest Homebrew
-update
-
-# Upgrade any already-installed formulae
-upgrade
-
 # Install system utilities
-install brew-cask
-install gpg
+install_or_upgrade_package brew-cask
+install_or_upgrade_package git
+install_or_upgrade_package gpg
+install_or_upgrade_package openssl
 
 # Install some dev tools
-install node
-install ansible
-
-# Remove outdated versions from the cellar
-cleanup
+install_or_upgrade_package node
+install_or_upgrade_package ansible
