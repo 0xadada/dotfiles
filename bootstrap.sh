@@ -29,6 +29,9 @@ else
 fi
 unset init_home
 
+# Install xcode command line toolz
+xcode-select --install
+
 # call homebrew and homebrew cask scripts
 source provision.sh
 
