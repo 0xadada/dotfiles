@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 cd "$(dirname "${BASH_SOURCE}")"
+echo "Updating this repo for latest changes..."
 git pull origin master
+
 function init_home() {
     rsync --exclude ".git/" \
         --exclude ".DS_Store" \
@@ -48,3 +50,9 @@ else
     printf "Aborting... try installing node packages manually\n"
     exit
 fi
+
+# Setup OSX system defaults
+source defaults.sh
+
+# finish up
+echo "System defaults have been update, you probably should restart. Bye."
