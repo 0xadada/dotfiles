@@ -352,6 +352,9 @@ defaults write com.apple.dock mouse-over-hilite-stack -bool true
 # Set the icon size of Dock items to 48 pixels
 defaults write com.apple.dock tilesize -int 48
 
+# Set the Dock magnification off
+defaults write com.apple.dock magnification -bool false
+
 # Change minimize/maximize window effect
 defaults write com.apple.dock mineffect -string "scale"
 
@@ -570,11 +573,17 @@ defaults write com.apple.terminal StringEncodings -array 4
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
 # Blur 1
+/usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Blur' boolean true" ~/Library/Preferences/com.googlecode.iterm2.plist
 # "Blur Radius" = "7.340262"
+/usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Blur Radius' 8.0" ~/Library/Preferences/com.googlecode.iterm2.plist
 # Blend 0.3
+/usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Blend' 0.3" ~/Library/Preferences/com.googlecode.iterm2.plist
 # Transparency 0.20
+/usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Transparency' 0.2 " ~/Library/Preferences/com.googlecode.iterm2.plist
 # Columns 140
+/usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Columns' 140" ~/Library/Preferences/com.googlecode.iterm2.plist
 # Rows 25
+/usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Rows' 25" ~/Library/Preferences/com.googlecode.iterm2.plist
 
 ###############################################################################
 # Time Machine                                                                #
