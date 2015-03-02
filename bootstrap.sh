@@ -7,6 +7,7 @@ function init_home() {
     rsync --exclude ".git/" \
         --exclude ".DS_Store" \
         --exclude "bootstrap.sh" \
+        --exclude "defaults.sh" \
         --exclude "provision.sh" \
         --exclude "README.md" \
         --exclude "LICENSE-MIT.txt" \
