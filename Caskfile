@@ -1,4 +1,4 @@
-# install_or_upgrade_cask_package bitcoin-qt
+# install_or_upgrade_cask_package bitcoin-core
 install_or_upgrade_cask_package   bittorrent-sync
 install_or_upgrade_cask_package   diffmerge
 # install_or_upgrade_cask_package google-chrome
