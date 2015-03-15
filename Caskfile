@@ -4,6 +4,7 @@ install_or_upgrade_cask_package   diffmerge
 # install_or_upgrade_cask_package google-chrome
 # install_or_upgrade_cask_package google-chrome-canary
 install_or_upgrade_cask_package   firefox
+install_or_upgrade_cask_package   torbrowser
 install_or_upgrade_cask_package   flash
 install_or_upgrade_cask_package   filezilla
 install_or_upgrade_cask_package   gpgtools
