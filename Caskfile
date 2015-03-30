@@ -19,7 +19,7 @@ install_or_upgrade_cask_package   qlmarkdown
 install_or_upgrade_cask_package   quicklook-json
 
 # install_or_upgrade_cask_package TorBrowser
-install_or_upgrade_cask_package   utorrent
+install_or_upgrade_cask_package   transmission
 install_or_upgrade_cask_package   vagrant
 install_or_upgrade_cask_package   virtualbox
 install_or_upgrade_cask_package   vlc
