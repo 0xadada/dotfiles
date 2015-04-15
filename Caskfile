@@ -6,6 +6,7 @@ install_or_upgrade_cask_package   diffmerge
 install_or_upgrade_cask_package   firefox
 install_or_upgrade_cask_package   torbrowser
 install_or_upgrade_cask_package   flash
+install_or_upgrade_cask_package   flux
 install_or_upgrade_cask_package   filezilla
 install_or_upgrade_cask_package   gpgtools
 install_or_upgrade_cask_package   iterm2
