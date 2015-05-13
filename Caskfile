@@ -10,7 +10,6 @@ install_or_upgrade_cask_package   flux
 install_or_upgrade_cask_package   filezilla
 install_or_upgrade_cask_package   gpgtools
 install_or_upgrade_cask_package   iterm2
-install_or_upgrade_cask_package   little-snitch
 install_or_upgrade_cask_package   macvim
 install_or_upgrade_cask_package   peerio
 
