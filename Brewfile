@@ -8,5 +8,6 @@ install_or_upgrade_package openssl
 install_or_upgrade_package irssi
 
 # Install dev tools
+install_or_upgrade_package awscli
 install_or_upgrade_package node
 install_or_upgrade_package ansible

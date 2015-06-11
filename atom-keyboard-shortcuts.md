@@ -36,13 +36,27 @@ Similar to Movement, but with `shift`.
 * ctl+cmd+down  - Move line down
 * cmd+shift+D   - Duplicate line
 * cmd+shift+D   - Duplicate line
-* ctl+shift+K   - Delete line
+* ctl+shift+K   - Delete current line
 * cmd+delete    - Delete to end of line
 * cmd+backspace - Delete to beginning of line
 * alt+delete    - Delete to end of word
 * alt+backspace - Delete to beginning of word
 * ctl+k         - Cut to end of line
+* cmd+click     - Add cursor
+* cmd+ctl+G     - Select all instances of the current word in the
+                  document, as multiple cursors
 
+## Find and Replace
+* cmd+f         - Search within current buffer
+* cmd+shift+f   - Search within current project
+* cmd+G         - Find next
 
 ## Tasks
 * ctl+shift+M - Markdown preview pane (if file is .md)
+
+## Command Palette helpers
+* cmd+shift+P  - Command palette
+* 'whitespace' - Whitespace, tab, spaces helper commands
+* ctl+m        - Jump to matching adjacent bracket
+* ctl+cmd+m    - Select text inside brackets
+* alt+cmd+alt  - Close current XML/HTML tag
