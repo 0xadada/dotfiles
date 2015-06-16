@@ -33,6 +33,9 @@ unset init_home
 # Install xcode command line toolz
 xcode-select --install
 
+# Setup some python development tools
+easy_install pip
+
 # call homebrew and homebrew cask scripts
 source provision.sh
 
