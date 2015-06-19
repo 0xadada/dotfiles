@@ -12,4 +12,5 @@ install_or_upgrade_package awscli
 install_or_upgrade_package node
 install_or_upgrade_package ansible
 install_or_upgrade_package docker
+install_or_upgrade_package boot2docker
 install_or_upgrade_package python3

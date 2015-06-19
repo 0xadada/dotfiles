@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 function install_or_upgrade_package {
   local package_name=$1; shift 1;
