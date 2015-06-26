@@ -1,0 +1,26 @@
+"*":
+  "exception-reporting":
+    userId: "b55699eb-25f1-7a42-a74a-9cf9ccf08533"
+  "release-notes":
+    viewedVersion: "0.60.0"
+  welcome:
+    showOnStartup: false
+  metrics:
+    userId: "8bc8cce8683601fd164a8e683349e1fcfddeab91"
+  editor:
+    invisibles:
+      {}
+    showInvisibles: true
+    preferredLineLength: 72
+    tabLength: 4
+    fontSize: 12
+  core:
+    themes: [
+      "atom-dark-ui"
+      "monokai"
+    ]
+    ignoredNames: [
+      ".git"
+      ".svn"
+      ".DS_Store"
+    ]

@@ -1,0 +1,5 @@
+.apm
+.node-gyp
+compile-cache/
+packages/
+storage/
