@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Provision a new Apple OS X machine
+# Author Ron. A @0xADADA
+
 cd "$(dirname "${BASH_SOURCE}")"
 echo "Updating this repo for latest changes..."
 git pull origin master
@@ -34,9 +37,12 @@ unset init_home
 xcode-select --install
 
 # Setup some python development tools
-easy_install pip
+if ! which pip >/dev/null; then
+    echo "Installing Pip ..."
+    easy_install pip
+fi
 
-# call homebrew and homebrew cask scripts
+# call homebrew and homebrew cask scripts (installs NPM, etc)
 source provision.sh
 
 # update / install npm packages
@@ -56,6 +62,11 @@ else
     echo "Error: npm not found."
     printf "Aborting... try installing node packages manually\n"
     exit
+fi
+
+# Install Atom editor packages
+if [ `type -P apm` ]; then
+    apm install --packages-file .atom/packages.txt
 fi
 
 # Setup OSX system defaults
