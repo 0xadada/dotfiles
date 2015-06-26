@@ -12,6 +12,7 @@ function init_home() {
         --exclude "bootstrap.sh" \
         --exclude "defaults.sh" \
         --exclude "provision.sh" \
+        --exclude "atom-keyboard-shortcuts.md" \
         --exclude "README.md" \
         --exclude "LICENSE-MIT.txt" \
         --exclude "Brewfile" \
