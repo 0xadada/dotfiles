@@ -4,6 +4,9 @@ export EDITOR="vim"
 # Make mvim the git editor
 export GIT_EDITOR="mvim -f"
 
+# Install ruby gems locally
+export GEM_HOME=$(brew --prefix)
+
 # Larger bash history (allow 32³ entries; default is 500)
 export HISTSIZE=32768
 export HISTFILESIZE=$HISTSIZE
