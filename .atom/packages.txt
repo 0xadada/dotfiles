@@ -1,3 +1,4 @@
-# Last-Modified: Fri Jun 26 11:01:38 EDT 2015
+atom-ternjs@0.6.8
+minimap@4.12.0
 monokai@0.14.0
 
