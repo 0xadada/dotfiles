@@ -9,7 +9,8 @@ root = true
 charset = utf-8
 indent_style = space
 trim_trailing_whitespace = true
-end_of_line = lf # Unix-style newlines with a newline ending every file
+# Unix-style newlines with a newline ending every file
+end_of_line = lf
 insert_final_newline = true
 
 # Javascript
@@ -22,7 +23,7 @@ indent_size = 4
 indent_style = space
 indent_size = 4
 
-[{*.{json,yml}]
+[*.{json,yml}]
 indent_style = space
 indent_size = 2
 
