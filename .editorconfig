@@ -1,0 +1,36 @@
+# EditorConfig is awesome: http://EditorConfig.org
+# Author Ron. A @0xADADA
+# Copyright (c) 2015 visual assault, llc
+
+# top-most EditorConfig file
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+trim_trailing_whitespace = true
+end_of_line = lf # Unix-style newlines with a newline ending every file
+insert_final_newline = true
+
+# Javascript
+[*.js]
+indent_style = space
+indent_size = 4
+
+# CSS
+[*.css]
+indent_style = space
+indent_size = 4
+
+[{*.{json,yml}]
+indent_style = space
+indent_size = 2
+
+# Marddown
+[*.md]
+trim_trailing_whitespace = false
+
+# Python - 4 space indentation
+[*.py]
+indent_style = space
+indent_size = 4
