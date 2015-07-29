@@ -21,9 +21,9 @@ indent_size = 4
 # CSS
 [*.css]
 indent_style = space
-indent_size = 4
+indent_size = 2
 
-[*.{json,yml}]
+[*.{html,json,yml}]
 indent_style = space
 indent_size = 2
 

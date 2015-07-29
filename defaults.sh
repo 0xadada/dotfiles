@@ -552,6 +552,10 @@ defaults write com.apple.mail DisableInlineAttachmentViewing -bool false
 # Disable automatic spell checking
 defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
 
+# Set default font and font-size
+defaults write com.apple.mail NSFont -string "Georgia"
+defaults write com.apple.mail NSFontSize -string "16"
+
 
 ###############################################################################
 # Spotlight                                                                   #
