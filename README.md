@@ -1,4 +1,4 @@
-# ronaldjadams's dotfiles
+# 0xADADA's dotfiles
 
 ## Installation
 

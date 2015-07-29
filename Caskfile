@@ -12,7 +12,7 @@ install_or_upgrade_cask_package   gpgtools
 install_or_upgrade_cask_package   iterm2
 install_or_upgrade_cask_package   macvim
 install_or_upgrade_cask_package   atom
-install_or_upgrade_cask_package   slack
+# install_or_upgrade_cask_package   slack
 # install_or_upgrade_cask_package   peerio
 
 # various OSX QuickLook plugins
