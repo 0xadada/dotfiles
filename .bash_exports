@@ -1,8 +1,10 @@
 # Make vim the default editor
-export EDITOR="vim"
+# export EDITOR="vim"
+export EDITOR="atom -n"
 
 # Make mvim the git editor
-export GIT_EDITOR="mvim -f"
+# export GIT_EDITOR="mvim -f"
+export GIT_EDITOR="atom -w"
 
 # Install ruby gems locally
 export GEM_HOME=$(brew --prefix)
