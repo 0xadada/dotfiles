@@ -19,7 +19,7 @@ indent_style = space
 indent_size = 4
 
 # CSS
-[*.css]
+[*.{css,scss}]
 indent_style = space
 indent_size = 2
 
