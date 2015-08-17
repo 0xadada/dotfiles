@@ -33,6 +33,9 @@
 	fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
 	# Remove branches that have already been merged with master
 	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+[apply]
+	# Detect whitespace errors when applying a patch
+	whitespace = fix
 
 [core]
 	editor = mvim -f
@@ -42,6 +45,9 @@
 	# Make `git rebase` safer on OS X
 	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
 	trustctime = false
+	# Treat tabs in indentation, lines that are indented with 8 or more spaces, and
+	# all kinds of trailing whitespace as an error
+	whitespace = tab-in-indent,blank-at-eof,blank-at-eol
 
 [color]
 	# Use colors in Git commands that are capable of colored output when
