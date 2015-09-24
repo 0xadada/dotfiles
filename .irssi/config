@@ -30,7 +30,8 @@ channels = (
   { name = "#dnt"; chatnet = "W3"; autojoin = "yes"; },
   { name = "#io.js"; chatnet = "Freenode"; autojoin = "Yes"; },
   { name = "#node.js"; chatnet = "Freenode"; autojoin = "Yes"; },
-  { name = "#mit-dci"; chatnet = "Freenode"; autojoin = "Yes"; }
+  { name = "#mit-dci"; chatnet = "Freenode"; autojoin = "Yes"; },
+  { name = "#bitcoin-dev"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
