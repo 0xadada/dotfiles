@@ -2,7 +2,10 @@ servers = (
   {
     address = "chat.freenode.net";
     chatnet = "Freenode";
-    port = "6667";
+    port = "6697";
+    use_ssl = "yes";
+    ssl_cert = "~/.irssi/OxADADA.pem";
+    ssl_verify = "no";
     autoconnect = "yes";
   },
   {
@@ -295,3 +298,5 @@ settings = {
   };
   "fe-text" = { actlist_sort = "refnum"; };
 };
+
+ignores = ( { level = "JOINS PARTS QUITS NICKS"; } );
