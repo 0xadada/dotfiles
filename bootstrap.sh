@@ -12,7 +12,6 @@ function init_home() {
         --exclude "bootstrap.sh" \
         --exclude "defaults.sh" \
         --exclude "provision.sh" \
-        --exclude "atom-keyboard-shortcuts.md" \
         --exclude "README.md" \
         --exclude "LICENSE-MIT.txt" \
         --exclude "Brewfile" \
@@ -21,6 +20,7 @@ function init_home() {
         -av --no-perms . ~
     source ~/.bash_profile
 }
+
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
     echo "Initializing home directory dotfiles"
     init_home
@@ -44,7 +44,7 @@ if ! which pip >/dev/null; then
 fi
 
 # call homebrew and homebrew cask scripts (installs NPM, etc)
-source provision.sh
+source brew.sh
 
 # update / install npm packages
 # Check for npm
