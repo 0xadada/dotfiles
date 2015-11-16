@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Install homebrew and install packages.
+# Author Ron. A @0xADADA
 
 function install_or_upgrade_package {
   local package_name=$1; shift 1;
