@@ -8,8 +8,7 @@
   metrics:
     userId: "8bc8cce8683601fd164a8e683349e1fcfddeab91"
   editor:
-    invisibles:
-      {}
+    invisibles: {}
     showInvisibles: true
     preferredLineLength: 72
     tabLength: 4
@@ -24,3 +23,13 @@
       ".svn"
       ".DS_Store"
     ]
+  minimap: {}
+  "atom-ternjs": {}
+  "merge-conflicts":
+    gitPath: "/usr/local/bin/git"
+  "autocomplete-plus": {}
+  autosave:
+    enabled: true
+".ini.source":
+  editor:
+    preferredLineLength: 72
