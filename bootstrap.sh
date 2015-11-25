@@ -52,7 +52,7 @@ if [ `type -P npm` ]; then
     echo "Installing Node.js packages..."
 
     # List of npm packages
-    packages="bower grunt-cli jshint"
+    packages="node-inspector bower jshint"
 
     # Install packages globally and quietly
     npm install $packages --global --quiet
