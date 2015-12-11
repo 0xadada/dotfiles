@@ -143,7 +143,7 @@ sudo tmutil disablelocal
 sudo pmset -a hibernatemode 0
 
 # Remove the sleep image file to save disk space
-sudo rm /Private/var/vm/sleepimage
+sudo rm -f /Private/var/vm/sleepimage
 # Create a zero-byte file instead…
 sudo touch /Private/var/vm/sleepimage
 # …and make sure it can’t be rewritten
