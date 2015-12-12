@@ -150,3 +150,6 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
+
+# Kill docker-machine VM with fire
+alias puff-down="docker-machine stop docker-vm && docker-machine rm docker-vm && docker-machine create --driver virtualbox docker-vm && docker-machine start docker-vm && eval $(docker-machine env docker-vm)"

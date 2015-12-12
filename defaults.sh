@@ -17,17 +17,18 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #     rancière
 #     foucault
 #     žižek
-# Future use:
-#     butler
 #     chomsky
-#     hardt
-#     negri
+# Future use:
 #     derrida
 #     deleuze
-sudo scutil --set ComputerName "žižek"
-sudo scutil --set HostName "žižek"
-sudo scutil --set LocalHostName "zizek"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "žižek"
+#     butler
+#     hardt
+#     negri
+read -p "Name this computer: " MYNAME
+sudo scutil --set ComputerName $MYNAME
+sudo scutil --set HostName $MYNAME
+sudo scutil --set LocalHostName $MYNAME
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$MYNAME"
 
 # Set standby delay to 24 hours (default is 1 hour)
 sudo pmset -a standbydelay 86400
@@ -142,7 +143,7 @@ sudo tmutil disablelocal
 sudo pmset -a hibernatemode 0
 
 # Remove the sleep image file to save disk space
-sudo rm /Private/var/vm/sleepimage
+sudo rm -f /Private/var/vm/sleepimage
 # Create a zero-byte file instead…
 sudo touch /Private/var/vm/sleepimage
 # …and make sure it can’t be rewritten
@@ -732,6 +733,9 @@ defaults write org.mozilla.crashreporter submitReport -bool false
 # Kill affected applications                                                  #
 ###############################################################################
 
+echo "Done. Note that some of these changes require a logout/restart to take effect."
+sleep 10
+echo "Restarting open apps..."
 for app in "Activity Monitor" \
     "Address Book" \
     "Calendar" \
@@ -746,4 +750,4 @@ for app in "Activity Monitor" \
     "Terminal"; do
     killall "${app}" > /dev/null 2>&1
 done
-echo "Done. Note that some of these changes require a logout/restart to take effect."
+
