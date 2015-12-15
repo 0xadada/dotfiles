@@ -52,7 +52,7 @@ if [ `type -P npm` ]; then
     echo "Installing Node.js packages..."
 
     # List of npm packages
-    packages="node-inspector bower jshint"
+    packages="node-inspector bower"
 
     # Install packages globally and quietly
     npm install $packages --global --quiet
@@ -64,6 +64,9 @@ else
     printf "Aborting... try installing node packages manually\n"
     exit
 fi
+
+# Install Node.js
+nvm install v5.2
 
 # Install Atom editor packages
 if [ `type -P apm` ]; then
