@@ -66,6 +66,7 @@ else
 fi
 
 # Install Node.js
+mkdir -p ~/.nvm
 nvm install v5.2
 
 # Install Atom editor packages
