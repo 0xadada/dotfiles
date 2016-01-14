@@ -27,8 +27,8 @@ function install_homebrew {
 
   /usr/local/bin/brew update
 
-  install_or_upgrade_package caskroom/cask/brew-cask
   brew tap caskroom/versions
+  brew tap caskroom/cask
 }
 
 # Install homebrew & homebrew cask
