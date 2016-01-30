@@ -69,6 +69,20 @@ fi
 mkdir -p ~/.nvm
 nvm install v5.2
 
+function install_rvm() {
+    curl -sSL https://get.rvm.io | bash
+    rvm requirements
+    rvm get head
+    rvm install 2.2
+}
+
+read -p "Install rvm with curl | bash Continue (y/n)?" choice
+case "$choice" in 
+  y|Y ) install_rvm;;
+  n|N ) echo "Skipping rvm";;
+  * ) echo "invalid answer";;
+esac
+
 # Install Atom editor packages
 if [ `type -P apm` ]; then
     apm install --packages-file .atom/packages.txt
