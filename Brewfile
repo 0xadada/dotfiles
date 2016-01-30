@@ -14,3 +14,4 @@ install_or_upgrade_package aws-elasticbeanstalk
 install_or_upgrade_package docker-machine
 install_or_upgrade_package nvm
 install_or_upgrade_package python3
+install_or_upgrade_package ruby
