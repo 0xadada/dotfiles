@@ -71,6 +71,8 @@ nvm install v5.2
 
 function install_rvm() {
     curl -sSL https://get.rvm.io | bash
+    source ~/.profile
+    rm ~/.profile
     rvm requirements
     rvm get head
     rvm install 2.2
