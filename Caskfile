@@ -1,4 +1,5 @@
 install_or_upgrade_cask_package   atom
+install_or_upgrade_cask_packag    audioscrobbler
 install_or_upgrade_cask_package   bitcoin-core
 install_or_upgrade_cask_package   bittorrent-sync
 install_or_upgrade_cask_package   diffmerge
