@@ -2,6 +2,7 @@ install_or_upgrade_cask_package   atom
 install_or_upgrade_cask_package   audioscrobbler
 install_or_upgrade_cask_package   bitcoin-core
 install_or_upgrade_cask_package   bittorrent-sync
+install_or_upgrade_cask_package   diffmerge
 install_or_upgrade_cask_package   firefox
 install_or_upgrade_cask_package   flux
 install_or_upgrade_cask_package   filezilla
