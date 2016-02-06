@@ -24,7 +24,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #     butler
 #     hardt
 #     negri
-read -p "Name this computer: " MYNAME
+read -p "Name this computer (e.g. žižek): " MYNAME
 sudo scutil --set ComputerName $MYNAME
 sudo scutil --set HostName $MYNAME
 sudo scutil --set LocalHostName $MYNAME
@@ -43,7 +43,6 @@ sudo pmset -a standbydelay 86400
 for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
     defaults write "${domain}" dontAutoLoad -array \
         "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-        "/System/Library/CoreServices/Menu Extras/Volume.menu" \
         "/System/Library/CoreServices/Menu Extras/User.menu"
 done
 defaults write com.apple.systemuiserver menuExtras -array \
@@ -85,6 +84,42 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
 # Disable the “Are you sure you want to open this application?” dialog
 defaults write com.apple.LaunchServices LSQuarantine -bool false
+
+# Disable infrared receiver
+defaults write /Library/Preferences/com.apple.driver.AppleIRController DeviceEnabled -int 0
+
+# Disable AirDrop
+defaults write com.apple.NetworkBrowser DisableAirDrop -bool YES
+
+# Set time and date automatically
+sudo systemsetup setusingnetworktime on
+
+# Disable remote apple events
+sudo systemsetup -setremoteappleevents off
+
+# Disable remote login
+sudo systemsetup -f -setremotelogin off
+
+# Disable screen sharing
+launchctl unload -w /System/Library/LaunchDaemons/com.apple.screensharing.plist
+
+# Disable printer sharing
+cupsctl --no-share-printers
+
+# Disable wake on network access
+sudo systemsetup -setwakeonnetworkaccess off
+
+# Disable file sharing
+launchctl unload -w /System/Library/LaunchDaemons/com.apple.AppleFileServer.plist && launchctl unload -w /System/Library/LaunchDaemons/com.apple.smbd.plist
+
+# Disable remote management
+/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -deactivate -stop
+
+# Destroy file vault key when going into standby
+sudo pmset -a destroyfvkeyonstandby 1
+
+# Require an administrator password to access system-wide preferences
+security authorizationdb read system.preferences > /tmp/system.preferences.plist &&/usr/libexec/PlistBuddy -c \"Set :shared false\" /tmp/system.preferences.plist && security authorizationdb write system.preferences < /tmp/system.preferences.plist
 
 # Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
@@ -528,6 +563,9 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 ###############################################################################
 # Mail                                                                        #
 ###############################################################################
+
+# Disable automatic loading of remote content by Mail.app
+defaults write com.apple.mail-shared DisableURLLoading -bool true
 
 # Disable send and reply animations in Mail.app
 defaults write com.apple.mail DisableReplyAnimations -bool true
