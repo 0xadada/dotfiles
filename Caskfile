@@ -1,5 +1,5 @@
 install_or_upgrade_cask_package   atom
-install_or_upgrade_cask_packag    audioscrobbler
+install_or_upgrade_cask_package   audioscrobbler
 install_or_upgrade_cask_package   bitcoin-core
 install_or_upgrade_cask_package   bittorrent-sync
 install_or_upgrade_cask_package   diffmerge
@@ -19,6 +19,4 @@ install_or_upgrade_cask_package   vagrant
 install_or_upgrade_cask_package   virtualbox
 install_or_upgrade_cask_package   vlc
 
-# Not always needed
-# install_or_upgrade_cask_package   google-chrome
-# install_or_upgrade_cask_package   google-chrome-canary
+install_or_upgrade_cask_package   google-chrome
