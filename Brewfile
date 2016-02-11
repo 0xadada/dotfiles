@@ -1,6 +1,7 @@
 # Install system utilities
 install_or_upgrade_package git
 install_or_upgrade_package gpg
+install_or_upgrade_package keybase
 install_or_upgrade_package openssl
 install_or_upgrade_package mobile-shell
 
