@@ -13,6 +13,7 @@ install_or_upgrade_cask_package   qlcolorcode
 install_or_upgrade_cask_package   qlstephen
 install_or_upgrade_cask_package   qlmarkdown
 install_or_upgrade_cask_package   quicklook-json
+install_or_upgrade_cask_package   spotify
 install_or_upgrade_cask_package   transmission
 install_or_upgrade_cask_package   torbrowser
 install_or_upgrade_cask_package   vagrant
