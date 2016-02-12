@@ -14,10 +14,10 @@ install_or_upgrade_cask_package   qlstephen
 install_or_upgrade_cask_package   qlmarkdown
 install_or_upgrade_cask_package   quicklook-json
 install_or_upgrade_cask_package   spotify
+install_or_upgrade_cask_package   sequel-pro
 install_or_upgrade_cask_package   transmission
 install_or_upgrade_cask_package   torbrowser
 install_or_upgrade_cask_package   vagrant
 install_or_upgrade_cask_package   virtualbox
 install_or_upgrade_cask_package   vlc
-
 install_or_upgrade_cask_package   google-chrome
