@@ -2,61 +2,74 @@
 # Provision a new Apple OS X machine
 # Author Ron. A @0xADADA
 
-cd "$(dirname "${BASH_SOURCE}")"
-echo "Updating this repo for latest changes..."
-git pull origin master
+cd "$(dirname "${BASH_SOURCE}")";
 
-function init_home() {
+git pull origin master;
+
+function doIt() {
     rsync --exclude ".git/" \
         --exclude ".DS_Store" \
         --exclude "bootstrap.sh" \
         --exclude "defaults.sh" \
-        --exclude "provision.sh" \
+        --exclude "brew.sh" \
         --exclude "README.md" \
-        --exclude "LICENSE-MIT.txt" \
-        --exclude "Brewfile" \
-        --exclude "Caskfile" \
-        --exclude ".osx" \
+        --exclude "LICENSE" \
         -av --no-perms . ~
-    source ~/.bash_profile
+    source ~/.bash_profile;
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
-    echo "Initializing home directory dotfiles"
-    init_home
+    doIt;
 else
-    read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1
-    echo
+    read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
+    echo "";
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        echo "Initializing home directory dotfiles"
-        init_home
-    fi
-fi
-unset init_home
+        doIt;
+    fi;
+fi;
+unset doIt;
 
-# Install xcode command line toolz
+# Install XCcode command line tools
+echo "Installing XCode command line tools..."
 xcode-select --install
 
 # Setup some python development tools
 if ! which pip >/dev/null; then
-    echo "Installing Pip ..."
+    echo "Installing pip..."
     easy_install pip
 fi
 
+# Homebrew OS X package manager
+function install_homebrew() {
+    echo "Installing Homebrew and packages..."
+    source brew.sh
+
+    # Install Atom editor packages
+    if [ `type -P apm` ]; then
+        apm install --packages-file .atom/packages.txt
+    fi
+}
+
 # call homebrew and homebrew cask scripts (installs NPM, etc)
-source brew.sh
+read -p "Install Homebrew and all packages (y/n)?" choice
+case "$choice" in
+  y|Y ) install_homebrew;;
+  n|N ) echo "Skipping homebrew";;
+  * ) echo "invalid answer";;
+esac
+
+# Install Node.js (Latest 'Stable')
+mkdir -p ~/.nvm
+echo "Installing Node.js (Latest 'stable')..."
+nvm install `nvm version-remote stable`
 
 # update / install npm packages
 # Check for npm
 if [ `type -P npm` ]; then
-    echo "Installing Node.js packages..."
-
-    # List of npm packages
-    packages="node-inspector bower"
-
-    # Install packages globally and quietly
-    npm install $packages --global --quiet
-
+    # Installing NPM packages...
+    echo "Installing NPM packages..."
+    npm install node-inspector --global --quiet
+    npm install bower --global --quiet
     [[ $? ]] && echo "Done"
 else
     printf "\n"
@@ -65,33 +78,31 @@ else
     exit
 fi
 
-# Install Node.js
-mkdir -p ~/.nvm
-nvm install v5.2
-
+# Ruby version manager
 function install_rvm() {
     curl -sSL https://get.rvm.io | bash
     source ~/.profile
     rm ~/.profile
     rvm requirements
-    rvm get head
-    rvm install 2.2
+    rvm get stable
+    rvm install ruby-head
 }
 
-read -p "Install rvm with curl | bash Continue (y/n)?" choice
-case "$choice" in 
+read -p "Install rvm with curl | bash, Continue (y/n)?" choice
+case "$choice" in
   y|Y ) install_rvm;;
   n|N ) echo "Skipping rvm";;
   * ) echo "invalid answer";;
 esac
 
-# Install Atom editor packages
-if [ `type -P apm` ]; then
-    apm install --packages-file .atom/packages.txt
-fi
-
-# Setup OSX system defaults
-source defaults.sh
+# Setup OS X system defaults
+read -p "Setup OS X system defaults (y/n)?" choice
+case "$choice" in
+  y|Y ) source defaults.sh;;
+  n|N ) echo "Skipping OS X defaults";;
+  * ) echo "invalid answer";;
+esac
 
 # finish up
-echo "System defaults have been update, you probably should restart. Bye."
+echo "System has been bootstrapped."
+echo "You probably should restart."
