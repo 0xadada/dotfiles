@@ -104,5 +104,6 @@ case "$choice" in
 esac
 
 # finish up
+echo
 echo "System has been bootstrapped."
 echo "You probably should restart."
