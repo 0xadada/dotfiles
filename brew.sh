@@ -2,43 +2,65 @@
 # Install homebrew and install packages.
 # Author Ron. A @0xADADA
 
-function install_or_upgrade_package {
-  local package_name=$1; shift 1;
+# Ask for the administrator password upfront.
+sudo -v
 
-  if [ -z "$(/usr/local/bin/brew list -1 | grep $package_name)" ]; then
-    brew install $package_name
-  else
-    brew upgrade $package_name 2> /dev/null
-  fi
-}
+# Keep-alive: update existing `sudo` time stamp until the script has finished.
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-function install_or_upgrade_cask_package {
-  local package_name=$1; shift 1;
+# Install homebrew if it doesn't exist
+if ! [ -x /usr/local/bin/brew ]; then
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 
-  if [ -z "$(/usr/local/bin/brew cask list -1 | grep $package_name)" ]; then
-    brew cask install $package_name
-  fi
-}
+# Tap homebrew-cask and homebrew-cask versions
+brew tap caskroom/cask
+brew tap caskroom/versions
 
-function install_homebrew {
-  if ! [ -x /usr/local/bin/brew ]; then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
+# Make sure we’re using the latest Homebrew.
+brew update
 
-  /usr/local/bin/brew update
+# Upgrade any already-installed formulae.
+brew upgrade --all
 
-  brew tap caskroom/versions
-  brew tap caskroom/cask
-}
+# Install homebrew packages
+brew install git
+brew install gpg
+brew install keybase
+brew install openssl
+brew install mobile-shell
+brew install android-platform-tools
+brew install docker-compose # Includes docker and docker-machine
+brew install nvm
+# brew install ansible
+# brew install awscli
+# brew install aws-elasticbeanstalk
+# brew install python3
 
-# Install homebrew & homebrew cask
-install_homebrew
-
-# Install my homebrew packages
-source Brewfile
-
-# Install my homebrew casks
-source Caskfile
+# Install homebrew cask packages
+brew cask install atom
+brew cask install audioscrobbler
+brew cask install bitcoin-core
+brew cask install bittorrent-sync
+brew cask install diffmerge
+brew cask install firefox
+brew cask install flux
+brew cask install filezilla
+brew cask install gpgtools
+brew cask install iterm2
+brew cask install macvim
+brew cask install qlcolorcode
+brew cask install qlstephen
+brew cask install qlmarkdown
+brew cask install quicklook-json
+brew cask install spotify
+brew cask install sequel-pro
+brew cask install transmission
+brew cask install torbrowser
+brew cask install vagrant
+brew cask install virtualbox
+brew cask install vlc
+brew cask install google-chrome
 
 # Cleanup
 brew cleanup
