@@ -36,7 +36,7 @@ xcode-select --install
 # Setup some python development tools
 if ! which pip >/dev/null; then
     echo "Installing pip..."
-    easy_install pip
+    sudo easy_install pip
 fi
 
 # Homebrew OS X package manager
@@ -51,7 +51,7 @@ function install_homebrew() {
 }
 
 # call homebrew and homebrew cask scripts (installs NPM, etc)
-read -p "Install Homebrew and all packages (y/n)?" choice
+read -p "Install Homebrew and all packages (y/n)? " choice
 case "$choice" in
   y|Y ) install_homebrew;;
   n|N ) echo "Skipping homebrew";;
@@ -88,7 +88,7 @@ function install_rvm() {
     rvm install ruby-head
 }
 
-read -p "Install rvm with curl | bash, Continue (y/n)?" choice
+read -p "Install rvm with curl | bash, Continue (y/n)? " choice
 case "$choice" in
   y|Y ) install_rvm;;
   n|N ) echo "Skipping rvm";;
@@ -96,7 +96,7 @@ case "$choice" in
 esac
 
 # Setup OS X system defaults
-read -p "Setup OS X system defaults (y/n)?" choice
+read -p "Setup OS X system defaults (y/n)? " choice
 case "$choice" in
   y|Y ) source defaults.sh;;
   n|N ) echo "Skipping OS X defaults";;
