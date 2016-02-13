@@ -10,7 +10,6 @@ alias -- -="cd -"
 # alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
-alias p="cd ~/projects"
 alias g="git"
 alias h="history"
 alias j="jobs"
@@ -94,7 +93,16 @@ alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 
 # Empty the Trash on all mounted volumes and the main HDD
 # Also, clear Apple’s System Logs to improve shell startup speed
-alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+# Also, run periodic maintenence tasks
+alias emptytrash="echo Emptying trashes...; \
+  sudo rm -rfv /Volumes/*/.Trashes; \
+  sudo rm -rfv ~/.Trash; \
+  echo Running all periodic maintenence tasks...; \
+  sudo periodic daily weekly monthly; \
+  echo Removing old logs...; \
+  sudo rm -rfv /private/var/log/asl/*.asl; \
+  sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2 'delete from LSQuarantineEvent' >/dev/null 2>&1; \
+  sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2 'vacuum' >/dev/null 2>&1"
 
 # Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
