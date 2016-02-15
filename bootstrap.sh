@@ -96,6 +96,7 @@ case "$choice" in
 esac
 
 # Install Python (Latest 'Stable')
+echo "Installing Python (Latest 'stable')..."
 pyenv install `pyenv install --list | grep -v - | grep -v b | tail -1`
 
 # Setup OS X system defaults
