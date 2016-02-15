@@ -60,6 +60,10 @@ esac
 
 # Install Node.js (Latest 'Stable')
 mkdir -p ~/.nvm
+# Setup NVM
+export NVM_DIR=~/.nvm
+. $(brew --prefix nvm)/nvm.sh
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 echo "Installing Node.js (Latest 'stable')..."
 nvm install `nvm version-remote stable`
 
