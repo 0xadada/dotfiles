@@ -32,10 +32,10 @@ brew install mobile-shell
 brew install android-platform-tools
 brew install docker-compose # Includes docker and docker-machine
 brew install nvm
+brew install pyenv
 # brew install ansible
 # brew install awscli
 # brew install aws-elasticbeanstalk
-# brew install python3
 
 # Install homebrew cask packages
 brew cask install atom

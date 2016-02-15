@@ -52,12 +52,15 @@ If `~/.bash_custom` exists, it will be sourced along with the other files. You c
 My `~/.bash_custom` looks something like this:
 
 ```bash
-# Setup NVM
+# Setup NVM for Node.js
 export NVM_DIR=~/.nvm
 . $(brew --prefix nvm)/nvm.sh
 
-# Setup RVM
+# Setup RVM for Ruby
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# Setup pyenv for Python
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
 # Avoid duplicates
 export HISTCONTROL=ignoredups:erasedups

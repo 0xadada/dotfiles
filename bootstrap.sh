@@ -33,12 +33,6 @@ unset doIt;
 echo "Installing XCode command line tools..."
 xcode-select --install
 
-# Setup some python development tools
-if ! which pip >/dev/null; then
-    echo "Installing pip..."
-    sudo easy_install pip
-fi
-
 # Homebrew OS X package manager
 function install_homebrew() {
     echo "Installing Homebrew and packages..."
@@ -100,6 +94,9 @@ case "$choice" in
   n|N ) echo "Skipping rvm";;
   * ) echo "invalid answer";;
 esac
+
+# Install Python (Latest 'Stable')
+pyenv install `pyenv install --list | grep -v - | grep -v b | tail -1`
 
 # Setup OS X system defaults
 read -p "Setup OS X system defaults (y/n)? " choice
