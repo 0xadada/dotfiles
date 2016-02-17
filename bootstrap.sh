@@ -61,7 +61,8 @@ export NVM_DIR=~/.nvm
 . $(brew --prefix nvm)/nvm.sh
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 echo "Installing Node.js (Latest 'stable')..."
-nvm install `nvm version-remote stable`
+nvm install node # "node" is an alias for latest stable
+nvm alias default node # set "node" as the default
 
 # update / install npm packages
 # Check for npm
