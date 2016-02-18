@@ -816,8 +816,8 @@ for app in "Activity Monitor" \
     "Messages" \
     "Safari" \
     "Firefox" \
-    "SystemUIServer" \
-    "Terminal"; do
+    "SystemUIServer";
+do
     killall "${app}" > /dev/null 2>&1
 done
 
