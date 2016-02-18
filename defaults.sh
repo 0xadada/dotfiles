@@ -93,7 +93,7 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 # read more: https://github.com/SummitRoute/osxlockdown
 ###############################################################################
 # Disable infrared receiver
-defaults write /Library/Preferences/com.apple.driver.AppleIRController DeviceEnabled -int 0
+sudo defaults write /Library/Preferences/com.apple.driver.AppleIRController DeviceEnabled -int 0
 
 # Disable AirDrop
 defaults write com.apple.NetworkBrowser DisableAirDrop -bool YES
@@ -119,8 +119,8 @@ sudo systemsetup -setwakeonnetworkaccess off
 # Disable file sharing
 launchctl unload -w /System/Library/LaunchDaemons/com.apple.AppleFileServer.plist && launchctl unload -w /System/Library/LaunchDaemons/com.apple.smbd.plist
 
-# Disable remote management
-/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -deactivate -stop
+# Disable remote management (must be root)
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -deactivate -stop
 
 # Destroy file vault key when going into standby
 sudo pmset -a destroyfvkeyonstandby 1
@@ -820,4 +820,3 @@ for app in "Activity Monitor" \
 do
     killall "${app}" > /dev/null 2>&1
 done
-
