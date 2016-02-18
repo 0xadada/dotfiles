@@ -48,7 +48,6 @@ brew cask install qlcolorcode
 brew cask install qlstephen
 brew cask install qlmarkdown
 brew cask install quicklook-json
-brew cask install spotify
 brew cask install sequel-pro
 brew cask install transmission
 brew cask install torbrowser
@@ -80,6 +79,7 @@ casks=(
     audioscrobbler
     filezilla
     google-chrome
+    spotify
     silverlight
     vagrant
 )
