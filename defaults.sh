@@ -165,6 +165,10 @@ sudo systemsetup -setrestartfreeze on
 # Never go into computer sleep mode
 sudo systemsetup -setcomputersleep Off > /dev/null
 
+# Enable automatic software update checks
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticCheckEnabled -bool TRUE
+# Enable automatic software update installation
+sudo defaults write /Library/Preferences/com.apple.commerce AutoUpdate -bool TRUE
 # Check for software updates daily, not just once per week
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
