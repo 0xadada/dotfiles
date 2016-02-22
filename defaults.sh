@@ -14,16 +14,27 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Set computer name (as done via System Preferences → Sharing)
 # Note: LocalHostName and NetBIOSName must use only ASCII.
+#     žižek
 #     rancière
 #     foucault
-#     žižek
 #     chomsky
+#     baudrillard
 # Future use:
+#     arendt
+#     butler
 #     derrida
 #     deleuze
-#     butler
+#     camus
+#     guattari
 #     hardt
+#     hegel
+#     heidegger
+#     kant
+#     lacan
 #     negri
+#     nietzsche
+#     sartre
+#     sloterdijk
 read -p "Name this computer (e.g. žižek): " MYNAME
 sudo scutil --set ComputerName $MYNAME
 sudo scutil --set HostName $MYNAME
