@@ -435,6 +435,8 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
     OpenWith -bool true \
     Privileges -bool true
 
+# Add auto-mount of the Braudrillard NAS to login items
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Volumes/BaudrillardHD", hidden:false}' 
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
