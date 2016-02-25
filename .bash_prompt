@@ -58,6 +58,8 @@ function parse_git_branch() {
 # Prompt prefix, use dollar for most, or beer for OS X
 PREFIX="$ "
 if [[ $OSTYPE == darwin* ]]; then
-    PREFIX="🍺"  # OS X supports emoji in the terminal
+    PREFIX="🍺 "  # OS X supports emoji in the terminal
 fi;
 export PS1="\[${BOLD}${MAGENTA}\]\u\[$WHITE\]@\[$ORANGE\]\h\[$WHITE\]:\[$GREEN\]\W \[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \"\")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]$PREFIX\[$RESET\]"
+unset PREFIX
+unset DIRTY
