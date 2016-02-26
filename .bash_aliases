@@ -20,9 +20,9 @@ alias gs="git status"
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
-	colorflag="--color"
+    colorflag="--color"
 else # OS X `ls`
-	colorflag="-G"
+    colorflag="-G"
 fi
 
 # List all files colorized in long format
@@ -43,6 +43,13 @@ alias sudo='sudo '
 
 # Gzip-enabled `curl`
 alias gurl='curl --compressed'
+
+# More usable PS processes
+if [[ $OSTYPE == darwin* ]]; then
+    alias ps='ps -ju `whoami`'
+else
+    alias ps='ps uf -U `whoami`'
+fi;
 
 # Get week number
 alias week='date +%V'
