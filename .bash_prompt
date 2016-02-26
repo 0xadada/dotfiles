@@ -45,21 +45,19 @@ export RESET
 
 function parse_git_dirty() {
     DIRTY="!"
-    if [[ $OSTYPE == darwin* ]]; then
-        DIRTY="🚫"  # OS X supports emoji in the terminal
-    fi;
-    [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo $DIRTY
+    [[ $OSTYPE == darwin* ]] && DIRTY="🚫  " # Use Emoji support in OS X
+    [[ $(git status 2> /dev/null | tail -n1) \
+       != *"working directory clean"* ]] && echo $DIRTY
 }
 
 function parse_git_branch() {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' \
+        -e "s/* \(.*\)/\1$(parse_git_dirty)/"
 }
 
 # Prompt prefix, use dollar for most, or beer for OS X
 PREFIX="$ "
-if [[ $OSTYPE == darwin* ]]; then
-    PREFIX="🍺 "  # OS X supports emoji in the terminal
-fi;
+[[ $OSTYPE == darwin* ]] && PREFIX="🍺  "
 export PS1="\[${BOLD}${MAGENTA}\]\u\[$WHITE\]@\[$ORANGE\]\h\[$WHITE\]:\[$GREEN\]\W \[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \"\")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]$PREFIX\[$RESET\]"
-unset PREFIX
 unset DIRTY
+unset PREFIX
