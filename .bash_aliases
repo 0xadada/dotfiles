@@ -6,6 +6,9 @@ alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
+# Color grep
+alias grep="grep --color=auto"
+
 # Shortcuts
 # alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"

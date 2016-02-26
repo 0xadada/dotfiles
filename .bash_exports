@@ -6,8 +6,10 @@ export EDITOR="vim"
 # export GIT_EDITOR="mvim -f"
 export GIT_EDITOR="vim"
 
-# Install ruby gems locally
-export GEM_HOME=$(brew --prefix)
+if [[ $OSTYPE == darwin* ]]; then
+    # Install ruby gems locally
+    export GEM_HOME=$(brew --prefix)
+fi;
 
 # Larger bash history (allow 32³ entries; default is 500)
 export HISTSIZE=32768
@@ -26,9 +28,6 @@ export LESS_TERMCAP_md="$ORANGE"
 
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
-
-# Always enable colored `grep` output
-export GREP_OPTIONS="--color=auto"
 
 # Add `~/bin` to the `$PATH`
 export PATH="$PATH:$HOME/bin"
