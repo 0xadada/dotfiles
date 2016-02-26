@@ -58,6 +58,7 @@ if [[ $OSTYPE == darwin* ]]; then
         brew update; \
         brew upgrade; \
         brew cleanup; \
+        brew cask cleanup; \
         nvm use stable; \
         npm update; npm update -g; \
         gem update;'

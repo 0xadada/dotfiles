@@ -14,7 +14,6 @@ if ! [ -x /usr/local/bin/brew ]; then
 fi
 
 # Tap homebrew-cask and homebrew-cask versions
-brew tap caskroom/cask
 brew tap caskroom/versions
 
 # Make sure we’re using the latest Homebrew.
