@@ -51,6 +51,8 @@ else
     alias ps='ps uf -U `whoami`'
 fi;
 
+alias screen='screen- RaAdaU'
+
 # Get week number
 alias week='date +%V'
 
