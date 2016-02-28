@@ -25,7 +25,7 @@ function install_homebrew() {
 
     # Install Atom editor packages
     if [ `type -P apm` ]; then
-    echo "Installing Atom editor packages..."
+        echo "Installing Atom editor packages..."
         apm install --packages-file .atom/packages.txt
     fi
 }
