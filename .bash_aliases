@@ -6,7 +6,7 @@ alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
-alias battery="acpi -i"
+alias battery="acpi -V"
 
 # Color grep
 alias grep="grep --color=auto"
