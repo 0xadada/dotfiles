@@ -111,6 +111,8 @@ if [[ $OSTYPE == darwin* ]]; then
 
 # Else were in linux
 else
+    # Install ACPI (battery utilities)
+    sudo pacman -S acpi
 
     # Install Atom editor
     yaourt -S atom-editor
