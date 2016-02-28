@@ -108,6 +108,21 @@ if [[ $OSTYPE == darwin* ]]; then
       n|N ) echo "Skipping OS X defaults";;
       * ) echo "invalid answer";;
     esac
+
+# Else were in linux
+else
+
+    # Install Atom editor
+    yaourt -S atom-editor
+
+    # Install Atom editor packages
+    if [ `type -P apm` ]; then
+    echo "Installing Atom editor packages..."
+        apm install --packages-file .atom/packages.txt
+    fi
+    
+    # Install monitor calibration tools
+    yaourt -S xcalib
 fi;
 
 # cleanup
