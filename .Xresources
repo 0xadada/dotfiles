@@ -1,0 +1,6 @@
+xterm*Background: #1c1c1c 
+xterm*Foreground: #e5e5e5
+xterm*borderWidth: 0
+xterm*faceName: Liberation mono:size=10:antialias=false
+xterm*font: 7x13
+xterm*utf8: 1
