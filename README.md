@@ -62,12 +62,6 @@ export NVM_DIR=~/.nvm
 # Setup pyenv for Python
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
-# Avoid duplicates
-export HISTCONTROL=ignoredups:erasedups
-
-# After each command, append to the history file and reread it
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
-
 # Git credentials
 # Not in the repository, to prevent people from accidentally committing under my name
 GIT_AUTHOR_NAME="0xADADA"
