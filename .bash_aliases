@@ -18,7 +18,11 @@ alias dt="cd ~/Desktop"
 alias g="git"
 alias h="history"
 alias j="jobs"
+
+# Git
 alias gs="git status"
+alias gpom="git push origin master"
+alias gpob="git push origin `git rev-parse --abbrev-ref HEAD`"
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
