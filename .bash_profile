@@ -6,21 +6,38 @@ for file in ~/.{bash_prompt,bash_exports,bash_aliases,bash_custom}; do
 done
 unset file
 
+# Avoid duplicate entries
+HISTCONTROL="erasedups:ignoreboth"
+# Don't record some commands
+export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history"
+# Useful timestamp format
+HISTTIMEFORMAT='%F %T '
+# After each command, append to the history file and reread it
+# Note: Enables shared history amongst multiple terminals.
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
-
 # Append to the Bash history file, rather than overwriting it
 shopt -s histappend
-
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell
-
+# Save multi-line commands as one command
+shopt -s cmdhist
 # Enable some Bash 4 features when possible:
-# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
-# * Recursive globbing, e.g. `echo **/*.txt`
-for option in autocd globstar; do
+# * `autocd`, Automatic cd into named-direcotryi e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * `globstar` Recursive globbing, e.g. `echo **/*.txt`
+# * `dirspell` Correct spelling mistakes during tab-completion
+for option in autocd dirspell globstar; do
     shopt -s "$option" 2> /dev/null
 done
+
+# Perform file completion in a case insensitive fashion
+bind "set completion-ignore-case on"
+# Treat hyphens and underscores as equivalent
+bind "set completion-map-case on"
+# Display matches for ambiguous patterns at first tab press
+bind "set show-all-if-ambiguous on"
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" \
