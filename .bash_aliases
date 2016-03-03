@@ -202,3 +202,6 @@ alias pylint="python -m py_compile"
 
 # Copy current git branch into the clipboard
 alias copybranch='git branch | head -1 | sed -e "s/* //"| pbcopy'
+
+# GPG symmetric encrypt file (with just a password)
+alias encsym='gpg --armor --symmetric --cipher-algo AES256'
