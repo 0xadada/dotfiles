@@ -21,7 +21,6 @@ alias j="jobs"
 
 # Git
 alias gs="git status"
-alias gpom="git push origin master"
 alias gpob='git push origin `git rev-parse --abbrev-ref HEAD`'
 
 # Detect which `ls` flavor is in use
@@ -173,7 +172,7 @@ alias map="xargs -n1"
 
 # One of @janmoesen’s ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-	alias "$method"="lwp-request -m '$method'"
+    alias "$method"="lwp-request -m '$method'"
 done
 
 # Make Grunt print stack traces by default
@@ -182,7 +181,6 @@ command -v grunt > /dev/null && alias grunt="grunt --stack"
 # Stuff I never really use but cannot delete either because of http://xkcd.com/530/
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
-alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
