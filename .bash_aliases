@@ -22,7 +22,7 @@ alias j="jobs"
 # Git
 alias gs="git status"
 alias gpom="git push origin master"
-alias gpob="git push origin `git rev-parse --abbrev-ref HEAD`"
+alias gpob='git push origin `git rev-parse --abbrev-ref HEAD`'
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -57,7 +57,7 @@ else
     alias ps='ps uf -U `whoami`'
 fi;
 
-alias screen='screen- RaAdaU'
+alias screen='screen -RaAdaU'
 
 # Get week number
 alias week='date +%V'
