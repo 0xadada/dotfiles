@@ -113,6 +113,7 @@ if [[ $OSTYPE == darwin* ]]; then
 else
     # Install ACPI (battery utilities)
     sudo pacman -S acpi
+    sudo pacman -S openssh vim rsync
 
     # Install Atom editor
     yaourt -S atom-editor
