@@ -111,21 +111,26 @@ if [[ $OSTYPE == darwin* ]]; then
 
 # Else were in linux
 else
+    # some base utils
+    sudo pacman -S openssh vim rsync
+
     # Install ACPI (battery utilities)
     sudo pacman -S acpi
-    sudo pacman -S openssh vim rsync
 
     # Install Atom editor
     yaourt -S atom-editor
-
     # Install Atom editor packages
     if [ `type -P apm` ]; then
     echo "Installing Atom editor packages..."
         apm install --packages-file .atom/packages.txt
     fi
-    
+
     # Install monitor calibration tools
     yaourt -S xcalib
+
+    # Install xfluxd
+    yaourt -S xfluxd
+    echo "Edit /etc/xfluxd.conf with lat/long coordinates"
 fi;
 
 # cleanup
