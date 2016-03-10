@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Simple utility to quickly activate a xrandr monitor.
+# Author Ron. A @0xADADA
+
+function usage() {
+    echo "Usage: $SCRIPT --COMMAND"
+    echo ""
+    echo "  Activate a xrandr monitor."
+    echo ""
+    echo "Commands:"
+    echo "  external       Activate external monitor (mirrored)."
+    echo "  attached       Activate attached monitor."
+    echo ""
+    echo "Example:"
+    echo "  $SCRIPT attached"
+    exit 1
+}
+
+SCRIPT=$0
+
+case $1 in
+
+    --external)
+        xrandr --output DP-2 --primary --auto --same-as LVDS-1
+        ;;
+
+    --attached)
+        xrandr --output LVDS-1 --primary --auto
+        ;;
+
+    --help)
+        usage;;
+
+    *) usage;;
+
+esac

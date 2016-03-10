@@ -203,3 +203,6 @@ alias copybranch='git branch | head -1 | sed -e "s/* //"| pbcopy'
 
 # GPG symmetric encrypt file (with just a password)
 alias encsym='gpg --armor --symmetric --cipher-algo AES256'
+
+# run ssh-agent when X starts
+alias startx="ssh-agent startx"
