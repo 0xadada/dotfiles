@@ -40,19 +40,8 @@ function install_rvm() {
     rvm install ruby-head
 }
 
-if [ "$1" == "--force" -o "$1" == "-f" ]; then
-    sync;
-else
-    read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
-    echo "";
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        sync;
-    fi;
-fi;
-
-
-if [[ $OSTYPE == darwin* ]]; then
-
+# Bootstrap provisioning for OS X
+function provision_darwin() {
     # Install XCcode command line tools
     echo "Installing XCode command line tools..."
     xcode-select --install
@@ -108,14 +97,34 @@ if [[ $OSTYPE == darwin* ]]; then
       n|N ) echo "Skipping OS X defaults";;
       * ) echo "invalid answer";;
     esac
+}
 
-# Else were in linux
-else
+function provision_linux() {
+    # we're in linux
+
     # some base utils
-    sudo pacman -S openssh vim rsync
+    sudo pacman -S openssh \
+                   vim \
+                   rsync \
+                   bluez \
+                   bluez-utils
 
     # Install ACPI (battery utilities)
     sudo pacman -S acpi
+
+    # Install X
+    sudo pacman -S xf86-video-intel \
+                   xf86-input-synaptics \
+                   xorg-server \
+                   xorg-init \
+                   xterm
+
+    # Install X utilities and apps
+    sudo pacman -S awesome \
+                   vicious
+    sudo pacman -S firefox \
+                   bitcoin-qt \
+                   vlc
 
     # Install Atom editor
     yaourt -S atom-editor
@@ -126,17 +135,50 @@ else
     fi
 
     # Install monitor calibration tools
-    yaourt -S xcalib
+    yaourt -S xcalib \
+              xfluxd \
+              btsync
 
-    # Install xfluxd
-    yaourt -S xfluxd
-    echo "Edit /etc/xfluxd.conf with lat/long coordinates"
+    echo "Edit /etc/xfluxd.conf with your with lat/long coordinates"
+}
+
+if [ "$1" == "--force" -o "$1" == "-f" ]; then
+    sync;
+else
+    read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
+    echo "";
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        sync;
+    fi;
 fi;
+
+# Provision OS X applications
+if [[ $OSTYPE == darwin* ]]; then
+    read -p "Provision OS X software? (y/n)? " choice
+    case "$choice" in
+      y|Y ) provision_darwin;;
+      n|N ) echo "Skiping OS X provisioning";;
+      * ) echo "invalid answer";;
+    esac
+fi
+
+
+# Provision GNU/Linux applications
+if [[ $OSTYPE == linux* ]]; then
+    read -p "Provision Linux software? (y/n)? " choice
+    case "$choice" in
+      y|Y ) provision_linux;;
+      n|N ) echo "Skiping Linux provisioning";;
+      * ) echo "invalid answer";;
+    esac
+fi
 
 # cleanup
 unset sync;
 unset install_homebrew;
 unset install_rvm;
+unset provision_darwin;
+unset provision_linux;
 
 # finish up
 echo
