@@ -11,5 +11,9 @@ if [ `type -P xbindkeys` ]; then
     xbindkeys
 fi;
 
+# Start ssh-agent and load default keys
+ssh-agent
+ssh-add
+
 # Start the window manager
 exec awesome
