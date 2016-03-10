@@ -101,7 +101,9 @@ function provision_darwin() {
 
 function provision_linux() {
     # we're in linux
-
+    echo "Updating pacman database"
+    sudo pacman -Sy
+    echo "Actually installing shit..."
     # some base utils
     sudo pacman -S openssh \
                    vim \
