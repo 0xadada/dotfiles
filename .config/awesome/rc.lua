@@ -120,7 +120,25 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 
 -- {{{ Wibox
--- Initialize widget
+
+-- CPU temperature widget
+cputempwidget = wibox.widget.textbox()
+-- Register widget
+vicious.register(cputempwidget, vicious.widgets.thermal,
+    function(cputempwidget, args)
+        if args[1] > 70 then
+            return ' <span color="#FF0071" font="NotoSans 10">🌡'..args[1]..'°C</span> '
+        elseif args[1] > 60 then
+            return ' <span color="red" font="NotoSans 10">🌡'..args[1]..'°C</span> '
+        elseif args[1] > 42 then
+            return ' <span color="lightpink" font="NotoSans 10">🌡'..args[1]..'°C</span> '
+        else
+            return ' <span color="lightgreen" font="NotoSans 10">🌡'..args[1]..'°C</span> '
+        end
+    end, 25, "thermal_zone0")
+
+
+-- Initialize cpy widget
 cpuwidget = awful.widget.graph()
 -- Graph properties
 cpuwidget:set_width(32)
@@ -152,7 +170,7 @@ vicious.register(memwidget, vicious.widgets.mem,
 netwidget = wibox.widget.textbox()
 -- Register widget
 vicious.register(netwidget, vicious_contrib.net,
-                 ' <span color="lightpink" font="NotoSans 10">${total down_kb}↙️</span>' ..
+                 ' <span color="lightpink" font="NotoSans 10">📶${total down_kb}↙️</span>' ..
                  '<span color="lightgreen" font="NotoSans 10">↗️${total up_kb}</span> ')
 
 -- Battery text widget
@@ -258,6 +276,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(cputempwidget)
     right_layout:add(cpuwidget)
     right_layout:add(memwidget)
     right_layout:add(netwidget)
