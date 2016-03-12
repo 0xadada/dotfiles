@@ -12,6 +12,7 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 -- Vicious widget library
 vicious = require("vicious")
+vicious_contrib = require("vicious.contrib")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -41,7 +42,8 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
-theme.font = "NotoSans 14"
+theme.font = "NotoSans 10"
+theme.wallpaper = "/home/ron/.config/awesome/wood-(1920x1200).png"
 
 -- This is used later as the default terminal and editor to run.
 terminal = "xterm"
@@ -84,10 +86,10 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-    names  = { "🌎", "⌨", "💬", "📧", "🔊", "📀", 7, 8, 9 },
-    layout = { layouts[1], layouts[4], layouts[6],
+    names  = { "🌎", "📃", "⌨", "💬", "📧", "🔊", "📀", 7, 8, 9 },
+    layout = { layouts[1], layouts[4], layouts[4], layouts[6],
                layouts[1], layouts[1], layouts[6],
-               layouts[1], layouts[1], layouts[1] }
+               layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
@@ -122,7 +124,6 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 cpuwidget = awful.widget.graph()
 -- Graph properties
 cpuwidget:set_width(32)
-cpuwidget:set_height(24)
 cpuwidget:set_background_color("#3f3f3f")
 cpuwidget:set_color({ type = "linear",
                       from = { 0, 0 },
@@ -135,36 +136,30 @@ cpuwidget:set_color({ type = "linear",
 vicious.register(cpuwidget, vicious.widgets.cpu, " $1 ")
 
 -- Memory usage widget
-memwidget = awful.widget.progressbar()
--- Progress bar properties
-memwidget:set_width(16)
-memwidget:set_height(24)
-memwidget:set_vertical(true)
-memwidget:set_background_color("#3f3f3f")
-memwidget:set_border_color(nil)
-memwidget:set_color({ type = "linear",
-                      from = { 0, 0 },
-                      to = { 10,0 },
-                      stops = { {0, "#AECF96"},
-                                {0.5, "#88A175"},
-                                {1, "#FF5656"}}
-                    })
+memwidget = wibox.widget.textbox()
 -- Register widget
-vicious.register(memwidget, vicious.widgets.mem, " $1 ", 13)
+vicious.register(memwidget, vicious.widgets.mem,
+    function(memwidget, args)
+        if args[1] > 70 then
+            return ' <span color="lightpink" font="NotoSans 10">📈'..args[1]..'%</span> '
+        else
+            return ' <span color="lightgreen" font="NotoSans 10">📈'..args[1]..'%</span> '
+        end
+    end, 13)
 
 -- Network widget
 -- Initialize widget
 netwidget = wibox.widget.textbox()
 -- Register widget
-vicious.register(netwidget, vicious.widgets.net,
-                 ' <span color="lightpink" font="NotoSans 14">${wlp3s0 down_kb}↙️</span>' ..
-                 '<span color="lightgreen" font="NotoSans 14">↗️${wlp3s0 up_kb}</span> ')
+vicious.register(netwidget, vicious_contrib.net,
+                 ' <span color="lightpink" font="NotoSans 10">${total down_kb}↙️</span>' ..
+                 '<span color="lightgreen" font="NotoSans 10">↗️${total up_kb}</span> ')
 
 -- Battery text widget
 battextwidget = wibox.widget.textbox()
 vicious.register(battextwidget,
                  vicious.widgets.bat,
-                 ' <span color="#66D9EF" font="NotoSans 14">🔋$1 $2% ⌛$3 ⚠️$4</span> ',
+                 ' <span color="#66D9EF" font="NotoSans 10">🔋$1 $2% ⌛$3 ⚠️$4</span> ',
                  61,
                  "BAT0")
 
@@ -172,15 +167,15 @@ vicious.register(battextwidget,
 volumewidget = wibox.widget.textbox()
 vicious.register(volumewidget,
                  vicious.widgets.volume,
-                 ' <span color="#FD971F" font="NotoSans 14">$2$1</span> ',
+                 ' <span color="#FD971F" font="NotoSans 10">$2$1</span> ',
                  1,
                  'Master')
 
--- Create a textclock 
+-- Create a textclock
 datetimewidget = wibox.widget.textbox()
 vicious.register(datetimewidget,
                  vicious.widgets.date,
-                 ' <span font="NotoSans 14">%a %b %d, %H:%M</span> ',
+                 ' <span font="NotoSans 10">%a %b %d, %H:%M</span> ',
                  30)
 
 -- Create a wibox for each screen and add it
@@ -252,8 +247,7 @@ for s = 1, screen.count() do
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top",
-                               screen = s,
-                               height = "24" })
+                               screen = s })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
