@@ -1,20 +1,35 @@
+# Increase volume 5% with Apple volume up
 "amixer set Master playback 5%+"
     XF86AudioRaiseVolume
+# Increase volume 5% with F12
+"amixer set Master playback 5%+"
+    m:0x0 + c:96
 
+
+# Decrease volume 5% with Apple volume down
 "amixer set Master playback 5%-"
     XF86AudioLowerVolume
+# Decrease volume 5% with F11
+"amixer set Master playback 5%-"
+    m:0x0 + c:95
 
+
+# Mute with Apple mute
 "amixer set Master toggle"
     XF86AudioMute
+# Mute with F10
+"amixer set Master toggle"
+    m:0x0 + c:76
+
 
 "xbacklight -dec 10"
-  XF86MonBrightnessDown
+    XF86MonBrightnessDown
 
 "xbacklight -inc 10"
-  XF86MonBrightnessUp
+    XF86MonBrightnessUp
 
 "kbdlight up"
-  XF86KbdBrightnessUp
+    XF86KbdBrightnessUp
 
 "kbdlight down"
-  XF86KbdBrightnessDown
+    XF86KbdBrightnessDown
