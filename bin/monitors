@@ -21,11 +21,11 @@ SCRIPT=$0
 case $1 in
 
     --external)
-        xrandr --output DP-2 --primary --auto --same-as LVDS-1
+        xrandr --output DP-2 --same-as LVDS-1 --auto --primary
         ;;
 
     --attached)
-        xrandr --output LVDS-1 --primary --auto
+        xrandr --primary --auto --output LVDS-1
         ;;
 
     --help)
