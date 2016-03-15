@@ -68,14 +68,7 @@ if [[ $OSTYPE == darwin* ]]; then
 
     # Get OS X Software Updates, and update installed Ruby gems, Homebrew,
     # npm, and their installed packages
-    alias update='sudo softwareupdate -i -a; \
-        brew update; \
-        brew upgrade; \
-        brew cleanup; \
-        brew cask cleanup; \
-        nvm use stable; \
-        npm update; npm update -g; \
-        gem update;'
+    alias update='echo "Upgrading packages..." && brew update && brew upgrade && brew cleanup && brew cask cleanup && nvm use stable && npm update && npm update -g && gem update && sudo softwareupdate -i -a'
 else
     # Linux, use pacman
     alias update='sudo pacman -Syyu'
