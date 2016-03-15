@@ -119,6 +119,8 @@ function provision_linux() {
                    xf86-input-synaptics \
                    xorg-server \
                    xorg-init \
+                   xautolock \
+                   slock \
                    xterm
 
     # Install X utilities and apps
