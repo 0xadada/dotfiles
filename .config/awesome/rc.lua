@@ -1,20 +1,15 @@
--- Standard awesome library
-local gears = require("gears")
-local awful = require("awful")
-awful.rules = require("awful.rules")
-require("awful.autofocus")
--- Widget and layout library
-local wibox = require("wibox")
--- Theme handling library
+local gears     = require("gears")
+local awful     = require("awful")
+awful.rules     = require("awful.rules")
+                  require("awful.autofocus")
+local wibox     = require("wibox")
 local beautiful = require("beautiful")
--- Notification library
-local naughty = require("naughty")
-local menubar = require("menubar")
--- Vicious widget library
-vicious = require("vicious")
+local naughty   = require("naughty")
+local menubar   = require("menubar")
+vicious         = require("vicious")
 vicious_contrib = require("vicious.contrib")
 
--- {{{ Error handling
+-- Error handling ------------------------------------------------------
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
@@ -37,25 +32,19 @@ do
         in_error = false
     end)
 end
--- }}}
 
--- {{{ Variable definitions
+-- Variable definitions ------------------------------------------------
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
-theme.font = "NotoSans 10"
-theme.wallpaper = "/home/ron/.config/awesome/wood-(1920x1200).png"
-
--- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
-editor = os.getenv("EDITOR") or "nano"
-editor_cmd = terminal .. " -e " .. editor
-
--- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
+local home        = os.getenv("HOME")
+local themes_root = "/usr/share/awesome/themes/"
+local themes_home = home .. "/.config/awesome/themes/"
+beautiful.init(themes_root .. "zenburn" .. "/theme.lua")
+theme.font        = "NotoSans 10"
+theme.wallpaper   = "/home/ron/.config/awesome/wood-(1920x1200).png"
+terminal          = "urxvt"
+editor            = os.getenv("EDITOR") or "nano"
+editor_cmd        = terminal .. " -e " .. editor
+modkey            = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
@@ -73,17 +62,15 @@ local layouts =
     awful.layout.suit.max.fullscreen,    -- 6
     -- awful.layout.suit.magnifier
 }
--- }}}
 
--- {{{ Wallpaper
+-- Wallpaper
 if beautiful.wallpaper then
     for s = 1, screen.count() do
         gears.wallpaper.maximized(beautiful.wallpaper, s, true)
     end
 end
--- }}}
 
--- {{{ Tags
+-- Tags ----------------------------------------------------------------
 -- Define a tag table which hold all screen tags.
 tags = {
     names  = { "🌎", "📃", "⌨", "💬", "📧", "🔊", "📀", 7, 8, 9 },
@@ -95,9 +82,8 @@ for s = 1, screen.count() do
     -- Each screen has its own tag table.
     tags[s] = awful.tag(tags.names, s, tags.layout)
 end
--- }}}
 
--- {{{ Menu
+-- Menu ----------------------------------------------------------------
 -- Create a laucher widget and a main menu
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
@@ -116,11 +102,9 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
--- }}}
 
 
--- {{{ Wibox
-
+-- Wibox ---------------------------------------------------------------
 -- CPU temperature widget
 cputempwidget = wibox.widget.textbox()
 -- Register widget
@@ -202,49 +186,56 @@ mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
 mytaglist.buttons = awful.util.table.join(
-                    awful.button({ }, 1, awful.tag.viewonly),
-                    awful.button({ modkey }, 1, awful.client.movetotag),
-                    awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, awful.client.toggletag),
-                    awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
-                    awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
-                    )
+    awful.button({ }, 1, awful.tag.viewonly),
+    awful.button({ modkey }, 1, awful.client.movetotag),
+    awful.button({ }, 3, awful.tag.viewtoggle),
+    awful.button({ modkey }, 3, awful.client.toggletag),
+    awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
+    awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end))
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  -- Without this, the following
-                                                  -- :isvisible() makes no sense
-                                                  c.minimized = false
-                                                  if not c:isvisible() then
-                                                      awful.tag.viewonly(c:tags()[1])
-                                                  end
-                                                  -- This will also un-minimize
-                                                  -- the client, if needed
-                                                  client.focus = c
-                                                  c:raise()
-                                              end
-                                          end),
-                     awful.button({ }, 3, function ()
-                                              if instance then
-                                                  instance:hide()
-                                                  instance = nil
-                                              else
-                                                  instance = awful.menu.clients({
-                                                      theme = { width = 250 }
-                                                  })
-                                              end
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                              if client.focus then client.focus:raise() end
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                              if client.focus then client.focus:raise() end
-                                          end))
+                     awful.button({ },
+                        1,
+                        function (c)
+                          if c == client.focus then
+                              c.minimized = true
+                          else
+                              -- Without this, the following
+                              -- :isvisible() makes no sense
+                              c.minimized = false
+                              if not c:isvisible() then
+                                  awful.tag.viewonly(c:tags()[1])
+                              end
+                              -- This will also un-minimize
+                              -- the client, if needed
+                              client.focus = c
+                              c:raise()
+                          end
+                        end),
+                     awful.button({ },
+                        3,
+                        function ()
+                          if instance then
+                              instance:hide()
+                              instance = nil
+                          else
+                              instance = awful.menu.clients({
+                                  theme = { width = 250 }
+                              })
+                          end
+                        end),
+                     awful.button({ },
+                        4,
+                        function ()
+                          awful.client.focus.byidx(1)
+                          if client.focus then client.focus:raise() end
+                        end),
+                     awful.button({ },
+                        5,
+                        function ()
+                          awful.client.focus.byidx(-1)
+                          if client.focus then client.focus:raise() end
+                        end))
 
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
@@ -253,10 +244,10 @@ for s = 1, screen.count() do
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
     mylayoutbox[s]:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-                           awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
+       awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
+       awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
+       awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
+       awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
@@ -293,17 +284,15 @@ for s = 1, screen.count() do
 
     mywibox[s]:set_widget(layout)
 end
--- }}}
 
--- {{{ Mouse bindings
+-- Mouse bindings ------------------------------------------------------
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
--- }}}
 
--- {{{ Key bindings
+-- Key bindings --------------------------------------------------------
 globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
@@ -437,9 +426,8 @@ clientbuttons = awful.util.table.join(
 
 -- Set keys
 root.keys(globalkeys)
--- }}}
 
--- {{{ Rules
+-- Rules ---------------------------------------------------------------
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
     -- All clients will match this rule.
@@ -460,9 +448,8 @@ awful.rules.rules = {
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
 }
--- }}}
 
--- {{{ Signals
+-- Signals -------------------------------------------------------------
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
     -- Enable sloppy focus
@@ -533,9 +520,8 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
--- }}}
 
--- {{{ Autostarts
+-- Autostarts ----------------------------------------------------------
 function run_once(cmd)
     findme = cmd
     firstspace = cmd:find(" ")
@@ -548,5 +534,4 @@ end
 run_once("ssh-agent")
 run_once("ssh-add")
 run_once("xautolock -locker slock -time 5 -notify 30")
--- }}}
 
