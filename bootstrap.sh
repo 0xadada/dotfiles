@@ -121,7 +121,7 @@ function provision_linux() {
                    xorg-init \
                    xautolock \
                    slock \
-                   xterm
+                   rxvt-unicode
 
     # Install X utilities and apps
     sudo pacman -S awesome \
