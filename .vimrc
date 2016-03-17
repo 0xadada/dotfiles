@@ -4,9 +4,10 @@ set nocompatible
 " Plugins - Enable runtime path manipulation
 execute pathogen#infect()
 
-" set the color palette
-" colors molokai
+" set the color palette - Gruvbox
+" old - " colors molokai
 colorscheme gruvbox
+set background=dark
 
 " Allow cursor keys in insert mode
 set esckeys
