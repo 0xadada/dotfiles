@@ -4,19 +4,19 @@ xterm*borderWidth:    0
 xterm*faceName:       Liberation mono:size=10:antialias=false
 xterm*font:           7x13
 xterm*utf8:           1
-URxvt*buffered:       true
 URxvt*cursorBlink:    true
 URxvt*background:     #1c1c1c 
 URxvt*foreground:     #e5e5e5
 URxvt*underlineColor: yellow
-URxvt*font:           xft:Terminus:pixelsize=14:antialias=true
+URxvt*fading:         75
+URxvt*font:           xft:Terminus:pixelsize=14:antialias=false, \
+                      xft:Noto Emoji:pixelsize=8:antialias=true, \
+                      xft:Symbola:pixelsize=9:antialias=true
 URxvt*depth:          32
-URxvt*borderless:     1
 URxvt*scrollBar:      false
 URxvt*loginShell:     true
-Urxvt*secondaryScroll:true    # Enable Shift-PageUp/Down in screen
-URxvt*saveLines:      7500
+Urxvt*secondaryScroll:true
+URxvt*saveLines:      10000
 URxvt*termName:       rxvt-unicode
-URxvt.perl-ext-common:default,matcher
-URxvt.urlLauncher:    firefox
-URxvt.matcher.button: 1
+URxvt*perl-ext-common:default,matcher
+URxvt*url-launcher:   firefox
