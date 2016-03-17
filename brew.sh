@@ -13,7 +13,8 @@ if ! [ -x /usr/local/bin/brew ]; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-# Tap homebrew-cask and homebrew-cask versions
+# Tap homebrew-cask versions
+brew tap caskroom/fonts
 brew tap caskroom/versions
 
 # Make sure we’re using the latest Homebrew.
@@ -52,6 +53,10 @@ brew cask install transmission
 brew cask install torbrowser
 brew cask install virtualbox
 brew cask install vlc
+
+# Install fonts
+brew cask install caskroom/fonts/font-hack
+brew cask install caskroom/fonts/font-source-code-pro
 
 # Prompt user to install optional homebrew kegs
 kegs=(
