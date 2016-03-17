@@ -8,7 +8,7 @@ URxvt*cursorBlink:    true
 URxvt*background:     #1c1c1c 
 URxvt*foreground:     #e5e5e5
 URxvt*underlineColor: yellow
-URxvt*fading:         75
+URxvt*fading:         25
 URxvt*font:           xft:Terminus:pixelsize=14:antialias=false, \
                       xft:Noto Emoji:pixelsize=8:antialias=true, \
                       xft:Symbola:pixelsize=9:antialias=true
