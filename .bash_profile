@@ -5,6 +5,9 @@ for file in ~/.{bash_prompt,bash_exports,bash_aliases,bash_custom}; do
 done
 unset file
 
+# Load the high-color (more than 256) gruvbox colors
+source ".vim/bundle/gruvbox/gruvbox_256palette.sh"
+
 # Avoid duplicate entries
 HISTCONTROL="erasedups:ignoreboth"
 # Don't record some commands
