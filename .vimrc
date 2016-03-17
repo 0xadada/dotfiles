@@ -1,8 +1,12 @@
 " Make Vim more useful
 set nocompatible
 
+" Plugins - Enable runtime path manipulation
+execute pathogen#infect()
+
 " set the color palette
-colors molokai
+" colors molokai
+colorscheme gruvbox
 
 " Allow cursor keys in insert mode
 set esckeys
@@ -46,6 +50,8 @@ set secure
 set number
 " Enable syntax highlighting
 syntax on
+" Enable plugins
+filetype plugin indent on
 " Highlight current line
 set cursorline
 " Make tabs as wide as four spaces
@@ -89,11 +95,11 @@ set scrolloff=3
 
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	:%s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    :%s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
 " Save a file as root (,W)
@@ -101,8 +107,9 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
 " Automatic commands
 if has("autocmd")
-	" Enable file type detection
-	filetype on
-	" Treat .json files as .js
-	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+    " Enable file type detection
+    filetype on
+    " Treat .json files as .js
+    autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 endif
+
