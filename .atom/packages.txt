@@ -1,8 +1,10 @@
-Zen@0.16.2
-atom-ternjs@0.6.8
-editorconfig@1.0.1
-merge-conflicts@1.3.5
-minimap@4.12.1
-monokai@0.14.0
-split-diff@0.4.4
+Zen@0.16.4
+activate-power-mode@0.4.1
+atom-ternjs@0.13.2
+editorconfig@1.2.4
+gruvbox@1.0.5
+merge-conflicts@1.3.7
+minimap@4.19.0
+monokai@0.18.0
+split-diff@0.6.0
 
