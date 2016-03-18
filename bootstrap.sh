@@ -132,6 +132,7 @@ function provision_linux() {
     echo "Actually installing shit..."
     # some base utils
     sudo pacman -S openssh \
+                   git \
                    vim \
                    bluez \
                    bluez-utils
