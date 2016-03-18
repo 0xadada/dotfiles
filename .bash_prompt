@@ -13,6 +13,7 @@ if tput setaf 1 &> /dev/null; then
     if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
         BLACK=$(tput setaf 235)
         RED=$(tput setaf 124)
+        RED_B=$(tput setab 124)
         GREEN=$(tput setaf 142)
         YELLOW=$(tput setaf 214)
         BLUE=$(tput setaf 66)
@@ -23,7 +24,8 @@ if tput setaf 1 &> /dev/null; then
         ORANGE=$(tput setaf 208)
     else
         BLACK=$(tput setaf 0)
-        RED=$(tput setaf 5)
+        RED=$(tput setaf 1)
+        RED_B=$(tput setab 9)
         GREEN=$(tput setaf 2)
         YELLOW=$(tput setaf 214)
         BLUE=$(tput setaf 4)
@@ -38,6 +40,7 @@ if tput setaf 1 &> /dev/null; then
 fi
 export BLACK
 export RED
+export RED_B
 export GREEN
 export YELLOW
 export BLUE
@@ -50,19 +53,19 @@ export BOLD
 export RESET
 
 function parse_git_dirty() {
-    DIRTY=$RED!
+    DIRTY=$RED_B
     [[ $(git status 2> /dev/null | tail -n1) \
        != *"working directory clean"* ]] && echo $DIRTY
 }
 
 function parse_git_branch() {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' \
-        -e "s/* \(.*\)/\1$(parse_git_dirty)/"
+        -e "s/* \(.*\)/$(parse_git_dirty)\1/"
 }
 
 # Prompt prefix, use dollar for most, or beer for OS X
 PREFIX="$ "
 [[ $OSTYPE == darwin* ]] && PREFIX="🍺  "
-export PS1="\[${AQUA}\]\u\[$WHITE\]@\[$BOLD$ORANGE\]\h\[$WHITE\]:\[$RESET$YELLOW\]\W \[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \"\")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]$PREFIX\[$RESET\]"
+export PS1="\[${AQUA}\]\u\[$WHITE\]@\[$BOLD$ORANGE\]\h\[$WHITE\]:\[$RESET$YELLOW\]\W \[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \"\")\[$PURPLE\]\$(parse_git_branch)\[$RESET$WHITE\]$PREFIX\[$RESET\]"
 unset DIRTY
 unset PREFIX
