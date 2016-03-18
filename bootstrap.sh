@@ -15,7 +15,6 @@ function sync() {
         --exclude "README.md" \
         --exclude "LICENSE" \
         -av --no-perms . ~
-    source ~/.bash_profile;
 }
 
 # Homebrew OS X package manager
@@ -38,6 +37,14 @@ function install_rvm() {
     rvm requirements
     rvm get stable
     rvm install ruby-head
+}
+
+# Bootstrap provisioning for all
+function provision_any() {
+    # Install gruvbox color scheme for vim
+    git clone https://github.com/morhetz/gruvbox.git ~/.vim/bundle/gruvbox
+    # Install NERDTree plugin for vim
+    git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
 }
 
 # Bootstrap provisioning for OS X
@@ -98,20 +105,38 @@ function provision_darwin() {
       * ) echo "invalid answer";;
     esac
 }
+function install_linux() {
+    # Stuff to install after installing linux
+    sudo pacman -Sy
+
+    echo "General utilities"
+    sudo pacman -S tree \
+                   rsync \
+                   which
+
+    echo "Power utilities"
+    sudo pacman -S cpupower \
+                   powertop
+    yaourt -S      mbpfan-git \
+                   thermald
+
+    echo "Installing core systems"
+    sudo pacman -S lightdm-webkit2-greeter
+}
 
 function provision_linux() {
     # we're in linux
     echo "Updating pacman database"
     sudo pacman -Sy
+
     echo "Actually installing shit..."
     # some base utils
     sudo pacman -S openssh \
                    vim \
-                   rsync \
                    bluez \
                    bluez-utils
 
-    # Install ACPI (battery utilities)
+    # Install (battery/power) utilities
     sudo pacman -S acpi
 
     # Install X
@@ -119,31 +144,36 @@ function provision_linux() {
                    xf86-input-synaptics \
                    xorg-server \
                    xorg-init \
-                   xautolock \
-                   slock \
                    rxvt-unicode
 
     # Install X utilities and apps
     sudo pacman -S awesome \
-                   vicious
+                   vicious \
+                   xautolock \
+                   slock
+
+    # install some great fonts
+    sudo pacman -S noto-fonts-emoji \
+                   terminus-font \
+                   adobe-source-code-pro-fonts
+
+    # Install monitor calibration tools
+    yaourt -S      xcalib \
+                   xflux
+
+    # Install some useful applications
+    yaourt -S      atom-editor \
+                   btsync
     sudo pacman -S firefox \
                    bitcoin-qt \
+                   transmission-gtk \
                    vlc
 
-    # Install Atom editor
-    yaourt -S atom-editor
     # Install Atom editor packages
     if [ `type -P apm` ]; then
     echo "Installing Atom editor packages..."
         apm install --packages-file .atom/packages.txt
     fi
-
-    # Install monitor calibration tools
-    yaourt -S xcalib \
-              xfluxd \
-              btsync
-
-    echo "Edit /etc/xfluxd.conf with your with lat/long coordinates"
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
@@ -155,6 +185,14 @@ else
         sync;
     fi;
 fi;
+
+# Provision any OS-non specific applications
+read -p "Provision non-specific OS software? (y/n)? " choice
+case "$choice" in
+  y|Y ) provision_any;;
+  n|N ) echo "Skiping provisioning";;
+  * ) echo "invalid answer";;
+esac
 
 # Provision OS X applications
 if [[ $OSTYPE == darwin* ]]; then
@@ -181,6 +219,7 @@ fi
 unset sync;
 unset install_homebrew;
 unset install_rvm;
+unset provision_any;
 unset provision_darwin;
 unset provision_linux;
 
