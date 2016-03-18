@@ -1,6 +1,4 @@
-# @gf3’s Sexy Bash Prompt, inspired by “Extravagant Zsh Prompt”
-# Shamelessly copied from https://github.com/gf3/dotfiles
-# Screenshot: http://i.imgur.com/s0Blh.png
+# @0xADADA’s bash prompt, inspired by gf3’s "Sexy" bash Prompt
 
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
     export TERM=gnome-256color
@@ -13,31 +11,46 @@ fi
 if tput setaf 1 &> /dev/null; then
     tput sgr0
     if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
-        MAGENTA=$(tput setaf 124)
-        ORANGE=$(tput setaf 166)
-        GREEN=$(tput setaf 100)
-        PURPLE=$(tput setaf 132)
-        WHITE=$(tput setaf 254)
+        BLACK=$(tput setaf 235)
+        RED=$(tput setaf 124)
+        GREEN=$(tput setaf 142)
+        YELLOW=$(tput setaf 214)
+        BLUE=$(tput setaf 66)
+        PURPLE=$(tput setaf 175)
+        AQUA=$(tput setaf 108)
+        GRAY=$(tput setaf 246)
+        WHITE=$(tput setaf 223)
+        ORANGE=$(tput setaf 208)
     else
-        MAGENTA=$(tput setaf 5)
-        ORANGE=$(tput setaf 4)
+        BLACK=$(tput setaf 0)
+        RED=$(tput setaf 5)
         GREEN=$(tput setaf 2)
-        PURPLE=$(tput setaf 1)
-        WHITE=$(tput setaf 7)
+        YELLOW=$(tput setaf 214)
+        BLUE=$(tput setaf 4)
+        PURPLE=$(tput setaf 13)
+        AQUA=$(tput setaf 6)
+        GRAY=$(tput setaf 7)
+        WHITE=$(tput setaf 15)
+        ORANGE=$(tput setaf 11)
     fi
     BOLD=$(tput bold)
     RESET=$(tput sgr0)
 fi
-export MAGENTA
-export ORANGE
+export BLACK
+export RED
 export GREEN
+export YELLOW
+export BLUE
 export PURPLE
+export AQUA
+export GRAY
 export WHITE
+export ORANGE
 export BOLD
 export RESET
 
 function parse_git_dirty() {
-    DIRTY=$MAGENTA!
+    DIRTY=$RED!
     [[ $(git status 2> /dev/null | tail -n1) \
        != *"working directory clean"* ]] && echo $DIRTY
 }
@@ -50,6 +63,6 @@ function parse_git_branch() {
 # Prompt prefix, use dollar for most, or beer for OS X
 PREFIX="$ "
 [[ $OSTYPE == darwin* ]] && PREFIX="🍺  "
-export PS1="\[${BOLD}${MAGENTA}\]\u\[$WHITE\]@\[$ORANGE\]\h\[$WHITE\]:\[$GREEN\]\W \[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \"\")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]$PREFIX\[$RESET\]"
+export PS1="\[${AQUA}\]\u\[$WHITE\]@\[$BOLD$ORANGE\]\h\[$WHITE\]:\[$RESET$YELLOW\]\W \[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \"\")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]$PREFIX\[$RESET\]"
 unset DIRTY
 unset PREFIX
