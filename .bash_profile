@@ -56,3 +56,17 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
+
+# Run SSH-agent (if it's not already running)
+if ! pgrep -u $USER ssh-agent > /dev/null; then
+    ssh-agent > ~/.ssh-agent-pid
+fi
+# Add SSH-agent variables to this shell
+if [[ "$SSH_AGENT_PID" == "" ]]; then
+    eval $(<~/.ssh-agent-pid) > /dev/null
+fi
+# Add SSH identities to the agent (if they haven't been added)
+if ! ssh-add -l > /dev/null; then
+    echo "Add SSH identity to ssh-agent:"
+    ssh-add
+fi
