@@ -108,21 +108,26 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- CPU temperature widget
 cputempwidget = wibox.widget.textbox()
 -- Register widget
-vicious.register(cputempwidget, vicious.widgets.thermal,
+vicious.register(cputempwidget,
+    vicious.widgets.thermal,
     function(cputempwidget, args)
-        if args[1] > 80 then
-            return ' <span color="#FF0071" font="NotoSans 10">🌡☠'..args[1]..'°C</span> '
-        elseif args[1] > 70 then
-            return ' <span color="red" font="NotoSans 10">🌡'..args[1]..'°C</span> '
-        elseif args[1] > 66 then
-            return ' <span color="lightpink" font="NotoSans 10">🌡'..args[1]..'°C</span> '
+        temp_c = args[1]
+        temp_f = (temp_c * 1.8) + 32
+        if temp_c > 80 then
+            return ' <span color="#cc241d" font="NotoSans 10">🌡☠' .. temp_f .. '°F</span> '
+        elseif temp_c > 70 then
+            return ' <span color="#fabd2f" font="NotoSans 10">🌡' .. temp_f .. '°F</span> '
+        elseif temp_c > 66 then
+            return ' <span color="#fb4934" font="NotoSans 10">🌡' .. temp_f ..'°F</span> '
         else
-            return ' <span color="lightgreen" font="NotoSans 10">🌡'..args[1]..'°C</span> '
+            return ' <span color="#83a598" font="NotoSans 10">🌡' .. temp_f .. '°F</span> '
         end
-    end, 4, "thermal_zone0")
+    end,
+    20,
+    "thermal_zone0")
 
 
--- Initialize cpy widget
+-- Initialize CPU widget
 cpuwidget = awful.widget.graph()
 -- Graph properties
 cpuwidget:set_width(32)
@@ -143,42 +148,43 @@ memwidget = wibox.widget.textbox()
 vicious.register(memwidget, vicious.widgets.mem,
     function(memwidget, args)
         if args[1] > 70 then
-            return ' <span color="lightpink" font="NotoSans 10">📈'..args[1]..'%</span> '
+            return ' <span color="#fb4934" font="NotoSans 10">📈'..args[1]..'%</span> '
         else
-            return ' <span color="lightgreen" font="NotoSans 10">📈'..args[1]..'%</span> '
+            return ' <span color="#8ec07c" font="NotoSans 10">📈'..args[1]..'%</span> '
         end
-    end, 13)
+    end, 20)
 
 -- Network widget
 -- Initialize widget
 netwidget = wibox.widget.textbox()
 -- Register widget
-vicious.register(netwidget, vicious_contrib.net,
-                 ' <span color="lightpink" font="NotoSans 10">📶${total down_kb}↙️</span>' ..
-                 '<span color="lightgreen" font="NotoSans 10">↗️${total up_kb}</span> ')
+vicious.register(netwidget,
+    vicious_contrib.net,
+    ' <span color="#d3869b" font="NotoSans 10">📶${total down_kb}↙️</span>' ..
+    '<span color="#8ec07c" font="NotoSans 10">↗️${total up_kb}</span> ')
 
 -- Battery text widget
 battextwidget = wibox.widget.textbox()
 vicious.register(battextwidget,
-                 vicious.widgets.bat,
-                 ' <span color="#66D9EF" font="NotoSans 10">🔋$1 $2% ⌛$3 ⚠️$4</span> ',
-                 61,
-                 "BAT0")
+    vicious.widgets.bat,
+    ' <span color="#8ec07c" font="NotoSans 10">🔋$1 $2% ⌛$3 ⚠️$4</span> ',
+    61,
+    "BAT0")
 
 -- Volume text widget
 volumewidget = wibox.widget.textbox()
 vicious.register(volumewidget,
-                 vicious.widgets.volume,
-                 ' <span color="#FD971F" font="NotoSans 10">$2$1</span> ',
-                 1,
-                 'Master')
+    vicious.widgets.volume,
+    ' <span color="#fe8019" font="NotoSans 10">$2$1</span> ',
+    7,
+    'Master')
 
 -- Create a textclock
 datetimewidget = wibox.widget.textbox()
 vicious.register(datetimewidget,
-                 vicious.widgets.date,
-                 ' <span font="NotoSans 10">%a %b %d, %H:%M</span> ',
-                 30)
+    vicious.widgets.date,
+    ' <span font="NotoSans 10">%a %b %d, %H:%M</span> ',
+    30)
 
 -- Create a wibox for each screen and add it
 mywibox = {}
