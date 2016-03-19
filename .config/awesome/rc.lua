@@ -145,14 +145,16 @@ vicious.register(cpuwidget, vicious.widgets.cpu, " $1 ")
 -- Memory usage widget
 memwidget = wibox.widget.textbox()
 -- Register widget
-vicious.register(memwidget, vicious.widgets.mem,
+vicious.register(memwidget,
+    vicious.widgets.mem,
     function(memwidget, args)
         if args[1] > 70 then
-            return ' <span color="#fb4934" font="NotoSans 10">📈'..args[1]..'%</span> '
+            return ' <span color="#cc241d" font="NotoSans 10">📈'..args[1]..'%</span> '
         else
             return ' <span color="#8ec07c" font="NotoSans 10">📈'..args[1]..'%</span> '
         end
-    end, 20)
+    end,
+    20)
 
 -- Network widget
 -- Initialize widget
@@ -161,13 +163,30 @@ netwidget = wibox.widget.textbox()
 vicious.register(netwidget,
     vicious_contrib.net,
     ' <span color="#d3869b" font="NotoSans 10">📶${total down_kb}↙️</span>' ..
-    '<span color="#8ec07c" font="NotoSans 10">↗️${total up_kb}</span> ')
+    '<span color="#83a598" font="NotoSans 10">↗️${total up_kb}</span> ')
 
 -- Battery text widget
 battextwidget = wibox.widget.textbox()
 vicious.register(battextwidget,
     vicious.widgets.bat,
-    ' <span color="#8ec07c" font="NotoSans 10">🔋$1 $2% ⌛$3 ⚠️$4</span> ',
+    function(battextwidget, args)
+        percent_remain = args[2]
+        if percent_remain < 15 then
+            return ' <span color="#cc241d" font="NotoSans 10">🔋' ..
+                args[1] .. ' '  ..
+                args[2] .. '% ⌛' ..
+                args[3] .. '⚠️' ..
+                args[4] ..
+                '</span> '
+        else
+            return ' <span color="#8ec07c" font="NotoSans 10">🔋' ..
+                args[1] .. ' '  ..
+                args[2] .. '% ⌛' ..
+                args[3] .. '⚠️' ..
+                args[4] ..
+                '</span> '
+        end
+    end,
     61,
     "BAT0")
 
