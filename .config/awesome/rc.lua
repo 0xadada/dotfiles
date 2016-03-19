@@ -148,13 +148,17 @@ memwidget = wibox.widget.textbox()
 vicious.register(memwidget,
     vicious.widgets.mem,
     function(memwidget, args)
-        if args[1] > 70 then
-            return ' <span color="#cc241d" font="NotoSans 10">📈'..args[1]..'%</span> '
+        markup = ' <span color="%s" font="NotoSans 10">📈%s</span> '
+        percent_used = args[1]
+        if percent_used > 85 then
+            return string.format(markup, '#cc241d', percent_used .. '%')
+        elseif percent_used > 70 then
+            return string.format(markup, '#fabd2f', percent_used .. '%')
         else
-            return ' <span color="#8ec07c" font="NotoSans 10">📈'..args[1]..'%</span> '
+            return string.format(markup, '#ebdbb2', percent_used .. '%')
         end
     end,
-    20)
+    30)
 
 -- Network widget
 -- Initialize widget
@@ -170,21 +174,17 @@ battextwidget = wibox.widget.textbox()
 vicious.register(battextwidget,
     vicious.widgets.bat,
     function(battextwidget, args)
+        markup = ' <span color="%s" font="NotoSans 10">🔋%s %s ⌛%s ⚠️%s</span> '
+        bat_state      = args[1]
         percent_remain = args[2]
+        time_left      = args[3]
+        wear           = args[4]
         if percent_remain < 15 then
-            return ' <span color="#cc241d" font="NotoSans 10">🔋' ..
-                args[1] .. ' '  ..
-                args[2] .. '% ⌛' ..
-                args[3] .. '⚠️' ..
-                args[4] ..
-                '</span> '
+            return string.format(markup, '#cc241d', bat_state,
+                                 percent_remain .. '%', time_left, wear)
         else
-            return ' <span color="#8ec07c" font="NotoSans 10">🔋' ..
-                args[1] .. ' '  ..
-                args[2] .. '% ⌛' ..
-                args[3] .. '⚠️' ..
-                args[4] ..
-                '</span> '
+            return string.format(markup, '#8ec07c', bat_state,
+                                 percent_remain .. '%', time_left, wear)
         end
     end,
     61,
@@ -194,8 +194,22 @@ vicious.register(battextwidget,
 volumewidget = wibox.widget.textbox()
 vicious.register(volumewidget,
     vicious.widgets.volume,
-    ' <span color="#fe8019" font="NotoSans 10">$2$1</span> ',
-    7,
+    function(volumewidget, args)
+        markup = ' <span color="%s" font="NotoSans 10">%s%s</span> '
+        emoji  = args[2]
+        volume = args[1]
+        if volume >= 90 then
+            -- Red
+            return string.format(markup, '#cc241d', emoji, volume)
+        elseif volume >= 75 then
+            -- Orange
+            return string.format(markup, '#fabd2f', emoji, volume)
+        else
+            -- Gray
+            return string.format(markup, '#ebdbb2', emoji, volume)
+        end
+    end,
+    2,
     'Master')
 
 -- Create a textclock
