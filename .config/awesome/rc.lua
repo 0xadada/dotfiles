@@ -112,7 +112,7 @@ vicious.register(cputempwidget,
     vicious.widgets.thermal,
     function(cputempwidget, args)
         temp_c = args[1]
-        temp_f = (temp_c * 1.8) + 32
+        temp_f = math.floor( (temp_c * 1.8) + 32 )
         if temp_c > 80 then
             return ' <span color="#cc241d" font="NotoSans 10">🌡☠' .. temp_f .. '°F</span> '
         elseif temp_c > 70 then
