@@ -113,14 +113,15 @@ vicious.register(cputempwidget,
     function(cputempwidget, args)
         temp_c = args[1]
         temp_f = math.floor( (temp_c * 1.8) + 32 )
+        markup = ' <span color="%s" font="NotoSans 10">🌡%s%s°F</span> '
         if temp_c > 80 then
-            return ' <span color="#cc241d" font="NotoSans 10">🌡☠' .. temp_f .. '°F</span> '
+            return string.format(markup, '#cc241d', '☠', temp_f)
         elseif temp_c > 70 then
-            return ' <span color="#fabd2f" font="NotoSans 10">🌡' .. temp_f .. '°F</span> '
+            return string.format(markup, '#fabd2f', '', temp_f)
         elseif temp_c > 66 then
-            return ' <span color="#fb4934" font="NotoSans 10">🌡' .. temp_f ..'°F</span> '
+            return string.format(markup, '#fb4934', '', temp_f)
         else
-            return ' <span color="#83a598" font="NotoSans 10">🌡' .. temp_f .. '°F</span> '
+            return string.format(markup, '#83a598', '', temp_f)
         end
     end,
     20,
