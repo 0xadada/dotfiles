@@ -573,7 +573,6 @@ function run_once(cmd)
     awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
 
-run_once("xbindkeys")
 run_once("xflux -z 02143")
 run_once("xautolock -locker slock -time 5 -notify 30")
 run_once('urxvt -e "ssh-agent && eval $(ssh-agent) && ssh-add"')
