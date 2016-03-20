@@ -105,6 +105,7 @@ function provision_darwin() {
       * ) echo "invalid answer";;
     esac
 }
+
 function install_linux() {
     # Stuff to install after installing linux
     sudo pacman -Sy
@@ -150,6 +151,7 @@ function provision_linux() {
     # Install X utilities and apps
     sudo pacman -S awesome \
                    vicious \
+                   xbindkeys \
                    xautolock \
                    slock
 
