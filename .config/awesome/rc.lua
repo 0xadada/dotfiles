@@ -38,9 +38,9 @@ end
 local home        = os.getenv("HOME")
 local themes_root = "/usr/share/awesome/themes/"
 local themes_home = home .. "/.config/awesome/themes/"
-beautiful.init(themes_root .. "zenburn" .. "/theme.lua")
+beautiful.init(themes_home .. "gruvbox" .. "/theme.lua")
 theme.font        = "NotoSans 10"
-theme.wallpaper   = "/home/ron/.config/awesome/wood-(1920x1200).png"
+theme.wallpaper   = home .. "/.config/awesome/wood-(1920x1200).png"
 terminal          = "urxvt"
 editor            = os.getenv("EDITOR") or "nano"
 editor_cmd        = terminal .. " -e " .. editor
@@ -74,9 +74,9 @@ end
 -- Define a tag table which hold all screen tags.
 tags = {
     names  = { "🌎", "📃", "⌨", "💬", "📧", "🔊", "📀", 7, 8, 9 },
-    layout = { layouts[1], layouts[4], layouts[4], layouts[6],
-               layouts[1], layouts[1], layouts[6],
-               layouts[1], layouts[1] }
+    layout = { layouts[1], layouts[4], layouts[4],
+               layouts[6], layouts[1], layouts[1],
+               layouts[6], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
@@ -134,7 +134,7 @@ vicious.register(cputempwidget,
 cpuwidget = awful.widget.graph()
 -- Graph properties
 cpuwidget:set_width(32)
-cpuwidget:set_background_color("#3f3f3f")
+cpuwidget:set_background_color("#282828")
 cpuwidget:set_color({ type = "linear",
                       from = { 0, 0 },
                       to = { 10,0 },
