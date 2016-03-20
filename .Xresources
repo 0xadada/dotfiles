@@ -2,7 +2,7 @@ URxvt.cursorBlink:    true
 URxvt.background:     #1c1c1c 
 URxvt.foreground:     #e5e5e5
 URxvt.underlineColor: yellow
-URxvt.fading:         25
+URxvt.fading:         15
 URxvt.font:           xft:Source Code Pro:pixelsize=14:antialias=true, \
                       xft:Noto Sans:pixelsize=14:antialias=true, \
                       xft:Noto Emoji:pixelsize=14:antialias=true, \
