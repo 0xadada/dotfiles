@@ -14,7 +14,9 @@ theme.wallpaper = "/usr/share/awesome/themes/zenburn/zenburn-background.png"
 -- }}}
 
 -- {{{ Styles
-theme.font      = "NotoSans 10"
+theme.font          = "Terminus 8"
+theme.taglist_font  = "Terminus 10"
+theme.tasklist_font = "Terminus 8"
 
 -- {{{ Colors
 theme.fg_normal  = "#ebdbb2"
