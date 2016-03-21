@@ -39,7 +39,6 @@ local home        = os.getenv("HOME")
 local themes_root = "/usr/share/awesome/themes/"
 local themes_home = home .. "/.config/awesome/themes/"
 beautiful.init(themes_home .. "gruvbox" .. "/theme.lua")
-theme.font        = "NotoSans 10"
 theme.wallpaper   = home .. "/.config/awesome/wood-(1920x1200).png"
 terminal          = "urxvt"
 editor            = os.getenv("EDITOR") or "nano"
@@ -73,10 +72,10 @@ end
 -- Tags ----------------------------------------------------------------
 -- Define a tag table which hold all screen tags.
 tags = {
-    names  = { "🌎", "📃", "⌨", "💬", "📧", "🔊", "📀", 7, 8, 9 },
+    names  = { "🌎", "📃", "⌨", "💬", "📧", "🔊", "📀", },
     layout = { layouts[1], layouts[4], layouts[4],
                layouts[6], layouts[1], layouts[1],
-               layouts[6], layouts[1], layouts[1] }
+               layouts[6] }
 }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
@@ -113,7 +112,7 @@ vicious.register(cputempwidget,
     function(cputempwidget, args)
         temp_c = args[1]
         temp_f = math.floor( (temp_c * 1.8) + 32 )
-        markup = ' <span color="%s" font="NotoSans 10">🌡%s%s°F</span> '
+        markup = '<span color="%s">🌡%s%s°F</span>'
         if temp_f > 200 then
             return string.format(markup, '#cc241d', '☠☠☠', temp_f)
         elseif temp_f > 176 then
@@ -151,7 +150,7 @@ memwidget = wibox.widget.textbox()
 vicious.register(memwidget,
     vicious.widgets.mem,
     function(memwidget, args)
-        markup = ' <span color="%s" font="NotoSans 10">📈%s</span> '
+        markup = '<span color="%s">📈%s</span> '
         percent_used = args[1]
         if percent_used > 85 then
             return string.format(markup, '#cc241d', percent_used .. '%')
@@ -169,15 +168,15 @@ netwidget = wibox.widget.textbox()
 -- Register widget
 vicious.register(netwidget,
     vicious_contrib.net,
-    ' <span color="#d3869b" font="NotoSans 10">📶${total down_kb}↙️</span>' ..
-    '<span color="#83a598" font="NotoSans 10">↗️${total up_kb}</span> ')
+    '<span color="#d3869b">📶${total down_kb}↙️</span>' ..
+    '<span color="#83a598">↗️${total up_kb}</span> ')
 
 -- Battery text widget
 battextwidget = wibox.widget.textbox()
 vicious.register(battextwidget,
     vicious.widgets.bat,
     function(battextwidget, args)
-        markup = ' <span color="%s" font="NotoSans 10">🔋%s %s ⌛%s ⚠️%s</span> '
+        markup = '<span color="%s">🔋%s %s ⌛%s ⚠️%s</span> '
         bat_state      = args[1]
         percent_remain = args[2]
         time_left      = args[3]
@@ -198,7 +197,7 @@ volumewidget = wibox.widget.textbox()
 vicious.register(volumewidget,
     vicious.widgets.volume,
     function(volumewidget, args)
-        markup = ' <span color="%s" font="NotoSans 10">%s%s</span> '
+        markup = '<span color="%s">%s%s</span> '
         emoji  = args[2]
         volume = args[1]
         if volume >= 90 then
@@ -219,7 +218,7 @@ vicious.register(volumewidget,
 datetimewidget = wibox.widget.textbox()
 vicious.register(datetimewidget,
     vicious.widgets.date,
-    ' <span font="NotoSans 10">%a %b %d, %H:%M</span> ',
+    '<span>%a %b %d, %H:%M</span>',
     30)
 
 -- Create a wibox for each screen and add it
