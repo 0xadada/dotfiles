@@ -61,10 +61,8 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 if ! pgrep -u $USER ssh-agent > /dev/null; then
     ssh-agent > ~/.ssh-agent-pid
 fi
-# Add SSH-agent variables to this shell
-if [[ "$SSH_AGENT_PID" == "" ]]; then
-    eval $(<~/.ssh-agent-pid) > /dev/null
-fi
+# Add SSH to the shell
+eval $(<~/.ssh-agent-pid) > /dev/null
 # Add SSH identities to the agent (if they haven't been added)
 if ! ssh-add -l > /dev/null; then
     echo "Add SSH identity to ssh-agent:"
