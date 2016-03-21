@@ -62,7 +62,7 @@ if ! pgrep -u $USER ssh-agent > /dev/null; then
     ssh-agent > ~/.ssh-agent-pid
 fi
 # Add SSH to the shell
-[ -f ~/.ssh-agent-pid ] && eval $(<~/.ssh-agent-pid) > /dev/null
+[ -e ~/.ssh-agent-pid ] && eval $(<~/.ssh-agent-pid) > /dev/null
 # Add SSH identities to the agent (if they haven't been added)
 if ! ssh-add -l > /dev/null; then
     echo "Add SSH identity to ssh-agent:"
