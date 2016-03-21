@@ -22,7 +22,7 @@ theme.fg_focus   = "#fbf1c7"
 theme.fg_urgent  = "#CC9393"
 theme.bg_normal  = "#282828"
 theme.bg_focus   = "#3c3836"
-theme.bg_urgent  = "#fb4934"
+theme.bg_urgent  = "#fabd2f"
 theme.bg_systray = theme.bg_normal
 -- }}}
 
