@@ -574,5 +574,4 @@ end
 
 run_once("xflux -z 02143")
 run_once("xautolock -locker slock -time 5 -notify 30")
-run_once('urxvt -e "ssh-agent && eval $(ssh-agent) && ssh-add"')
 
