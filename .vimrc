@@ -38,7 +38,7 @@ set noeol
 set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
 if exists("&undodir")
-	set undodir=~/.vim/undo
+    set undodir=~/.vim/undo
 endif
 
 " Respect modeline in files
@@ -47,12 +47,14 @@ set modelines=4
 " Enable per-directory .vimrc files and disable unsafe commands in them
 set exrc
 set secure
+"
 " Enable line numbers
 set number
 " Enable syntax highlighting
 syntax on
 " Enable plugins
 filetype plugin indent on
+"
 " Highlight current line
 set cursorline
 " Make tabs as wide as four spaces
@@ -114,7 +116,7 @@ if has("autocmd")
     autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 endif
 
-" powerline symbols
+" vim-airline - powerline symbols
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -125,3 +127,8 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+"
+" vim-airline enable branch "fugitive" extension
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#empty_message = ''
+let g:airline#extensions#branch#displayed_head_limit = 10
