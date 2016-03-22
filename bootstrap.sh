@@ -48,10 +48,10 @@ function provision_any() {
     git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
     # Install vim-airline plugin
     git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
+    vim -u NONE -c "helptags ~/.vim/bundle/vim-airline/doc" -c q
     # Install vim-fugitive plugin
     git clone https://github.com/tpope/vim-fugitive.git ~/.vim/bundle/vim-fugitive
-    # Update helptags
-    vim -u NONE -c "helptags" -c q
+    vim -u NONE -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
 }
 
 # Bootstrap provisioning for OS X
