@@ -57,6 +57,7 @@ brew cask install vlc
 # Install fonts
 brew cask install caskroom/fonts/font-hack
 brew cask install caskroom/fonts/font-source-code-pro
+brew cask install caskroom/fonts/font-sauce-code-powerline
 
 # Prompt user to install optional homebrew kegs
 kegs=(

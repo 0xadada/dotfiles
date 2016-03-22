@@ -117,6 +117,7 @@ if has("autocmd")
 endif
 
 " vim-airline - powerline symbols
+set guifont=Source\ Code\ Pro\ for\ Powerline:h12
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
