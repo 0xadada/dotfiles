@@ -41,10 +41,12 @@ function install_rvm() {
 
 # Bootstrap provisioning for all
 function provision_any() {
-    # Install gruvbox color scheme for vim
+    # Install gruvbox color scheme
     git clone https://github.com/morhetz/gruvbox.git ~/.vim/bundle/gruvbox
-    # Install NERDTree plugin for vim
+    # Install NERDTree plugin
     git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+    # Install vim-airline plugin
+    git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
 }
 
 # Bootstrap provisioning for OS X
@@ -157,8 +159,9 @@ function provision_linux() {
 
     # install some great fonts
     sudo pacman -S noto-fonts-emoji \
-                   terminus-font \
-                   adobe-source-code-pro-fonts
+                   terminus-font # \
+                   # adobe-source-code-pro-fonts
+    yaourt -S      otf-sauce-code-powerline-git # Adobe Source Code Pro (Patched for Powerline)
 
     # Install monitor calibration tools
     yaourt -S      xcalib \
