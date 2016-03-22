@@ -41,12 +41,17 @@ function install_rvm() {
 
 # Bootstrap provisioning for all
 function provision_any() {
+    mkdir -p ~/.vim/bundle
     # Install gruvbox color scheme
     git clone https://github.com/morhetz/gruvbox.git ~/.vim/bundle/gruvbox
     # Install NERDTree plugin
     git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
     # Install vim-airline plugin
     git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
+    # Install vim-fugitive plugin
+    git clone https://github.com/tpope/vim-fugitive.git ~/.vim/bundle/vim-fugitive
+    # Update helptags
+    vim -u NONE -c "helptags" -c q
 }
 
 # Bootstrap provisioning for OS X

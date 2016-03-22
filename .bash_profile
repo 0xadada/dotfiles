@@ -6,7 +6,8 @@ done
 unset file
 
 # Load the high-color (more than 256) gruvbox colors
-source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
+[ -e ~/.vim/bundle/gruvbox/gruvbox_256palette.sh ] && \
+    source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 
 # Avoid duplicate entries
 HISTCONTROL="erasedups:ignoreboth"

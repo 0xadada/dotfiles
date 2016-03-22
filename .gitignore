@@ -1,3 +1,6 @@
+# Vim plugins (Installation handled by bootstrap)
+.vim/bundle
+
 # Editor temp files
 *.swp
 *.swo
