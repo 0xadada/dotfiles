@@ -149,7 +149,7 @@ vicious.register(cpufreqwidget,
         end
     end,
     10,
-    "cpu5")
+    "cpu" .. math.random(0,7))
 
 -- Initialize CPU widget
 cpuwidget = awful.widget.graph()
