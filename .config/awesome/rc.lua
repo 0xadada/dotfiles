@@ -128,6 +128,28 @@ vicious.register(cputempwidget,
     20,
     "thermal_zone0")
 
+-- CPU frequency widget
+cpufreqwidget = wibox.widget.textbox()
+-- Register widget
+vicious.register(cpufreqwidget,
+    vicious.widgets.cpufreq,
+    function(cpufreqwidget, args)
+        freqv_mhz = math.floor(args[1])
+        freqv_ghz = math.floor(args[2])
+        freqv_mv  = args[3]
+        freqv_v   = args[4]
+        governor  = args[5]
+        markup = '<span color="%s">%s%sMHz</span>'
+        if freqv_mhz > 2500 then
+            return string.format(markup, '#cc241d', governor, freqv_mhz)
+        elseif freqv_mhz > 1500 then
+            return string.format(markup, '#fabd2f', governor, freqv_mhz)
+        else
+            return string.format(markup, '#83a598', governor, freqv_mhz)
+        end
+    end,
+    10,
+    "cpu5")
 
 -- Initialize CPU widget
 cpuwidget = awful.widget.graph()
@@ -308,6 +330,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(cpufreqwidget)
     right_layout:add(cputempwidget)
     right_layout:add(cpuwidget)
     right_layout:add(memwidget)
