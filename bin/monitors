@@ -25,7 +25,7 @@ case $1 in
         ;;
 
     attached)
-        xrandr --output LVDS-1 --auto --primary
+        xrandr --output LVDS-1 --auto --primary --fb 1680x1050
         ;;
 
     --help)
