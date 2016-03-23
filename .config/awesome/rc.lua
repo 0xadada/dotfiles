@@ -198,7 +198,7 @@ battextwidget = wibox.widget.textbox()
 vicious.register(battextwidget,
     vicious.widgets.bat,
     function(battextwidget, args)
-        markup = '<span color="%s">🔋%s %s ⌛%s ⚠️%s</span> '
+        markup = '<span color="%s">🔋%s %s ⌛%s <span font="Symbola 10">⚠️</span>%s</span> '
         bat_state      = args[1]
         percent_remain = args[2]
         time_left      = args[3]
