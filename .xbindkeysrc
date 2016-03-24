@@ -27,7 +27,8 @@
 
 # Suspend system
 "systemctl suspend"
-    Mod4 + XF86Eject 
+    m:0x0 + Mod4 + c:107
+    Mod4 + XF86Eject
 
 
 # Dim keyboard
