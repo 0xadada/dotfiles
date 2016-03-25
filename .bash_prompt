@@ -66,5 +66,4 @@ function parse_git_branch() {
 PREFIX="$ "
 [[ $OSTYPE == darwin* ]] && PREFIX="🍺  "
 export PS1="\[${AQUA}\]\u\[$WHITE\]@\[$BOLD\]\[$ORANGE\]\h\[$WHITE\]:\[$RESET\]\[$YELLOW\]\W \[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \"\")\[$PURPLE\]\[$(parse_git_branch)\]\[$RESET\]\[$WHITE\]$PREFIX\[$RESET\]"
-# export PS1="\[$PURPLE\]\[$(parse_git_branch)\]\[$RESET\]\[$WHITE\]$PREFIX\[$RESET\]"
 unset PREFIX
