@@ -53,8 +53,9 @@ export BOLD
 export RESET
 
 function parse_git_dirty() {
+    DIRTY=$RED_B
     [[ $(git status 2> /dev/null | tail -n1) \
-       != *"working directory clean"* ]] && echo $RED_B
+       != *"working directory clean"* ]] && echo $DIRTY
 }
 
 function parse_git_branch() {
@@ -65,5 +66,6 @@ function parse_git_branch() {
 # Prompt prefix, use dollar for most, or beer for OS X
 PREFIX="$ "
 [[ $OSTYPE == darwin* ]] && PREFIX="🍺  "
-export PS1="\[${AQUA}\]\u\[$WHITE\]@\[$BOLD\]\[$ORANGE\]\h\[$WHITE\]:\[$RESET\]\[$YELLOW\]\W \[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \"\")\[$PURPLE\]\[$(parse_git_branch)\]\[$RESET\]\[$WHITE\]$PREFIX\[$RESET\]"
+export PS1="\[${AQUA}\]\u\[$WHITE\]@\[$BOLD\]\[$ORANGE\]\h\[$WHITE\]:\[$RESET\]\[$YELLOW\]\W \[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \"\")\[$PURPLE\]\$(parse_git_branch)\[$RESET\]\[$WHITE\]$PREFIX\[$RESET\]"
+unset DIRTY
 unset PREFIX
