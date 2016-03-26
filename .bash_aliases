@@ -186,7 +186,7 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 alias reload="exec $SHELL -l"
 
 # Kill docker-machine VM with fire
-alias puff-down="docker-machine stop docker-vm && docker-machine rm docker-vm && docker-machine create --driver virtualbox docker-vm && docker-machine start docker-vm && echo eval \$\(docker-machine env docker-vm\)"
+alias puff-down='docker-machine stop docker-vm && docker-machine rm docker-vm && docker-machine create --driver virtualbox --virtualbox-memory "2048"  docker-vm && docker-machine start docker-vm && echo eval \$\(docker-machine env docker-vm\)'
 
 # Simply python linter, checks for syntax errors
 alias pylint="python -m py_compile"
