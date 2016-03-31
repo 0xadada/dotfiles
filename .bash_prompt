@@ -1,71 +1,144 @@
-# @0xADADA’s bash prompt, inspired by gf3’s "Sexy" bash Prompt
+#!/usr/bin/env bash
+# @0xADADA’s bash prompt, inspired by gf3’s "Sexy" bash Prompt and vim-airline
 
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-    export TERM=gnome-256color
-elif infocmp rxvt-unicode-256color >/dev/null 2>&1; then
-    export TERM=rxvt-unicode-256color
-elif infocmp xterm-256color >/dev/null 2>&1; then
-    export TERM=xterm-256color
-fi
-
-if tput setaf 1 &> /dev/null; then
-    tput sgr0
-    if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
-        BLACK=$(tput setaf 235)
-        RED=$(tput setaf 124)
-        RED_B=$(tput setab 124)
-        GREEN=$(tput setaf 142)
-        YELLOW=$(tput setaf 214)
-        BLUE=$(tput setaf 66)
-        PURPLE=$(tput setaf 175)
-        AQUA=$(tput setaf 108)
-        GRAY=$(tput setaf 246)
-        WHITE=$(tput setaf 223)
-        ORANGE=$(tput setaf 208)
-    else
-        BLACK=$(tput setaf 0)
-        RED=$(tput setaf 1)
-        RED_B=$(tput setab 9)
-        GREEN=$(tput setaf 2)
-        YELLOW=$(tput setaf 214)
-        BLUE=$(tput setaf 4)
-        PURPLE=$(tput setaf 13)
-        AQUA=$(tput setaf 6)
-        GRAY=$(tput setaf 7)
-        WHITE=$(tput setaf 15)
-        ORANGE=$(tput setaf 11)
+function __prompt {
+    if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+        export TERM=gnome-256color
+    elif infocmp rxvt-unicode-256color >/dev/null 2>&1; then
+        export TERM=rxvt-unicode-256color
+    elif infocmp xterm-256color >/dev/null 2>&1; then
+        export TERM=xterm-256color
     fi
-    BOLD=$(tput bold)
-    RESET=$(tput sgr0)
-fi
-export BLACK
-export RED
-export RED_B
-export GREEN
-export YELLOW
-export BLUE
-export PURPLE
-export AQUA
-export GRAY
-export WHITE
-export ORANGE
-export BOLD
-export RESET
 
-function parse_git_dirty() {
-    DIRTY=$RED_B
-    [[ $(git status 2> /dev/null | tail -n1) \
-       != *"working directory clean"* ]] && echo $DIRTY
+    # Prompt prefix, use dollar for most, or beer for OS X
+    PREFIX_0='$'
+    PREFIX_1='x'
+    [[ $OSTYPE == darwin* ]] && \
+        PREFIX_0='🍺  ' && \
+        PREFIX_1='⚠︎  '
+
+    BLACK=""
+    BLACK1=""
+    BLACK1_BG=""
+    BLACK2=""
+    RED=""
+    RED_BG=""
+    GREEN=""
+    YELLOW=""
+    BLUE=""
+    PURPLE=""
+    AQUA=""
+    GRAY=""
+    WHITE=""
+    ORANGE=""
+    ORANGE_BG=""
+    BOLD=""
+    RESET=""
+
+    if tput setaf 1 &> /dev/null; then
+        tput sgr0
+        if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
+            BLACK=$(tput setaf 235)
+            BLACK1=$(tput setaf 237)
+            BLACK1_BG=$(tput setab 237)
+            BLACK2_BG=$(tput setab 239)
+            BLACK2=$(tput setaf 239)
+            RED=$(tput setaf 124)
+            RED_BG=$(tput setab 124)
+            GREEN=$(tput setaf 142)
+            YELLOW=$(tput setaf 214)
+            BLUE=$(tput setaf 66)
+            PURPLE=$(tput setaf 175)
+            AQUA=$(tput setaf 108)
+            GRAY=$(tput setaf 246)
+            GRAY_BG=$(tput setab 246)
+            WHITE=$(tput setaf 223)
+            ORANGE=$(tput setaf 208)
+            ORANGE_BG=$(tput setab 208)
+        else
+            BLACK=$(tput setaf 0)
+            RED=$(tput setaf 1)
+            RED_BG=$(tput setab 9)
+            GREEN=$(tput setaf 2)
+            YELLOW=$(tput setaf 214)
+            BLUE=$(tput setaf 4)
+            PURPLE=$(tput setaf 13)
+            AQUA=$(tput setaf 6)
+            GRAY=$(tput setaf 7)
+            WHITE=$(tput setaf 15)
+            ORANGE=$(tput setaf 11)
+        fi
+        BOLD=$(tput bold)
+        RESET=$(tput sgr0)
+    fi
+
+    function git_state_color {
+        local CLEAN=237
+        local RED_BG=124
+        local ORANGE_BG=208
+        # check for unstaged changes
+        if ! $(git diff --quiet --ignore-submodules --cached); then
+            CLEAN="${RED_BG}"  # Unstaged changes (not yet added)
+        fi
+        # check for untracked files
+        if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+            CLEAN="${RED_BG}"  # New files (not yet added)
+        fi
+        # check for uncommitted changes in the index
+        if ! $(git diff-files --quiet --ignore-submodules --); then
+            CLEAN="${ORANGE_BG}"  # Changes detected (not yet committed)
+        fi
+        printf "%s" $CLEAN
+    }
+
+    function git_branch {
+        local BRANCH="$(git symbolic-ref --quiet --short HEAD 2>/dev/null || \
+                        git rev-parse --short HEAD 2>/dev/null || \
+                        printf "(unknown)")"
+        local COLORCODE=$(git_state_color)
+        local BG_COLOR="$(tput setab $COLORCODE)"
+        local FG_COLOR="$(tput setaf $COLORCODE)"
+
+        # \001 and \002 magic: http://mywiki.wooledge.org/BashFAQ/053
+        printf "\001%s\002\001%s\002 \001%s\002 \001%s\002 \001%s\002\001%s\002" \
+               "${BG_COLOR}" "${BLACK2}" "${GRAY}" "${BRANCH}" "${RESET}" "${FG_COLOR}"
+    }
+
+    function prompt_git {
+        # Check CWD is a git repository
+        if [ $(git rev-parse --is-inside-work-tree &>/dev/null; printf "%s" $?) == 0 ]; then
+            git_branch
+        else
+            # Print a blank segment
+            printf "\001%s\002\001%s\002 \001%s\002\001%s\002" \
+                   "${BLACK1_BG}" "${BLACK2}" "${RESET}" "${BLACK1}"
+        fi
+    }
+
+    function status_prefix {
+        # Check the exit code of the previous command and display different
+        # colors in the prompt accordingly. 
+        if [ $EXIT_CODE -eq 0 ]; then
+            printf "\001%s\002%s\001%s\002" \
+                "${WHITE}" "${PREFIX_0}" " ${RESET}"
+        else
+            printf "\001%s\002%s\001%s\002" \
+                "${RED}" "${PREFIX_1}" " ${RESET}"
+        fi
+    }
+
+    function init_prompt {
+        EXIT_CODE="$?"
+        PS1=""
+        PS1+="\[${GRAY_BG}\]\[${BLACK}\]\u@\[${BOLD}\]\[${BLACK}\]\h"  # user@host
+        PS1+="\[${BLACK2_BG}\]\[${GRAY}\] \W \[${RESET}\]"            # ~
+        PS1+="\$(prompt_git)"                                          # <git branch>
+        PS1+="\$(status_prefix)"                                       # $
+    }
+
+    PROMPT_COMMAND=init_prompt
 }
 
-function parse_git_branch() {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' \
-        -e "s/* \(.*\)/$(parse_git_dirty)\1/"
-}
+__prompt
+unset __prompt
 
-# Prompt prefix, use dollar for most, or beer for OS X
-PREFIX="$ "
-[[ $OSTYPE == darwin* ]] && PREFIX="🍺  "
-export PS1="\[${AQUA}\]\u\[$WHITE\]@\[$BOLD\]\[$ORANGE\]\h\[$WHITE\]:\[$RESET\]\[$YELLOW\]\W \[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \"\")\[$PURPLE\]\$(parse_git_branch)\[$RESET\]\[$WHITE\]$PREFIX\[$RESET\]"
-unset DIRTY
-unset PREFIX

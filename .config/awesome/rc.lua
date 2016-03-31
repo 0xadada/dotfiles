@@ -8,6 +8,8 @@ local naughty   = require("naughty")
 local menubar   = require("menubar")
 vicious         = require("vicious")
 vicious_contrib = require("vicious.contrib")
+local lain      = require("lain")
+local io        = { popen = io.popen }
 
 -- Error handling ------------------------------------------------------
 -- Check if awesome encountered an error during startup and fell back to
@@ -46,12 +48,17 @@ editor_cmd        = terminal .. " -e " .. editor
 modkey            = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
+theme.useless_gap_width   = 50
+theme.lain_icons          = "/usr/share/awesome/lib/lain/icons/layout/zenburn/"
+theme.layout_uselesspiral = theme.lain_icons .. "centerfair.png"
 local layouts =
 {
-    awful.layout.suit.tile,              -- 1
+    lain.layout.uselesspiral,            -- 1
+    -- awful.layout.suit.tile,           -- 1
     -- awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,       -- 2
+    -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
+    awful.layout.suit.spiral,            -- 2
     awful.layout.suit.floating,          -- 3
     awful.layout.suit.fair,              -- 4
     awful.layout.suit.fair.horizontal,   -- 5
@@ -73,7 +80,7 @@ end
 -- Define a tag table which hold all screen tags.
 tags = {
     names  = { "🌎", "📃", "⌨", "💬", "📧", "🔊", "📀", },
-    layout = { layouts[1], layouts[4], layouts[4],
+    layout = { layouts[1], layouts[2], layouts[4],
                layouts[6], layouts[1], layouts[1],
                layouts[6] }
 }
@@ -130,6 +137,13 @@ vicious.register(cputempwidget,
 
 -- CPU frequency widget
 cpufreqwidget = wibox.widget.textbox()
+-- Determine the number of CPUs we have
+local nproc_f = io.popen("nproc")
+local num_cpus = 1
+for line in nproc_f:lines() do
+    num_cpus = tonumber(line)
+end
+num_cpus = num_cpus - 1
 -- Register widget
 vicious.register(cpufreqwidget,
     vicious.widgets.cpufreq,
@@ -149,7 +163,7 @@ vicious.register(cpufreqwidget,
         end
     end,
     10,
-    "cpu" .. math.random(0,7))
+    "cpu" .. math.random(0, num_cpus))
 
 -- Initialize CPU widget
 cpuwidget = awful.widget.graph()
@@ -159,9 +173,9 @@ cpuwidget:set_background_color("#282828")
 cpuwidget:set_color({ type = "linear",
                       from = { 0, 0 },
                       to = { 10,0 },
-                      stops = { {0, "#FF5656"},
-                                {0.5, "#88A175"},
-                                {1, "#AECF96" }}
+                      stops = { {0, "#cc241d"},
+                                {0.5, "#689d6a"},
+                                {1, "#83a598" }}
                     })
 -- Register widget
 vicious.register(cpuwidget, vicious.widgets.cpu, " $1 ")
