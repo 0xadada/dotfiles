@@ -12,7 +12,7 @@ function __prompt {
 
     # Prompt prefix, use dollar for most, or beer for OS X
     PREFIX_0='$'
-    PREFIX_1='x'
+    PREFIX_1='X'
 
     BOLD=""
     RESET=""
@@ -32,7 +32,6 @@ function __prompt {
     WHITE=""
     ORANGE=""
     ORANGE_BG=""
-    
 
     if tput setaf 1 &> /dev/null; then
         tput sgr0
@@ -108,10 +107,15 @@ function __prompt {
         local COLORCODE=$(git_state_color)
         local BG_COLOR="$(tput setab $COLORCODE)"
         local FG_COLOR="$(tput setaf $COLORCODE)"
+        local TXT_COLOR="${GRAY}"
 
-        # \001 and \002 magic: http://mywiki.wooledge.org/BashFAQ/053
+        # If the BG_COLOR isn't "clean", change text color to black (more contrast)
+        if [[ $BG_COLOR != "237" || $COLORCODE != "0" ]]; then
+            TXT_COLOR="${BLACK}"
+        fi
+        # Explain magic of \001 and \002 http://mywiki.wooledge.org/BashFAQ/053
         printf "\001%s\002\001%s\002 \001%s\002 \001%s\002 \001%s\002\001%s\002" \
-               "${BG_COLOR}" "${BLACK2}" "${BLACK}" "${BRANCH}" "${RESET}" "${FG_COLOR}"
+               "${BG_COLOR}" "${BLACK2}" "${TXT_COLOR}" "${BRANCH}" "${RESET}" "${FG_COLOR}"
     }
 
     function prompt_git {
