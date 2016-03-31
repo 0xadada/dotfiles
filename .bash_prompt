@@ -14,10 +14,13 @@ function __prompt {
     PREFIX_0='$'
     PREFIX_1='x'
 
+    BOLD=""
+    RESET=""
     BLACK=""
     BLACK1=""
     BLACK1_BG=""
     BLACK2=""
+    BLACK2_BG=""
     RED=""
     RED_BG=""
     GREEN=""
@@ -29,8 +32,7 @@ function __prompt {
     WHITE=""
     ORANGE=""
     ORANGE_BG=""
-    BOLD=""
-    RESET=""
+    
 
     if tput setaf 1 &> /dev/null; then
         tput sgr0
@@ -40,8 +42,8 @@ function __prompt {
             BLACK=$(tput setaf 235)
             BLACK1=$(tput setaf 237)
             BLACK1_BG=$(tput setab 237)
-            BLACK2_BG=$(tput setab 239)
             BLACK2=$(tput setaf 239)
+            BLACK2_BG=$(tput setab 239)
             RED=$(tput setaf 124)
             RED_BG=$(tput setab 124)
             GREEN=$(tput setaf 142)
@@ -56,23 +58,34 @@ function __prompt {
             ORANGE_BG=$(tput setab 208)
         else
             BLACK=$(tput setaf 0)
+            BLACK1=$(tput setaf 0)
+            BLACK1_BG=$(tput setab 0)
+            BLACK2=$(tput setaf 0)
+            BLACK2_BG=$(tput setab 0)
             RED=$(tput setaf 1)
-            RED_BG=$(tput setab 9)
+            RED_BG=$(tput setab 1)
             GREEN=$(tput setaf 2)
-            YELLOW=$(tput setaf 214)
+            YELLOW=$(tput setaf 3)
             BLUE=$(tput setaf 4)
             PURPLE=$(tput setaf 13)
             AQUA=$(tput setaf 6)
             GRAY=$(tput setaf 7)
-            WHITE=$(tput setaf 15)
-            ORANGE=$(tput setaf 11)
+            GRAY_BG=$(tput setab 7)
+            WHITE=$(tput setaf 7)
+            ORANGE=$(tput setaf 3)
         fi
     fi
 
     function git_state_color {
-        local CLEAN=237
-        local RED_BG=124
-        local ORANGE_BG=208
+        if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
+            local CLEAN=237
+            local RED_BG=124
+            local ORANGE_BG=208
+        else
+            local CLEAN=0
+            local RED_BG=1
+            local ORANGE_BG=3
+        fi
         # check for unstaged changes
         if ! $(git diff --quiet --ignore-submodules --cached); then
             CLEAN="${RED_BG}"  # Unstaged changes (not yet added)
@@ -98,7 +111,7 @@ function __prompt {
 
         # \001 and \002 magic: http://mywiki.wooledge.org/BashFAQ/053
         printf "\001%s\002\001%s\002 \001%s\002 \001%s\002 \001%s\002\001%s\002" \
-               "${BG_COLOR}" "${BLACK2}" "${GRAY}" "${BRANCH}" "${RESET}" "${FG_COLOR}"
+               "${BG_COLOR}" "${BLACK2}" "${BLACK}" "${BRANCH}" "${RESET}" "${FG_COLOR}"
     }
 
     function prompt_git {
