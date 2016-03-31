@@ -38,8 +38,12 @@ function provision_any() {
     mkdir -p ~/.vim/bundle
     # Install gruvbox color scheme
     git clone https://github.com/morhetz/gruvbox.git ~/.vim/bundle/gruvbox
+    # Install EditorConfig plugin
+    git clone https://github.com/editorconfig/editorconfig-vim.git ~/.vim/bundle/editorconfig-vim
+    vim -u NONE -c "helptags ~/.vim/bundle/editorconfig-vim/doc" -c q
     # Install NERDTree plugin
     git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+    vim -u NONE -c "helptags ~/.vim/bundle/nerdtree/doc" -c q
     # Install vim-airline plugin
     git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
     vim -u NONE -c "helptags ~/.vim/bundle/vim-airline/doc" -c q
