@@ -13,9 +13,6 @@ function __prompt {
     # Prompt prefix, use dollar for most, or beer for OS X
     PREFIX_0='$'
     PREFIX_1='x'
-    [[ $OSTYPE == darwin* ]] && \
-        PREFIX_0='🍺  ' && \
-        PREFIX_1='⚠︎  '
 
     BLACK=""
     BLACK1=""
@@ -37,6 +34,8 @@ function __prompt {
 
     if tput setaf 1 &> /dev/null; then
         tput sgr0
+        BOLD=$(tput bold)
+        RESET=$(tput sgr0)
         if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
             BLACK=$(tput setaf 235)
             BLACK1=$(tput setaf 237)
@@ -68,8 +67,6 @@ function __prompt {
             WHITE=$(tput setaf 15)
             ORANGE=$(tput setaf 11)
         fi
-        BOLD=$(tput bold)
-        RESET=$(tput sgr0)
     fi
 
     function git_state_color {
@@ -130,7 +127,7 @@ function __prompt {
     function init_prompt {
         EXIT_CODE="$?"
         PS1=""
-        PS1+="\[${GRAY_BG}\]\[${BLACK}\]\u@\[${BOLD}\]\[${BLACK}\]\h"  # user@host
+        PS1+="\[${GRAY_BG}\]\[${BLACK}\]\u@\[${BOLD}\]\[${BLACK}\]\h " # user@host
         PS1+="\[${BLACK2_BG}\]\[${GRAY}\] \W \[${RESET}\]"            # ~
         PS1+="\$(prompt_git)"                                          # <git branch>
         PS1+="\$(status_prefix)"                                       # $
