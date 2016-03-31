@@ -110,7 +110,7 @@ function __prompt {
         local TXT_COLOR="${GRAY}"
 
         # If the BG_COLOR isn't "clean", change text color to black (more contrast)
-        if [[ $BG_COLOR != "237" || $COLORCODE != "0" ]]; then
+        if [[ $BG_COLOR != "237" && $COLORCODE != "0" ]]; then
             TXT_COLOR="${BLACK}"
         fi
         # Explain magic of \001 and \002 http://mywiki.wooledge.org/BashFAQ/053
