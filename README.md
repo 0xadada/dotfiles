@@ -1,6 +1,6 @@
 # 0xADADA’s dotfiles
 
-![Screenshot of the shell prompt](https://media.giphy.com/media/xThuW3sCcgVBxxcuKk/giphy.gif)
+![Screenshot of the shell prompt](https://media.giphy.com/media/l2QZR9exGEB6CRzpK/giphy.gif)
 
 ## Installation
 
