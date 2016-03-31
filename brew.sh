@@ -35,7 +35,12 @@ brew install nvm
 brew install pyenv
 
 # Install homebrew cask packages
-brew cask install atom
+  # brew cask install atom
+  # # Install Atom editor packages
+  # if [ `type -P apm` ]; then
+  #     echo "Installing Atom editor packages..."
+  #     apm install --packages-file .atom/packages.txt
+  # fi
 brew cask install bitcoin-core
 brew cask install bittorrent-sync
 brew cask install diffmerge

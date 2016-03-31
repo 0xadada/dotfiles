@@ -21,12 +21,6 @@ function sync() {
 function install_homebrew() {
     echo "Installing Homebrew and packages..."
     source brew.sh
-
-    # Install Atom editor packages
-    if [ `type -P apm` ]; then
-        echo "Installing Atom editor packages..."
-        apm install --packages-file .atom/packages.txt
-    fi
 }
 
 # Ruby version manager
@@ -173,18 +167,18 @@ function provision_linux() {
                    xflux
 
     # Install some useful applications
-    yaourt -S      atom-editor \
-                   btsync
+    yaourt -S      btsync
     sudo pacman -S firefox \
                    bitcoin-qt \
                    transmission-gtk \
                    vlc
 
-    # Install Atom editor packages
-    if [ `type -P apm` ]; then
-    echo "Installing Atom editor packages..."
-        apm install --packages-file .atom/packages.txt
-    fi
+    # Install Atom editor and packages
+    # yaourt -S    atom-editor
+    # if [ `type -P apm` ]; then
+    # echo "Installing Atom editor packages..."
+    #     apm install --packages-file .atom/packages.txt
+    # fi
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
