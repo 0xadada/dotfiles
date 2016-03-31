@@ -155,6 +155,7 @@ function provision_linux() {
                    xbindkeys \
                    xautolock \
                    slock
+    yaourt -S      lain-git  # Layouts n shit, yo
 
     # install some great fonts
     sudo pacman -S noto-fonts-emoji \
