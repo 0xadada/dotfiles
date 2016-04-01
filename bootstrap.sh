@@ -122,12 +122,16 @@ function install_linux() {
 
     echo "Power utilities"
     sudo pacman -S cpupower \
-                   powertop
+                   powertop \
+                   laptop-mode-tools \
+                   acpi \
+                   acpid
     yaourt -S      mbpfan-git \
                    thermald
 
     echo "Installing core systems"
-    sudo pacman -S lightdm-webkit2-greeter
+    sudo pacman -S lightdm \
+                   lightdm-webkit2-greeter
 }
 
 function provision_linux() {
@@ -138,13 +142,12 @@ function provision_linux() {
     echo "Actually installing shit..."
     # some base utils
     sudo pacman -S openssh \
+                   keybase \
                    git \
                    vim \
                    bluez \
-                   bluez-utils
-
-    # Install (battery/power) utilities
-    sudo pacman -S acpi
+                   bluez-utils \
+                   kbdlight
 
     # Install X
     sudo pacman -S xf86-video-intel \
