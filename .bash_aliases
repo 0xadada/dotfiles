@@ -58,6 +58,9 @@ fi;
 
 alias screen='screen -RaAdaU'
 
+# take a screenshot
+alias screenshot="import -window root -crop 1920x1200+1680+0 -quality 100 ~/screenshot-\$(date +\"%F-%T\").png"
+
 # Get week number
 alias week='date +%V'
 
