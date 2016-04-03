@@ -168,7 +168,8 @@ function provision_linux() {
     sudo pacman -S noto-fonts-emoji \
                    terminus-font # \
                    # adobe-source-code-pro-fonts
-    yaourt -S      otf-sauce-code-powerline-git # Adobe Source Code Pro (Patched for Powerline)
+    yaourt -S      otf-sauce-code-powerline-git \   # Adobe Source Code Pro (Patched for Powerline)
+                   ttf-twitter-color-emoji-svginot  # Twitter Emoji for Everyone
 
     # Install monitor calibration tools
     yaourt -S      xcalib \
