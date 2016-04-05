@@ -93,6 +93,7 @@ casks=(
     audioscrobbler
     filezilla
     google-chrome
+    openbazaar
     spotify
     silverlight
     vagrant
