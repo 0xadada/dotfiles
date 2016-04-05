@@ -33,7 +33,9 @@ brew install android-platform-tools
 brew install docker-compose # Includes docker and docker-machine
 brew install nvm
 brew install pyenv
-brew install bash && echo '/usr/local/bin/bash' | sudo tee -a /etc/shells
+brew install bash && \
+    echo '/usr/local/bin/bash' | sudo tee -a /etc/shells && \
+    chsh -s /usr/local/bin/bash
 
 
 # Install homebrew cask packages
