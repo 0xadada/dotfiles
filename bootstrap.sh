@@ -146,8 +146,7 @@ function provision_linux() {
                    git \
                    vim \
                    bluez \
-                   bluez-utils \
-                   kbdlight
+                   bluez-utils
 
     # Install X
     sudo pacman -S xf86-video-intel \
@@ -168,12 +167,13 @@ function provision_linux() {
     sudo pacman -S noto-fonts-emoji \
                    terminus-font # \
                    # adobe-source-code-pro-fonts
-    yaourt -S      otf-sauce-code-powerline-git \   # Adobe Source Code Pro (Patched for Powerline)
-                   ttf-twitter-color-emoji-svginot  # Twitter Emoji for Everyone
+    yaourt -S      otf-sauce-code-powerline-git     # Adobe Source Code Pro (Patched for Powerline)
+    yaourt -S      ttf-twitter-color-emoji-svginot  # Twitter Emoji for Everyone
 
     # Install monitor calibration tools
     yaourt -S      xcalib \
-                   xflux
+                   xflux \
+                   kbdlight
 
     # Install some useful applications
     yaourt -S      btsync
