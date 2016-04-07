@@ -10,6 +10,7 @@ function usage() {
     echo "Commands:"
     echo "  external       Activate external monitor (mirrored)."
     echo "  attached       Activate attached monitor."
+    echo "  work           Activate work configuration monitor."
     echo ""
     echo "Example:"
     echo "  $SCRIPT attached"
@@ -26,6 +27,10 @@ case $1 in
 
     attached)
         xrandr --output LVDS-1 --auto --primary --fb 1680x1050
+        ;;
+
+    work)
+        xrandr --output DP-1 --auto --primary --output eDP-1 --auto --right-of DP-1
         ;;
 
     --help)
