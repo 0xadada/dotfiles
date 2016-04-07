@@ -15,18 +15,26 @@ HISTCONTROL="erasedups:ignoreboth"
 export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history"
 # Useful timestamp format
 HISTTIMEFORMAT='%F %T '
+
 # After each command, append to the history file and reread it
 # Note: Enables shared history amongst multiple terminals.
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
+
 # Append to the Bash history file, rather than overwriting it
 shopt -s histappend
+
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell
+
 # Save multi-line commands as one command
 shopt -s cmdhist
+
+# Update window size after each command
+shopt -s checkwinsize
+
 # Enable some Bash 4 features when possible:
 # * `autocd`, Automatic cd into named-direcotryi e.g. `**/qux` will enter `./foo/bar/baz/qux`
 # * `globstar` Recursive globbing, e.g. `echo **/*.txt`

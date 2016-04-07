@@ -30,17 +30,18 @@ brew install keybase
 brew install openssl
 brew install mobile-shell
 brew install android-platform-tools
-brew install docker-compose # Includes docker and docker-machine
 brew install nvm
 brew install pyenv
+brew install bash
+if ! cat /etc/shells | grep -q "/usr/local/bin/bash"; then
+    # Add the new bash to our available shells
+    echo '/usr/local/bin/bash' | sudo tee -a /etc/shells
+    # switch current users shell to the new bash
+    chsh -s /usr/local/bin/bash
+fi
+
 
 # Install homebrew cask packages
-  # brew cask install atom
-  # # Install Atom editor packages
-  # if [ `type -P apm` ]; then
-  #     echo "Installing Atom editor packages..."
-  #     apm install --packages-file .atom/packages.txt
-  # fi
 brew cask install bitcoin-core
 brew cask install bittorrent-sync
 brew cask install diffmerge
@@ -86,9 +87,12 @@ done
 
 # Prompt user to install optional homebrew casks
 casks=(
+    atom
     audioscrobbler
+    docker-compose  # Includes docker and docker-machine
     filezilla
     google-chrome
+    openbazaar
     spotify
     silverlight
     vagrant
@@ -106,5 +110,13 @@ do
     esac
 done
 
+# Install Atom editor packages
+if [ `type -P apm` ]; then
+    echo "Installing Atom editor packages..."
+    apm install --packages-file .atom/packages.txt
+fi
+
+
 # Cleanup
+brew cask cleanup
 brew cleanup
