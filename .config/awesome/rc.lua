@@ -41,7 +41,6 @@ local home        = os.getenv("HOME")
 local themes_root = "/usr/share/awesome/themes/"
 local themes_home = home .. "/.config/awesome/themes/"
 beautiful.init(themes_home .. "gruvbox" .. "/theme.lua")
-theme.wallpaper   = home .. "/.config/awesome/wood-(1920x1200).png"
 terminal          = "urxvt"
 editor            = os.getenv("EDITOR") or "nano"
 editor_cmd        = terminal .. " -e " .. editor
