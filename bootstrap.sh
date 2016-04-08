@@ -160,6 +160,7 @@ function provision_linux() {
                    vicious \
                    xbindkeys \
                    xautolock \
+                   xorg-xsetroot \
                    slock
     yaourt -S      lain-git  # Layouts n shit, yo
 

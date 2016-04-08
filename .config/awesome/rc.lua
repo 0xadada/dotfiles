@@ -608,6 +608,9 @@ function run_once(cmd)
     awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
 
+-- Programs to run once at startup
+run_once("xcalib ~/.colorprofiles/MacBookPro7,1-Color-LCD8DD3C7B2-39C2-BCC4-E3C0-DB1AADED70FC.icc")
 run_once("xflux -z 02143")
-run_once("xautolock -locker slock -time 5 -notify 30")
-
+run_once("xsetroot -solid '#454545'")
+run_once("xautolock -locker slock -time 5 -notify 30 -corners 0+00 -cornerdelay 3 -cornersize 10")
+run_once("xbindkeys")
