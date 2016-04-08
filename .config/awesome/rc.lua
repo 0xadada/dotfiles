@@ -216,12 +216,16 @@ vicious.register(battextwidget,
         percent_remain = args[2]
         time_left      = args[3]
         wear           = args[4]
-        if percent_remain < 15 then
-            return string.format(markup, '#cc241d', bat_state,
-                                 percent_remain .. '%', time_left, wear)
+        if bat_state ~= "⌁" then
+            if percent_remain < 15 then
+                return string.format(markup, '#cc241d', bat_state,
+                                     percent_remain .. '%', time_left, wear)
+            else
+                return string.format(markup, '#8ec07c', bat_state,
+                                     percent_remain .. '%', time_left, wear)
+            end
         else
-            return string.format(markup, '#8ec07c', bat_state,
-                                 percent_remain .. '%', time_left, wear)
+            return ''
         end
     end,
     61,
