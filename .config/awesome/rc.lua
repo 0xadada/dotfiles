@@ -48,23 +48,28 @@ modkey            = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 theme.useless_gap_width   = 50
+theme.zenburn_icons       = "/usr/share/awesome/themes/zenburn/layouts/"
 theme.lain_icons          = "/usr/share/awesome/lib/lain/icons/layout/zenburn/"
-theme.layout_uselesspiral = theme.lain_icons .. "centerfair.png"
+theme.layout_uselesspiral = theme.zenburn_icons .. "spiral.png"
+theme.layout_uselesstile  = theme.zenburn_icons .. "tile.png"
+theme.layout_centerwork   = theme.lain_icons .. "centerwork.png"
 local layouts =
 {
     lain.layout.uselesspiral,            -- 1
-    -- awful.layout.suit.tile,           -- 1
+    lain.layout.uselesstile,             -- 2
+    lain.layout.centerwork,              -- 3
+    awful.layout.suit.tile,              -- 4
+    awful.layout.suit.max.fullscreen,    -- 5
+    -- awful.layout.suit.tile,
     -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
-    awful.layout.suit.spiral,            -- 2
-    awful.layout.suit.floating,          -- 3
-    awful.layout.suit.fair,              -- 4
-    awful.layout.suit.fair.horizontal,   -- 5
+    -- awful.layout.suit.floating,
+    -- awful.layout.suit.fair,
+    -- awful.layout.suit.fair.horizontal,
     -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
     -- awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,    -- 6
     -- awful.layout.suit.magnifier
 }
 
@@ -79,9 +84,9 @@ end
 -- Define a tag table which hold all screen tags.
 tags = {
     names  = { "🌎", "📃", "⌨", "💬", "📧", "🔊", "📀", },
-    layout = { layouts[1], layouts[2], layouts[4],
-               layouts[6], layouts[1], layouts[1],
-               layouts[6] }
+    layout = { layouts[1], layouts[3], layouts[4],
+               layouts[3], layouts[1], layouts[1],
+               layouts[3] }
 }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
