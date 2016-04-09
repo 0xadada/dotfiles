@@ -447,7 +447,7 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
     Privileges -bool true
 
 # Add auto-mount of the Braudrillard NAS to login items
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Volumes/BaudrillardHD", hidden:false}' 
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Volumes/BaudrillardHD", hidden:false}'
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
@@ -689,6 +689,10 @@ defaults write com.apple.terminal StringEncodings -array 4
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
+# Scrollback buffer
+/usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Scrollback Lines' 9000" ~/Library/Preferences/com.googlecode.iterm2.plist
+# Set left Option key to send +Esc
+/usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Option Key Sends' 2" ~/Library/Preferences/com.googlecode.iterm2.plist
 # Blur 1
 /usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Blur' boolean true" ~/Library/Preferences/com.googlecode.iterm2.plist
 # "Blur Radius" = "7.340262"
@@ -696,11 +700,14 @@ defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 # Blend 0.3
 /usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Blend' 0.3" ~/Library/Preferences/com.googlecode.iterm2.plist
 # Transparency 0.20
-/usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Transparency' 0.2 " ~/Library/Preferences/com.googlecode.iterm2.plist
+/usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Transparency' 0.05 " ~/Library/Preferences/com.googlecode.iterm2.plist
 # Columns 140
-/usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Columns' 140" ~/Library/Preferences/com.googlecode.iterm2.plist
+/usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Columns' 160" ~/Library/Preferences/com.googlecode.iterm2.plist
 # Rows 25
 /usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Rows' 25" ~/Library/Preferences/com.googlecode.iterm2.plist
+# Fonts
+/usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Normal Font' SauceCodePowerline-Regular 12" ~/Library/Preferences/com.googlecode.iterm2.plist
+/usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Non Ascii Font' SauceCodePowerline-Regular 12" ~/Library/Preferences/com.googlecode.iterm2.plist
 
 ###############################################################################
 # Time Machine                                                                #
