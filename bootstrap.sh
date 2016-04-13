@@ -23,6 +23,39 @@ function install_homebrew() {
     source brew.sh
 }
 
+# Node version manager
+function install_nvm() {
+    # Install Node.js (Latest 'Stable')
+    mkdir -p ~/.nvm
+    # Setup NVM
+    export NVM_DIR=~/.nvm
+    [ -e /usr/share/nvm/init-nvm.sh ] && \
+        source /usr/share/nvm/init-nvm.sh
+    if [ `type -P npm` ]; then
+        . $(brew --prefix nvm)/nvm.sh
+    fi
+    [[ -s "$HOME/.nvm/scripts/nvm" ]] && \
+        source "$HOME/.nvm/scripts/nvm"
+    echo "Installing Node.js (Latest 'stable')..."
+    nvm install node # "node" is an alias for latest stable
+    nvm alias default node # set "node" as the default
+
+    # update / install npm packages
+    # Check for npm
+    if [ `type -P npm` ]; then
+        # Installing NPM packages...
+        echo "Installing NPM packages..."
+        npm install node-inspector --global --quiet
+        npm install bower --global --quiet
+        [[ $? ]] && echo "Done"
+    else
+        printf "\n"
+        echo "Error: npm not found."
+        printf "Aborting... try installing node packages manually\n"
+        exit
+    fi;
+}
+
 # Ruby version manager
 function install_rvm() {
     curl -sSL https://get.rvm.io | bash
@@ -35,6 +68,15 @@ function install_rvm() {
 
 # Bootstrap provisioning for all
 function provision_any() {
+    read -p "Install nvm, Continue (y/n)? " choice
+    case "$choice" in
+      y|Y ) install_nvm;;
+      n|N ) echo "Skipping nvm";;
+      * ) echo "invalid answer";;
+    esac
+
+    echo "Installing VIM packages"
+    echo ""
     mkdir -p ~/.vim/bundle
     # Install gruvbox color scheme
     git clone https://github.com/morhetz/gruvbox.git ~/.vim/bundle/gruvbox
@@ -65,31 +107,6 @@ function provision_darwin() {
       n|N ) echo "Skipping homebrew";;
       * ) echo "invalid answer";;
     esac
-
-    # Install Node.js (Latest 'Stable')
-    mkdir -p ~/.nvm
-    # Setup NVM
-    export NVM_DIR=~/.nvm
-    . $(brew --prefix nvm)/nvm.sh
-    [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-    echo "Installing Node.js (Latest 'stable')..."
-    nvm install node # "node" is an alias for latest stable
-    nvm alias default node # set "node" as the default
-
-    # update / install npm packages
-    # Check for npm
-    if [ `type -P npm` ]; then
-        # Installing NPM packages...
-        echo "Installing NPM packages..."
-        npm install node-inspector --global --quiet
-        npm install bower --global --quiet
-        [[ $? ]] && echo "Done"
-    else
-        printf "\n"
-        echo "Error: npm not found."
-        printf "Aborting... try installing node packages manually\n"
-        exit
-    fi;
 
     read -p "Install rvm with curl | bash, Continue (y/n)? " choice
     case "$choice" in
@@ -177,7 +194,9 @@ function provision_linux() {
                    kbdlight
 
     # Install some useful applications
-    yaourt -S      btsync
+    yaourt -S      btsync \
+                   nvm-git \
+                   pyenv
     sudo pacman -S firefox \
                    bitcoin-qt \
                    transmission-gtk \
@@ -201,14 +220,6 @@ else
     fi;
 fi;
 
-# Provision any OS-non specific applications
-read -p "Provision non-specific OS software? (y/n)? " choice
-case "$choice" in
-  y|Y ) provision_any;;
-  n|N ) echo "Skiping provisioning";;
-  * ) echo "invalid answer";;
-esac
-
 # Provision OS X applications
 if [[ $OSTYPE == darwin* ]]; then
     read -p "Provision OS X software? (y/n)? " choice
@@ -218,7 +229,6 @@ if [[ $OSTYPE == darwin* ]]; then
       * ) echo "invalid answer";;
     esac
 fi
-
 
 # Provision GNU/Linux applications
 if [[ $OSTYPE == linux* ]]; then
@@ -230,9 +240,18 @@ if [[ $OSTYPE == linux* ]]; then
     esac
 fi
 
+# Provision any OS-non specific applications
+read -p "Provision non-specific OS software? (y/n)? " choice
+case "$choice" in
+  y|Y ) provision_any;;
+  n|N ) echo "Skiping provisioning";;
+  * ) echo "invalid answer";;
+esac
+
 # cleanup
 unset sync;
 unset install_homebrew;
+unset install_nvm;
 unset install_rvm;
 unset provision_any;
 unset provision_darwin;
