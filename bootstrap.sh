@@ -31,11 +31,9 @@ function install_nvm() {
     export NVM_DIR=~/.nvm
     [ -e /usr/share/nvm/init-nvm.sh ] && \
         source /usr/share/nvm/init-nvm.sh
-    if [ `type -P npm` ]; then
+    if [ `type -P brew` ]; then
         . $(brew --prefix nvm)/nvm.sh
     fi
-    [[ -s "$HOME/.nvm/scripts/nvm" ]] && \
-        source "$HOME/.nvm/scripts/nvm"
     echo "Installing Node.js (Latest 'stable')..."
     nvm install node # "node" is an alias for latest stable
     nvm alias default node # set "node" as the default

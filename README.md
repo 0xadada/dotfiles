@@ -53,8 +53,11 @@ My `~/.bash_custom` looks something like this:
 
 ```bash
 # Setup NVM for Node.js
-export NVM_DIR=~/.nvm
-. $(brew --prefix nvm)/nvm.sh
+[ -e /usr/share/nvm/init-nvm.sh ] && \
+    source /usr/share/nvm/init-nvm.sh
+if [ `type -P brew` ]; then
+    . $(brew --prefix nvm)/nvm.sh
+fi
 
 # Setup RVM for Ruby
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
