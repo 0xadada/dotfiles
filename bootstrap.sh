@@ -195,7 +195,8 @@ function provision_linux() {
     yaourt -S      btsync \
                    nvm-git \
                    pyenv
-    sudo pacman -S firefox \
+    sudo pacman -S android-tools \
+                   firefox \
                    bitcoin-qt \
                    transmission-gtk \
                    vlc
