@@ -181,8 +181,10 @@ function provision_linux() {
 
     # install some great fonts
     sudo pacman -S noto-fonts-emoji \
-                   terminus-font # \
-                   # adobe-source-code-pro-fonts
+                   terminus-font \
+                   adobe-source-sans-pro-fonts \
+                   adobe-source-serif-pro-fonts \
+                   adobe-source-code-pro-fonts
     yaourt -S      otf-sauce-code-powerline-git     # Adobe Source Code Pro (Patched for Powerline)
     yaourt -S      ttf-twitter-color-emoji-svginot  # Twitter Emoji for Everyone
 
