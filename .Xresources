@@ -1,5 +1,5 @@
 URxvt.cursorBlink:    true
-URxvt.background:     #1c1c1c 
+URxvt.background:     #1c1c1c
 URxvt.foreground:     #e5e5e5
 URxvt.underlineColor: yellow
 URxvt.fading:         15
@@ -17,3 +17,5 @@ URxvt.termName:       rxvt-unicode
 URxvt.perl-ext-common:default,matcher
 URxvt.url-launcher:   firefox
 URxvt.letterSpace:    -1
+URxvt.inputMethod:    ibus
+URxvt.preeditType:    OverTheSpot
