@@ -143,10 +143,6 @@ function install_linux() {
                    acpid
     yaourt -S      mbpfan-git \
                    thermald
-
-    echo "Installing core systems"
-    sudo pacman -S lightdm \
-                   lightdm-webkit2-greeter
 }
 
 function provision_linux() {
@@ -168,7 +164,9 @@ function provision_linux() {
                    xf86-input-synaptics \
                    xorg-server \
                    xorg-init \
-                   rxvt-unicode
+                   rxvt-unicode \
+                   lightdm \
+                   lightdm-webkit2-greeter
 
     # Install X utilities and apps
     sudo pacman -S awesome \
@@ -188,6 +186,10 @@ function provision_linux() {
     yaourt -S      otf-sauce-code-powerline-git     # Adobe Source Code Pro (Patched for Powerline)
     yaourt -S      ttf-twitter-color-emoji-svginot  # Twitter Emoji for Everyone
 
+    # install keyboard / IME tools
+    sudo pacman -S ibus
+    yaourt -S      ibus-uniemoji-git
+
     # Install monitor calibration tools
     yaourt -S      xcalib \
                    xflux \
@@ -202,13 +204,6 @@ function provision_linux() {
                    bitcoin-qt \
                    transmission-gtk \
                    vlc
-
-    # Install Atom editor and packages
-    # yaourt -S    atom-editor
-    # if [ `type -P apm` ]; then
-    # echo "Installing Atom editor packages..."
-    #     apm install --packages-file .atom/packages.txt
-    # fi
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then

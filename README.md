@@ -73,6 +73,11 @@ git config --global user.name "$GIT_AUTHOR_NAME"
 GIT_AUTHOR_EMAIL="0xadada.pub@0xadada.pub"
 GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
+
+# ibus settings (IME tools)
+GTK_IM_MODULE=ibus
+QT_IM_MODULE=ibus
+XMODIFIERS="@im=ibus"  # older x-org applications
 ```
 
 You could also use `~/.bash_custom` to override settings, functions and aliases from my dotfiles repository. It’s probably better to [fork this repository](https://github.com/0xADADA/dotfiles/fork) instead, though.
