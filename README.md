@@ -73,6 +73,7 @@ git config --global user.name "$GIT_AUTHOR_NAME"
 GIT_AUTHOR_EMAIL="0xadada.pub@0xadada.pub"
 GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
+git config --global user.signingkey 19656CA4
 
 # ibus settings (IME tools)
 GTK_IM_MODULE=ibus
