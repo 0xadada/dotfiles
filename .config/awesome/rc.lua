@@ -624,3 +624,4 @@ run_once("xsetroot -solid '#454545'")
 run_once("xautolock -locker slock -time 5 -notify 30 -corners 0+00 -cornerdelay 3 -cornersize 10")
 run_once("xbindkeys")
 run_once("xmodmap -e 'keysym less = Shift_L Insert'") -- bind insert to shift insert
+run_once("ibus-daemon --xim")
