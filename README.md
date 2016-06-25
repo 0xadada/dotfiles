@@ -63,7 +63,9 @@ fi
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # Setup pyenv for Python
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if [ `type -p pyenv` ]; then
+    eval "$(pyenv init -)"
+fi
 
 # Git credentials
 # Not in the repository, to prevent people from accidentally committing under my name
