@@ -140,10 +140,10 @@ function install_linux() {
     echo "Power utilities"
     sudo pacman -S cpupower \
                    powertop \
-                   laptop-mode-tools \
                    acpi \
                    acpid
-    yaourt -S      mbpfan-git \
+    yaourt -S      laptop-mode-tools \
+                   mbpfan-git \
                    thermald
 }
 
