@@ -133,7 +133,9 @@ function install_linux() {
     echo "General utilities"
     sudo pacman -S tree \
                    rsync \
-                   which
+                   which \
+                   dialog \
+                   wpa_supplicant
 
     echo "Power utilities"
     sudo pacman -S cpupower \
