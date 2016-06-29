@@ -199,9 +199,9 @@ function provision_linux() {
     # Install some useful applications
     yaourt -S      btsync \
                    nvm-git \
-                   pyenv
+                   pyenv \
+                   firefox-beta-bin
     sudo pacman -S android-tools \
-                   firefox \
                    bitcoin-qt \
                    transmission-gtk \
                    vlc
