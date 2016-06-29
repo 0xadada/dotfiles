@@ -166,9 +166,7 @@ function provision_linux() {
                    xf86-input-synaptics \
                    xorg-server \
                    xorg-init \
-                   rxvt-unicode \
-                   lightdm \
-                   lightdm-webkit2-greeter
+                   rxvt-unicode
 
     # Install X utilities and apps
     sudo pacman -S awesome \
@@ -195,6 +193,7 @@ function provision_linux() {
     # Install monitor calibration tools
     yaourt -S      xcalib \
                    xflux \
+                   xfluxd \
                    kbdlight
 
     # Install some useful applications
