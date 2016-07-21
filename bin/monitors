@@ -22,11 +22,11 @@ SCRIPT=$0
 case $1 in
 
     external)
-        xrandr --output DP-2 --same-as LVDS-1 --auto --primary
+        xrandr --output DP-2 --same-as LVDS-2 --auto --primary
         ;;
 
     attached)
-        xrandr --output LVDS-1 --auto --primary --fb 1680x1050
+        xrandr --output LVDS-2 --auto --primary --fb 1680x1050
         ;;
 
     work)
