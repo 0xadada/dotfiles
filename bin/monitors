@@ -30,7 +30,8 @@ case $1 in
         ;;
 
     work)
-        xrandr --output DP-1 --auto --primary --output eDP-1 --auto --right-of DP-1
+        # xrandr --output DP-1 --auto --primary --output eDP-1 --auto --right-of DP-1
+        xrandr --output eDP-1 --scale 0.5x0.5 --output DP-2 --auto --primary --pos +1440x0
         ;;
 
     --help)
