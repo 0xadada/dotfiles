@@ -64,8 +64,8 @@ function install_rvm() {
     rvm install ruby-head
 }
 
-# Bootstrap provisioning for all
-function provision_any() {
+# Bootstrap provisioning for all OSes
+function provision_universal() {
     read -p "Install nvm, Continue (y/n)? " choice
     case "$choice" in
       y|Y ) install_nvm;;
@@ -200,11 +200,13 @@ function provision_linux() {
     yaourt -S      btsync \
                    nvm-git \
                    pyenv \
-                   firefox-beta-bin
-    sudo pacman -S android-tools \
+                   firefox-beta-bin \
+                   mpv \
+                   mysql-workbench \
+                   spotify \
+                   android-tools \
                    bitcoin-qt \
-                   transmission-gtk \
-                   vlc
+                   transmission-gtk
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
@@ -250,7 +252,7 @@ unset sync;
 unset install_homebrew;
 unset install_nvm;
 unset install_rvm;
-unset provision_any;
+unset provision_universal;
 unset provision_darwin;
 unset provision_linux;
 

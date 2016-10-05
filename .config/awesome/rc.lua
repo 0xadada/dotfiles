@@ -55,9 +55,9 @@ theme.layout_uselesstile  = theme.zenburn_icons .. "tile.png"
 theme.layout_centerwork   = theme.lain_icons .. "centerwork.png"
 local layouts =
 {
-    lain.layout.uselesspiral,            -- 1
-    lain.layout.uselesstile,             -- 2
-    lain.layout.centerwork,              -- 3
+    lain.layout.centerwork,              -- 1
+    lain.layout.uselesspiral,            -- 2
+    lain.layout.uselesstile,             -- 3
     awful.layout.suit.tile,              -- 4
     awful.layout.suit.max.fullscreen,    -- 5
     -- awful.layout.suit.tile,
@@ -84,9 +84,9 @@ end
 -- Define a tag table which hold all screen tags.
 tags = {
     names  = { "🌎", "📃", "⌨", "💬", "📧", "🔊", "📀", },
-    layout = { layouts[1], layouts[3], layouts[4],
-               layouts[3], layouts[1], layouts[1],
-               layouts[3] }
+    layout = { layouts[1], layouts[4], layouts[2],
+               layouts[2], layouts[1], layouts[1],
+               layouts[1] }
 }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
