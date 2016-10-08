@@ -197,7 +197,7 @@ function provision_linux() {
                    kbdlight
 
     # Install some useful applications
-    yaourt -S      btsync \
+    yaourt -S      rslsync \
                    nvm-git \
                    pyenv \
                    firefox-beta-bin \
