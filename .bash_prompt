@@ -97,7 +97,7 @@ function __prompt {
         if ! $(git diff-files --quiet --ignore-submodules --); then
             CLEAN="${ORANGE_BG}"  # Changes detected (not yet committed)
         fi
-        printf "%s" $CLEAN
+        printf '%s' "${CLEAN}"
     }
 
     function git_branch {
@@ -105,8 +105,8 @@ function __prompt {
                         git rev-parse --short HEAD 2>/dev/null || \
                         printf "(unknown)")"
         local COLORCODE=$(git_state_color)
-        local BG_COLOR="$(tput setab $COLORCODE)"
-        local FG_COLOR="$(tput setaf $COLORCODE)"
+        local BG_COLOR="$(tput setab ${COLORCODE})"
+        local FG_COLOR="$(tput setaf ${COLORCODE})"
         local TXT_COLOR="${GRAY}"
 
         # If the BG_COLOR isn't "clean", change text color to black (more contrast)
@@ -114,8 +114,8 @@ function __prompt {
             TXT_COLOR="${BLACK}"
         fi
         # Explain magic of \001 and \002 http://mywiki.wooledge.org/BashFAQ/053
-        printf "\001%s\002\001%s\002 \001%s\002 \001%s\002 \001%s\002\001%s\002" \
-               "${BG_COLOR}" "${BLACK2}" "${TXT_COLOR}" "${BRANCH}" "${RESET}" "${FG_COLOR}"
+        printf '\001%s\002\001%s\002 \001%s\002 \001%s\002 \001%s\002\001%s\002' \
+            "${BG_COLOR}" "${BLACK2}" "${TXT_COLOR}" "${BRANCH}" "${RESET}" "${FG_COLOR}"
     }
 
     function prompt_git {
@@ -124,30 +124,30 @@ function __prompt {
             git_branch
         else
             # Print a blank segment
-            printf "\001%s\002\001%s\002 \001%s\002\001%s\002" \
-                   "${BLACK1_BG}" "${BLACK2}" "${RESET}" "${BLACK1}"
+            printf '\001%s\002\001%s\002 \001%s\002\001%s\002' \
+                "${BLACK1_BG}" "${BLACK2}" "${RESET}" "${BLACK1}"
         fi
     }
 
     function status_prefix {
         # Check the exit code of the previous command and display different
-        # colors in the prompt accordingly. 
+        # colors in the prompt accordingly.
         if [ $EXIT_CODE -eq 0 ]; then
-            printf "\001%s\002%s\001%s\002" \
-                "${WHITE}" "${PREFIX_0}" " ${RESET}"
+            printf '\001%s\002%s\001%s\002 ' \
+                "${WHITE}" "${PREFIX_0}" "${RESET}"
         else
-            printf "\001%s\002%s\001%s\002" \
-                "${RED}" "${PREFIX_1}" " ${RESET}"
+            printf '\001%s\002%s\001%s\002 ' \
+                "${RED}" "${PREFIX_1}" "${RESET}"
         fi
     }
 
     function init_prompt {
         EXIT_CODE="$?"
         PS1=""
-        PS1+="\[${GRAY_BG}\]\[${BLACK}\]\u@\[${BOLD}\]\[${BLACK}\]\h " # user@host
-        PS1+="\[${BLACK2_BG}\]\[${GRAY}\] \W \[${RESET}\]"            # ~
-        PS1+="\$(prompt_git)"                                          # <git branch>
-        PS1+="\$(status_prefix)"                                       # $
+        PS1+="\001${GRAY_BG}\002\001${BLACK}\002\u@\001${BOLD}\002\001${BLACK}\002\h " # user@host
+        PS1+="\001${BLACK2_BG}\002\001${GRAY}\002 \W \001${RESET}\002"                # ~
+        PS1+="\$(prompt_git)"                                                          # <git branch>
+        PS1+="\$(status_prefix)"                                                       # $
     }
 
     PROMPT_COMMAND=init_prompt
@@ -155,4 +155,3 @@ function __prompt {
 
 __prompt
 unset __prompt
-
