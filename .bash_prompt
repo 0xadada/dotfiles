@@ -10,9 +10,9 @@ function __prompt {
         export TERM=xterm-256color
     fi
 
-    # Prompt prefix, use dollar for most, or beer for OS X
+    # Prompt prefix, use `$` for successful exit code, `!` for error.
     PREFIX_0='$'
-    PREFIX_1='X'
+    PREFIX_1='!'
 
     BOLD=""
     RESET=""
@@ -136,8 +136,8 @@ function __prompt {
             printf '\001%s\002%s\001%s\002 ' \
                 "${WHITE}" "${PREFIX_0}" "${RESET}"
         else
-            printf '\001%s\002%s\001%s\002 ' \
-                "${RED}" "${PREFIX_1}" "${RESET}"
+            printf '\001%s\002[%s]%s\001%s\002 ' \
+                "${RED}" "${EXIT_CODE}" "${PREFIX_1}" "${RESET}"
         fi
     }
 
