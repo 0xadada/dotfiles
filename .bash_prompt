@@ -77,27 +77,27 @@ function __prompt {
 
     function git_state_color {
         if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
-            local CLEAN=237
+            local STATE=237
             local RED_BG=124
             local ORANGE_BG=208
         else
-            local CLEAN=0
+            local STATE=0
             local RED_BG=1
             local ORANGE_BG=3
         fi
         # check for unstaged changes
         if ! $(git diff --quiet --ignore-submodules --cached); then
-            CLEAN="${RED_BG}"  # Unstaged changes (not yet added)
+            STATE="${RED_BG}"  # Unstaged changes (not yet added)
         fi
         # check for untracked files
         if [ -n "$(git ls-files --others --exclude-standard)" ]; then
-            CLEAN="${RED_BG}"  # New files (not yet added)
+            STATE="${RED_BG}"  # New files (not yet added)
         fi
         # check for uncommitted changes in the index
         if ! $(git diff-files --quiet --ignore-submodules --); then
-            CLEAN="${ORANGE_BG}"  # Changes detected (not yet committed)
+            STATE="${ORANGE_BG}"  # Changes detected (not yet committed)
         fi
-        printf '%s' "${CLEAN}"
+        printf '%s' "${STATE}"
     }
 
     function git_branch {
@@ -105,8 +105,8 @@ function __prompt {
                         git rev-parse --short HEAD 2>/dev/null || \
                         printf "(unknown)")"
         local COLORCODE=$(git_state_color)
-        local BG_COLOR="$(tput setab ${COLORCODE})"
-        local FG_COLOR="$(tput setaf ${COLORCODE})"
+        local BG_COLOR=$(tput setab ${COLORCODE})
+        local FG_COLOR=$(tput setaf ${COLORCODE})
         local TXT_COLOR="${GRAY}"
 
         # If the BG_COLOR isn't "clean", change text color to black (more contrast)
@@ -114,13 +114,13 @@ function __prompt {
             TXT_COLOR="${BLACK}"
         fi
         # Explain magic of \001 and \002 http://mywiki.wooledge.org/BashFAQ/053
-        printf '\001%s\002\001%s\002 \001%s\002 \001%s\002 \001%s\002\001%s\002' \
+        printf '\001%s\002\001%s\002 \001%s\002 %s \001%s\002\001%s\002' \
             "${BG_COLOR}" "${BLACK2}" "${TXT_COLOR}" "${BRANCH}" "${RESET}" "${FG_COLOR}"
     }
 
     function prompt_git {
         # Check CWD is a git repository
-        if [ $(git rev-parse --is-inside-work-tree &>/dev/null; printf "%s" $?) == 0 ]; then
+        if [ $(git rev-parse --is-inside-work-tree &>/dev/null; printf $?) == 0 ]; then
             git_branch
         else
             # Print a blank segment
