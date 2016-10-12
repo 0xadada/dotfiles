@@ -169,44 +169,45 @@ function provision_linux() {
                    rxvt-unicode
 
     # Install X utilities and apps
-    sudo pacman -S awesome \
-                   vicious \
-                   xbindkeys \
-                   xautolock \
-                   xorg-xsetroot \
-                   slock
-    yaourt -S      lain-git  # Layouts n shit, yo
+    yaourt -S awesome \
+              vicious \
+              xbindkeys \
+              xautolock \
+              xorg-xsetroot \
+              slock \
+              lain-git  # Layouts n shit, yo
 
     # install some great fonts
-    sudo pacman -S noto-fonts-emoji \
-                   terminus-font \
-                   adobe-source-sans-pro-fonts \
-                   adobe-source-serif-pro-fonts \
-                   adobe-source-code-pro-fonts
-    yaourt -S      otf-sauce-code-powerline-git     # Adobe Source Code Pro (Patched for Powerline)
-    yaourt -S      ttf-twitter-color-emoji-svginot  # Twitter Emoji for Everyone
+    yaourt -S noto-fonts-emoji \
+              terminus-font \
+              adobe-source-sans-pro-fonts \
+              adobe-source-serif-pro-fonts \
+              adobe-source-code-pro-fonts \
+              otf-sauce-code-powerline-git \  # Adobe Source Code Pro (Patched for Powerline)
+              ttf-twitter-color-emoji-svginot # Twitter Emoji for Everyone
 
     # install keyboard / IME tools
-    sudo pacman -S ibus
-    yaourt -S      ibus-uniemoji-git
+    yaourt -S ibus \
+              ibus-uniemoji-git
 
     # Install monitor calibration tools
-    yaourt -S      xcalib \
-                   xflux \
-                   xfluxd \
-                   kbdlight
+    yaourt -S xcalib \
+              xflux \
+              xfluxd \
+              kbdlight
 
     # Install some useful applications
-    yaourt -S      rslsync \
-                   nvm-git \
-                   pyenv \
-                   firefox-beta-bin \
-                   mpv \
-                   mysql-workbench \
-                   spotify \
-                   android-tools \
-                   bitcoin-qt \
-                   transmission-gtk
+    yaourt -S rslsync \
+              nvm-git \
+              pyenv \
+              firefox-beta-bin \
+              google-chrome-dev \
+              mpv \
+              mysql-workbench \
+              spotify \
+              android-tools \
+              bitcoin-qt \
+              transmission-gtk
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
