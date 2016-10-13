@@ -201,7 +201,7 @@ function provision_linux() {
               nvm-git \
               pyenv \
               firefox-beta-bin \
-              google-chrome-dev \
+              google-chrome \
               mpv \
               mysql-workbench \
               spotify \
