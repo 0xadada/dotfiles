@@ -202,6 +202,7 @@ function provision_linux() {
               pyenv \
               firefox-beta-bin \
               google-chrome \
+              google-earth \
               mpv \
               mysql-workbench \
               spotify \

@@ -45,6 +45,7 @@ fi
 brew cask install bitcoin-core
 brew cask install bittorrent-sync
 brew cask install diffmerge
+brew cask install google-earth
 brew cask install firefox
 brew cask install flux
 brew cask install gpgtools
