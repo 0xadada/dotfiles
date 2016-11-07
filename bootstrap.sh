@@ -244,7 +244,7 @@ fi
 # Provision any OS-non specific applications
 read -p "Provision non-specific OS software? (y/n)? " choice
 case "$choice" in
-  y|Y ) provision_any;;
+  y|Y ) provision_universal;;
   n|N ) echo "Skiping provisioning";;
   * ) echo "invalid answer";;
 esac
