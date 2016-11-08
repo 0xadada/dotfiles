@@ -29,8 +29,8 @@ function install_nvm() {
     mkdir -p ~/.nvm
     # Setup NVM
     export NVM_DIR=~/.nvm
-    [ -e /usr/share/nvm/init-nvm.sh ] && \
-        source /usr/share/nvm/init-nvm.sh
+    [ -e /usr/local/opt/nvm/nvm.sh ] && \
+        source /usr/local/opt/nvm/nvm.sh
     if [ `type -P brew` ]; then
         . $(brew --prefix nvm)/nvm.sh
     fi

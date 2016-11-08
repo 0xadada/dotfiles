@@ -53,8 +53,8 @@ My `~/.bash_custom` looks something like this:
 
 ```bash
 # Setup NVM for Node.js
-[ -e /usr/share/nvm/init-nvm.sh ] && \
-    source /usr/share/nvm/init-nvm.sh
+[ -e /usr/local/opt/nvm/nvm.sh ] && \
+    source /usr/local/opt/nvm/nvm.sh
 if [ `type -P brew` ]; then
     . $(brew --prefix nvm)/nvm.sh
 fi
