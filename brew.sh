@@ -63,9 +63,8 @@ brew cask install virtualbox
 brew cask install vlc
 
 # Install fonts
-brew cask install caskroom/fonts/font-hack
-brew cask install caskroom/fonts/font-source-code-pro
-brew cask install caskroom/fonts/font-sauce-code-powerline
+brew cask install font-source-code-pro
+brew cask install font-source-code-pro-for-powerline
 
 # Prompt user to install optional homebrew kegs
 kegs=(
