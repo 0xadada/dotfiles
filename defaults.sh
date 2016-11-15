@@ -7,11 +7,11 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ###############################################################################
-# General UI/UX                                                               #
-###############################################################################
+# General UI/UX
 
 # Set computer name (as done via System Preferences → Sharing)
 # Note: LocalHostName and NetBIOSName must use only ASCII.
+#
 #     žižek        # Apple Macbookpro 15" Early-2011 MacBookPro8,2
 #     derrida      # Apple Macbookpro 13" Mid-2010   MacBookPro7,1
 #     rancière     # Apple Macbookpro 15" Mid-2015   MacBookPro11,5
@@ -21,7 +21,6 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Future use:
 #     arendt
 #     butler
-#     derrida
 #     deleuze
 #     camus
 #     guattari
@@ -34,6 +33,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #     nietzsche
 #     sartre
 #     sloterdijk
+
 read -p "Name this computer (e.g. žižek): " MYNAME
 sudo scutil --set ComputerName $MYNAME
 sudo scutil --set HostName $MYNAME
