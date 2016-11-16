@@ -18,12 +18,12 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #     foucault     # LG/Google Nexus 5               LG-D820
 #     chomsky      # Google Pixel                    G-2PW4100
 #     baudrillard  # WD MyCloud
+#     guattari     # Google Chromecast               NC2-6A5
 # Future use:
 #     arendt
 #     butler
 #     deleuze
 #     camus
-#     guattari
 #     hardt
 #     hegel
 #     heidegger
