@@ -56,7 +56,7 @@ syntax on
 filetype plugin indent on
 "
 " Highlight current line
-set cursorline
+set nocursorline
 " Make tabs as wide as four spaces
 set tabstop=4
 " Make shift indent operation add four spaces
