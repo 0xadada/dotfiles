@@ -19,11 +19,11 @@ indent_style = space
 indent_size = 2
 
 # CSS
-[*.{css,scss}]
+[*.{css,scss,styl}]
 indent_style = space
 indent_size = 2
 
-[*.{html,json,yml}]
+[*.{hbs,html,json,yml}]
 indent_style = space
 indent_size = 2
 
