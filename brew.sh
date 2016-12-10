@@ -22,7 +22,7 @@ brew tap buo/cask-upgrade
 brew update
 
 # Upgrade any already-installed formulae.
-brew upgrade --all
+brew upgrade --cleanup
 
 # Install homebrew packages
 brew install git
@@ -34,6 +34,7 @@ brew install android-platform-tools
 brew install nvm
 brew install pyenv
 brew install bash
+
 if ! cat /etc/shells | grep -q "/usr/local/bin/bash"; then
     # Add the new bash to our available shells
     echo '/usr/local/bin/bash' | sudo tee -a /etc/shells
@@ -41,26 +42,23 @@ if ! cat /etc/shells | grep -q "/usr/local/bin/bash"; then
     chsh -s /usr/local/bin/bash
 fi
 
-
 # Install homebrew cask packages
 brew cask install bitcoin-core
-brew cask install resilio-sync
-brew cask install diffmerge
 brew cask install docker  # docker-for-mac
 brew cask install google-earth
 brew cask install firefox
 brew cask install flux
+brew cask install google-chrome
 brew cask install gpgtools
 brew cask install iterm2
-brew cask install macvim
 brew cask install qlcolorcode
 brew cask install qlstephen
 brew cask install qlmarkdown
 brew cask install quicklook-json
+brew cask install resilio-sync
 brew cask install sequel-pro
 brew cask install transmission
 brew cask install torbrowser
-brew cask install virtualbox
 brew cask install vlc
 
 # Install fonts
@@ -93,12 +91,14 @@ casks=(
     audioscrobbler
     docker-compose  # Includes docker and docker-machine
     filezilla
-    google-chrome
+    macvim
     openbazaar
     spotify
     silverlight
     vagrant
+    virtualbox
 )
+
 for item in ${casks[*]}
 do
     read -p "Install $item (y/n)? " choice
