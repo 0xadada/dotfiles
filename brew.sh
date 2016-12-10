@@ -16,6 +16,7 @@ fi
 # Tap homebrew-cask versions
 brew tap caskroom/fonts
 brew tap caskroom/versions
+brew tap buo/cask-upgrade
 
 # Make sure we’re using the latest Homebrew.
 brew update
@@ -43,7 +44,7 @@ fi
 
 # Install homebrew cask packages
 brew cask install bitcoin-core
-brew cask install bittorrent-sync
+brew cask install resilio-sync
 brew cask install diffmerge
 brew cask install docker  # docker-for-mac
 brew cask install google-earth
