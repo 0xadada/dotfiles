@@ -67,7 +67,7 @@ brew cask install font-source-code-pro-for-powerline
 
 # Prompt user to install optional homebrew kegs
 kegs=(
-    ansible
+    # ansible
     aws-cli
     aws-elasticbeanstalk
 )
@@ -87,6 +87,7 @@ done
 
 # Prompt user to install optional homebrew casks
 casks=(
+    1password
     atom
     audioscrobbler
     docker-compose  # Includes docker and docker-machine
@@ -95,8 +96,8 @@ casks=(
     openbazaar
     spotify
     silverlight
-    vagrant
-    virtualbox
+    # vagrant
+    # virtualbox
 )
 
 for item in ${casks[*]}
