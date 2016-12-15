@@ -193,6 +193,8 @@ alias puff-down='docker-machine stop docker-vm && docker-machine rm docker-vm &&
 
 # Simply python linter, checks for syntax errors
 alias pylint="python -m py_compile"
+# Simple python http server
+alias httpserver="python -m SimpleHTTPServer"
 
 # Copy current git branch into the clipboard
 alias copybranch='git branch | head -1 | sed -e "s/* //"| pbcopy'
