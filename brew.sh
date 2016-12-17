@@ -70,6 +70,7 @@ kegs=(
     ansible
     aws-cli
     aws-elasticbeanstalk
+    watchman              # Used by node to watch for file system changes
 )
 
 for item in ${kegs[*]}
