@@ -96,3 +96,6 @@
 [user]
 	name = 0xADADA
 	email = 0xadada.pub@0xadada.pub
+	signingkey = 19656CA4
+[commit]
+	gpgsign = true
