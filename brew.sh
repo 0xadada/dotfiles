@@ -35,6 +35,11 @@ brew install nvm
 brew install pyenv
 brew install bash
 
+# Neovim
+brew install neovim/neovim/neovim
+ln -s ~/.vim ~/.config/nvim
+ln -s ~/.vimrc ~/.config/nvim/init.vim
+
 if ! cat /etc/shells | grep -q "/usr/local/bin/bash"; then
     # Add the new bash to our available shells
     echo '/usr/local/bin/bash' | sudo tee -a /etc/shells
