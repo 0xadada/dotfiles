@@ -49,10 +49,11 @@ fi
 
 # Install homebrew cask packages
 brew cask install bitcoin-core
+brew cask install brave
 # brew cask install color-oracle
 brew cask install docker  # docker-for-mac
 brew cask install google-earth
-brew cask install firefox
+# brew cask install firefox-beta
 brew cask install flux
 brew cask install google-chrome
 brew cask install gpgtools
