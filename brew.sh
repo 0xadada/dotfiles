@@ -51,7 +51,6 @@ fi
 brew cask install bitcoin-core
 brew cask install brave
 # brew cask install color-oracle
-brew cask install docker  # docker-for-mac
 brew cask install google-earth
 brew cask install firefoxdeveloperedition  # or firefoxnightly, firefox-beta, firefox
 brew cask install flux
@@ -64,6 +63,7 @@ brew cask install qlmarkdown
 brew cask install quicklook-json
 brew cask install resilio-sync
 brew cask install sequel-pro
+brew cask install slack
 brew cask install transmission
 brew cask install torbrowser
 brew cask install vlc
@@ -96,11 +96,10 @@ done
 # Prompt user to install optional homebrew casks
 casks=(
     1password
-    atom
     audioscrobbler
+    docker
     docker-compose  # Includes docker and docker-machine
     filezilla
-    macvim
     openbazaar
     spotify
     silverlight
