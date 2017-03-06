@@ -71,6 +71,7 @@ brew cask install vlc
 # Install fonts
 brew cask install font-source-code-pro
 brew cask install font-source-code-pro-for-powerline
+brew cask install font-twitter-color-emoji
 
 # Prompt user to install optional homebrew kegs
 kegs=(
