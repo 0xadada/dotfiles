@@ -25,15 +25,16 @@ brew update
 brew upgrade --cleanup
 
 # Install homebrew packages
+brew install android-platform-tools
+brew install bash
 brew install git
 brew install gpg
 brew install keybase
-brew install openssl
 brew install mobile-shell
-brew install android-platform-tools
 brew install nvm
+brew install openssl
 brew install pyenv
-brew install bash
+brew install yarn
 
 # Neovim
 brew install neovim/neovim/neovim
