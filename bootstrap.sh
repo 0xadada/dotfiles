@@ -97,6 +97,16 @@ function provision_universal() {
 
     # install vim-gitgutter
     git clone https://github.com/airblade/vim-gitgutter.git ~/.vim/bundle/vim-gitgutter
+
+    # install deoplete autocomplete plugin
+    pyenv local `pyenv versions --bare`  # switch to Python3
+    pip3 install neovim  # a dependency
+    git clone https://github.com/Shougo/deoplete.nvim.git \
+      ~/.vim/bundle/deoplete.nvim.git  # autocomplete
+    npm install -g tern  # another dependency, for javascript
+    git clone https://github.com/carlitux/deoplete-ternjs.git \
+      ~/.vim/bundle/deoplete-ternjs.git  # javascript plugin
+    nvim -u NONE -c ":UpdateRemotePlugins" -c q
 }
 
 # Bootstrap provisioning for OS X

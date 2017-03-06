@@ -124,3 +124,13 @@ let g:airline_powerline_fonts=1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#branch#displayed_head_limit = 10
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
+" Use tern for deoplete
+let g:tern_request_timeout = 1
+" let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
+"Add extra filetypes
+let g:tern#filetypes = [
+                \ 'jsx',
+                \ 'vue']
