@@ -76,20 +76,27 @@ function provision_universal() {
     echo "Installing VIM packages"
     echo ""
     mkdir -p ~/.vim/bundle
-    # Install gruvbox color scheme
+    # install gruvbox color scheme
     git clone https://github.com/morhetz/gruvbox.git ~/.vim/bundle/gruvbox
-    # Install EditorConfig plugin
+
+    # install EditorConfig plugin
     git clone https://github.com/editorconfig/editorconfig-vim.git ~/.vim/bundle/editorconfig-vim
     vim -u NONE -c "helptags ~/.vim/bundle/editorconfig-vim/doc" -c q
-    # Install NERDTree plugin
+
+    # install NERDTree plugin
     git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
     vim -u NONE -c "helptags ~/.vim/bundle/nerdtree/doc" -c q
-    # Install vim-airline plugin
+
+    # install vim-airline plugin
     git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
     vim -u NONE -c "helptags ~/.vim/bundle/vim-airline/doc" -c q
-    # Install vim-fugitive plugin
+
+    # install vim-fugitive plugin
     git clone https://github.com/tpope/vim-fugitive.git ~/.vim/bundle/vim-fugitive
     vim -u NONE -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
+
+    # install vim-gitgutter
+    git clone https://github.com/airblade/vim-gitgutter.git ~/.vim/bundle/vim-gitgutter
 }
 
 # Bootstrap provisioning for OS X
