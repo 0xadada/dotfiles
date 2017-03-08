@@ -116,6 +116,13 @@ if has("autocmd")
     autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 endif
 
+" for vim-css3-syntax
+augroup VimCSS3Syntax
+    autocmd!
+
+    autocmd FileType css setlocal iskeyword+=-
+augroup END
+
 " vim-airline
 let g:airline_detect_paste=1       " enable paste detection
 set guifont=Source\ Code\ Pro\ for\ Powerline:h12
