@@ -49,12 +49,10 @@ fi
 
 # Install homebrew cask packages
 brew cask install bitcoin-core
-brew cask install brave
 # brew cask install color-oracle
-brew cask install google-earth
 brew cask install firefoxdeveloperedition  # or firefoxnightly, firefox-beta, firefox
 brew cask install flux
-brew cask install google-chrome
+brew cask install google-chrome-canary
 brew cask install gpgtools
 brew cask install iterm2
 brew cask install keybase
@@ -63,7 +61,6 @@ brew cask install qlstephen
 brew cask install qlmarkdown
 brew cask install quicklook-json
 brew cask install resilio-sync
-brew cask install sequel-pro
 brew cask install slack
 brew cask install transmission
 brew cask install torbrowser
@@ -99,10 +96,13 @@ done
 casks=(
     1password
     audioscrobbler
+    brave
     docker
     docker-compose  # Includes docker and docker-machine
-    filezilla
+    google-chrome
+    google-earth
     openbazaar
+    sequel-pro
     spotify
     silverlight
     # vagrant
@@ -121,13 +121,6 @@ do
       * ) echo "invalid answer";;
     esac
 done
-
-# Install Atom editor packages
-if [ `type -P apm` ]; then
-    echo "Installing Atom editor packages..."
-    apm install --packages-file .atom/packages.txt
-fi
-
 
 # Cleanup
 brew cask cleanup
