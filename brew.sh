@@ -29,7 +29,6 @@ brew install android-platform-tools
 brew install bash
 brew install git
 brew install gpg
-brew install keybase
 brew install mobile-shell
 brew install nvm
 brew install openssl
@@ -58,6 +57,7 @@ brew cask install flux
 brew cask install google-chrome
 brew cask install gpgtools
 brew cask install iterm2
+brew cask install keybase
 brew cask install qlcolorcode
 brew cask install qlstephen
 brew cask install qlmarkdown
