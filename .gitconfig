@@ -38,7 +38,7 @@
 	whitespace = fix
 
 [core]
-	editor = mvim -f
+	editor = nvim -f
 	# Use custom `.gitignore` and `.gitattributes`
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
