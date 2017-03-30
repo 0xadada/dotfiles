@@ -57,6 +57,8 @@ filetype plugin indent on
 "
 " Highlight current line
 set nocursorline
+" Highlight columns after 80 characters
+let &colorcolumn=join(range(81,999),",")
 " Make tabs as wide as four spaces
 set tabstop=4
 " Make shift indent operation add four spaces
