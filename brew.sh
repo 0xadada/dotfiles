@@ -52,7 +52,6 @@ brew cask install bitcoin-core
 # brew cask install color-oracle
 brew cask install dash
 brew cask install firefoxdeveloperedition  # or firefoxnightly, firefox-beta, firefox
-brew cask install flux
 brew cask install google-chrome-canary
 brew cask install gpgtools
 brew cask install iterm2
