@@ -103,6 +103,7 @@ casks=(
     google-earth
     openbazaar
     sequel-pro
+    psequel
     spotify
     silverlight
     # vagrant
