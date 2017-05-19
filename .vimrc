@@ -9,8 +9,6 @@ execute pathogen#infect()
 colorscheme gruvbox
 set background=dark
 
-" Allow cursor keys in insert mode
-set esckeys
 " Show the cursor position
 set ruler
 " set the visual mode selection to be exlusive rather than inclusive
