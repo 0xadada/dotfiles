@@ -91,6 +91,9 @@ git config --global user.signingkey 19656CA4
 GTK_IM_MODULE=ibus
 QT_IM_MODULE=ibus
 XMODIFIERS="@im=ibus"  # older x-org applications
+
+# Update path with yarn
+export PATH="$(yarn global bin):$PATH"
 ```
 
 You could also use `~/.bash_custom` to override settings, functions and aliases
