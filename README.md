@@ -74,8 +74,9 @@ fi
 if [ `type -p pyenv` ]; then
     eval "$(pyenv init -)"
 fi
-# Set python to non-system version
-pyenv local `pyenv versions --bare`
+
+# Set python to latest version with system too
+pyenv local system `pyenv versions --bare`
 
 # Git credentials
 # Not in the repository, to prevent people from accidentally committing under my name

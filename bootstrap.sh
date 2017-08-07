@@ -91,7 +91,7 @@ function provision_universal() {
     git clone https://github.com/airblade/vim-gitgutter.git ~/.vim/bundle/vim-gitgutter
 
     # install deoplete autocomplete plugin
-    pyenv local `pyenv versions --bare`  # switch to Python3
+    pyenv local system `pyenv versions --bare`  # switch to Python3
     pip3 install neovim  # a dependency
     git clone https://github.com/Shougo/deoplete.nvim.git \
       ~/.vim/bundle/deoplete.nvim.git  # autocomplete
@@ -122,6 +122,9 @@ function provision_darwin() {
       * ) echo "invalid answer";;
     esac
 
+    # Install Python 2.7(Latest 'Stable')
+    echo "Installing Python (Latest '2.7')..."
+    pyenv install 2.7
     # Install Python (Latest 'Stable')
     echo "Installing Python (Latest 'stable')..."
     pyenv install `pyenv install --list | grep -v - | grep -v b | tail -1`
