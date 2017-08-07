@@ -35,23 +35,9 @@ function install_nvm() {
         . $(brew --prefix nvm)/nvm.sh
     fi
     echo "Installing Node.js (Latest 'stable')..."
-    nvm install node # "node" is an alias for latest stable
-    nvm alias default node # set "node" as the default
-
-    # update / install npm packages
-    # Check for npm
-    if [ `type -P npm` ]; then
-        # Installing NPM packages...
-        echo "Installing NPM packages..."
-        npm install node-inspector --global --quiet
-        npm install bower --global --quiet
-        [[ $? ]] && echo "Done"
-    else
-        printf "\n"
-        echo "Error: npm not found."
-        printf "Aborting... try installing node packages manually\n"
-        exit
-    fi;
+    nvm install --lts  # latest LTS/* release
+    nvm alias default lts/* # set LTS/* as the default
+    nvm use --lts
 }
 
 # Ruby version manager
@@ -158,7 +144,8 @@ function install_linux() {
                    rsync \
                    which \
                    dialog \
-                   wpa_supplicant
+                   wpa_supplicant \
+                   yarn
 
     echo "Power utilities"
     sudo pacman -S cpupower \

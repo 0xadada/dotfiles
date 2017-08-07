@@ -105,7 +105,6 @@ casks=(
     sequel-pro
     psequel
     spotify
-    silverlight
     # vagrant
     # virtualbox
 )
