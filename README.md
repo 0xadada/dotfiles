@@ -65,6 +65,7 @@ My `~/.bash_custom` looks something like this:
 if [ `type -P brew` ]; then
     export NVM_DIR="$HOME/.nvm"
     . "/usr/local/opt/nvm/nvm.sh" # This loads nvm
+    nvm use lts/* --silent
 fi
 
 # Setup RVM for Ruby
@@ -77,6 +78,9 @@ fi
 
 # Set python to latest version with system too
 pyenv local system `pyenv versions --bare`
+
+# Set Node to latest LTS
+nvm use lts/* --silent
 
 # Git credentials
 # Not in the repository, to prevent people from accidentally committing under my name
