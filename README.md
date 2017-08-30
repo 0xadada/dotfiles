@@ -65,8 +65,9 @@ My `~/.bash_custom` looks something like this:
 if [ `type -P brew` ]; then
     export NVM_DIR="$HOME/.nvm"
     . "/usr/local/opt/nvm/nvm.sh" # This loads nvm
-    nvm use lts/* --silent
 fi
+NODE_DEFAULT_VERSION=$(<"$NVM_DIR/alias/default")
+export PATH="$NVM_DIR/versions/node/$NODE_DEFAULT_VERSION/bin":$PATH
 
 # Setup RVM for Ruby
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
@@ -98,7 +99,7 @@ QT_IM_MODULE=ibus
 XMODIFIERS="@im=ibus"  # older x-org applications
 
 # Update path with yarn
-export PATH="$(yarn global bin):$PATH"
+export PATH="$PATH:$(yarn global bin)"
 ```
 
 You could also use `~/.bash_custom` to override settings, functions and aliases
