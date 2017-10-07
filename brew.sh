@@ -33,7 +33,7 @@ brew install mobile-shell
 brew install nvm
 brew install openssl
 brew install pyenv
-brew install yarn
+brew install yarn --without-node  # dont need node with nvm installed
 
 # Neovim
 brew install neovim/neovim/neovim
