@@ -54,6 +54,7 @@ brew cask install dash
 brew cask install firefoxdeveloperedition  # or firefoxnightly, firefox-beta, firefox
 brew cask install google-chrome-canary
 brew cask install gpgtools
+brew cask install imageoptim
 brew cask install iterm2
 brew cask install keybase
 brew cask install qlcolorcode
