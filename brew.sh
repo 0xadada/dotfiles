@@ -49,7 +49,6 @@ fi
 
 # Install homebrew cask packages
 brew cask install bitcoin-core
-# brew cask install color-oracle
 brew cask install dash
 brew cask install firefoxdeveloperedition  # or firefoxnightly, firefox-beta, firefox
 brew cask install google-chrome-canary
@@ -62,6 +61,7 @@ brew cask install qlstephen
 brew cask install qlmarkdown
 brew cask install quicklook-json
 brew cask install resilio-sync
+brew cask install signal
 brew cask install slack
 brew cask install transmission
 brew cask install torbrowser
