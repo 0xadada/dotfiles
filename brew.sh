@@ -49,6 +49,7 @@ fi
 
 # Install homebrew cask packages
 brew cask install bitcoin-core
+brew cask install clipy
 brew cask install dash
 brew cask install firefoxdeveloperedition  # or firefoxnightly, firefox-beta, firefox
 brew cask install google-chrome-canary
