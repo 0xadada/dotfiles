@@ -90,6 +90,9 @@ function provision_universal() {
     # install vim-gitgutter
     git clone https://github.com/airblade/vim-gitgutter.git ~/.vim/bundle/vim-gitgutter
 
+    # install w0rp/ale
+    git clone https://github.com/w0rp/ale.git ~/.vim/bundle/ale
+
     # install deoplete autocomplete plugin
     pyenv local system `pyenv versions --bare`  # switch to Python3
     pip3 install neovim  # a dependency
