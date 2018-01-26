@@ -61,7 +61,7 @@ function provision_universal() {
 
     echo "Installing VIM packages"
     echo ""
-    mkdir -p ~/.vim/bundle
+    rm -rf ~/.vim/bundle && mkdir -p ~/.vim/bundle
     # install gruvbox color scheme
     git clone https://github.com/morhetz/gruvbox.git ~/.vim/bundle/gruvbox
 
@@ -93,6 +93,9 @@ function provision_universal() {
     # install w0rp/ale
     git clone https://github.com/w0rp/ale.git ~/.vim/bundle/ale
 
+    # Elixir autocomplete
+    git clone https://github.com/slashmili/alchemist.vim ~/.vim/bundle/alchemist
+
     # install deoplete autocomplete plugin
     pyenv local system `pyenv versions --bare`  # switch to Python3
     pip3 install neovim  # a dependency
@@ -101,7 +104,7 @@ function provision_universal() {
     npm install -g tern  # another dependency, for javascript
     git clone https://github.com/carlitux/deoplete-ternjs.git \
       ~/.vim/bundle/deoplete-ternjs.git  # javascript plugin
-    nvim -u NONE -c ":UpdateRemotePlugins" -c q
+    nvim -c ":UpdateRemotePlugins" -c q && echo "updated NeoVim"
 }
 
 # Bootstrap provisioning for OS X
