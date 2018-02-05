@@ -96,6 +96,9 @@ function provision_universal() {
     # Elixir autocomplete
     git clone https://github.com/slashmili/alchemist.vim ~/.vim/bundle/alchemist
 
+    # Mustache / Handlebars templates
+    git clone git://github.com/mustache/vim-mustache-handlebars.git ~/.vim/bundle/vim-mustache-handlebars
+
     # install deoplete autocomplete plugin
     pyenv local system `pyenv versions --bare`  # switch to Python3
     pip3 install neovim  # a dependency
