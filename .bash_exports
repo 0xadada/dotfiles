@@ -1,10 +1,6 @@
-# Make vim the default editor
-# export EDITOR="vim"
-export EDITOR="vim"
-
-# Make mvim the git editor
-# export GIT_EDITOR="mvim -f"
-export GIT_EDITOR="vim"
+# Make neovim the default editor
+export EDITOR="nvim --noplugin"
+export GIT_EDITOR=$EDITOR # git uses the normal editor
 
 if [[ $OSTYPE == darwin* ]]; then
     # Install ruby gems locally
