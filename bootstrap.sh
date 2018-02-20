@@ -23,39 +23,37 @@ function install_homebrew() {
     source brew.sh
 }
 
-# Node version manager
-function install_nvm() {
-    # Install Node.js (Latest 'Stable')
-    mkdir -p ~/.nvm
-    # Setup NVM
-    export NVM_DIR=~/.nvm
-    [ -e /usr/local/opt/nvm/nvm.sh ] && \
-        source /usr/local/opt/nvm/nvm.sh
-    if [ `type -P brew` ]; then
-        . $(brew --prefix nvm)/nvm.sh
-    fi
-    echo "Installing Node.js (Latest 'stable')..."
-    nvm install --lts  # latest LTS/* release
-    nvm alias default lts/* # set LTS/* as the default
-    nvm use --lts
-}
-
-# Ruby version manager
-function install_rvm() {
-    curl -sSL https://get.rvm.io | bash
-    source ~/.profile
-    rm ~/.profile
-    rvm requirements
-    rvm get stable
-    rvm install ruby-head
+function install_asdf() {
+    asdf update
+    asdf plugin-add elixir
+    asdf plugin-add erlang
+    asdf plugin-add python
+    asdf plugin-add nodejs
+    asdf plugin-add ruby
+    asdf plugin-update --all
+    # install latest 8-branch Nodejs, set it globally
+    asdf install nodejs $(asdf list-all nodejs | grep '8.' | tail -n 1)
+    asdf global nodejs $(asdf list nodejs | tail -n 1)
+    # install latest erlang, set it globally
+    asdf install erlang $(asdf list-all erlang | grep -E '^(\d+).(\d+).(\d+)$' | tail -n 1)
+    asdf global erlang $(asdf list erlang | tail -n 1)
+    # install latest elixir, set it globally
+    asdf install elixir $(asdf list-all elixir | grep -E '^(\d+).(\d+).(\d+)$' | tail -n 1)
+    asdf global elixir $(asdf list elixir | tail -n 1)
+    # install latest python, set it globally
+    asdf install python $(asdf list-all python | grep -E '^(\d+).(\d+).(\d+)$' | tail -n 1)
+    asdf global python $(asdf list python | tail -n 1)
+    # install latest ruby, set it globally
+    asdf install ruby $(asdf list-all ruby | grep -E '^(\d+).(\d+).(\d+)$' | tail -n 1)
+    asdf global ruby $(asdf list ruby | tail -n 1)
 }
 
 # Bootstrap provisioning for all OSes
 function provision_universal() {
-    read -p "Install nvm, Continue (y/n)? " choice
+    read -p "Install asdf, Continue (y/n)? " choice
     case "$choice" in
-      y|Y ) install_nvm;;
-      n|N ) echo "Skipping nvm";;
+      y|Y ) install_asdf;;
+      n|N ) echo "Skipping asdf";;
       * ) echo "invalid answer";;
     esac
 
@@ -100,11 +98,10 @@ function provision_universal() {
     git clone git://github.com/mustache/vim-mustache-handlebars.git ~/.vim/bundle/vim-mustache-handlebars
 
     # install deoplete autocomplete plugin
-    pyenv local system `pyenv versions --bare`  # switch to Python3
     pip3 install neovim  # a dependency
     git clone https://github.com/Shougo/deoplete.nvim.git \
       ~/.vim/bundle/deoplete.nvim.git  # autocomplete
-    npm install -g tern  # another dependency, for javascript
+    yarn global add tern  # another dependency, for javascript
     git clone https://github.com/carlitux/deoplete-ternjs.git \
       ~/.vim/bundle/deoplete-ternjs.git  # javascript plugin
     nvim -c ":UpdateRemotePlugins" -c q && echo "updated NeoVim"
@@ -123,20 +120,6 @@ function provision_darwin() {
       n|N ) echo "Skipping homebrew";;
       * ) echo "invalid answer";;
     esac
-
-    read -p "Install rvm with curl | bash, Continue (y/n)? " choice
-    case "$choice" in
-      y|Y ) install_rvm;;
-      n|N ) echo "Skipping rvm";;
-      * ) echo "invalid answer";;
-    esac
-
-    # Install Python 2.7(Latest 'Stable')
-    echo "Installing Python (Latest '2.7')..."
-    pyenv install 2.7
-    # Install Python (Latest 'Stable')
-    echo "Installing Python (Latest 'stable')..."
-    pyenv install `pyenv install --list | grep -v - | grep -v b | tail -1`
 
     # Setup OS X system defaults
     read -p "Setup OS X system defaults (y/n)? " choice
@@ -274,8 +257,7 @@ esac
 # cleanup
 unset sync;
 unset install_homebrew;
-unset install_nvm;
-unset install_rvm;
+unset install_asdf;
 unset provision_universal;
 unset provision_darwin;
 unset provision_linux;

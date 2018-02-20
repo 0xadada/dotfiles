@@ -26,13 +26,12 @@ brew upgrade --cleanup
 
 # Install homebrew packages
 brew install android-platform-tools
+brew install asdf
 brew install bash
 brew install git
 brew install gpg
 brew install mobile-shell
-brew install nvm
 brew install openssl
-brew install pyenv
 brew install yarn --without-node  # dont need node with nvm installed
 
 # Neovim

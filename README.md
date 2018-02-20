@@ -20,9 +20,7 @@ git clone https://github.com/0xADADA/dotfiles.git && cd dotfiles && source boots
 
 Bootstrap will install or update your dotfiles, and install some core utilities:
 * XCode
-* Pip
-* nvm (with Node.js latest Stable)
-* rvm (with Ruby latest Stable)
+* asdf (with latest Stable nodejs, erlang, elixir, ruby, python)
 * homebrew, cask and its packages (see `brew.sh`)
 
 Boostrap will then initialize OS X defaults (see `defaults.sh`)
@@ -61,27 +59,8 @@ repository, or to add commands you don’t want to commit to a public repository
 My `~/.bash_custom` looks something like this:
 
 ```bash
-# Setup NVM for Node.js
-if [ `type -P brew` ]; then
-    export NVM_DIR="$HOME/.nvm"
-    . "/usr/local/opt/nvm/nvm.sh" # This loads nvm
-fi
-NODE_DEFAULT_VERSION=$(<"$NVM_DIR/alias/default")
-export PATH="$NVM_DIR/versions/node/$NODE_DEFAULT_VERSION/bin":$PATH
-
-# Setup RVM for Ruby
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-# Setup pyenv for Python
-if [ `type -p pyenv` ]; then
-    eval "$(pyenv init -)"
-fi
-
-# Set python to latest version with system too
-pyenv local system `pyenv versions --bare`
-
-# Set Node to latest LTS
-nvm use lts/* --silent
+# Setup asdf
+source /usr/local/opt/asdf/asdf.sh
 
 # Git credentials
 # Not in the repository, to prevent people from accidentally committing under my name
