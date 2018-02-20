@@ -57,6 +57,9 @@ function provision_universal() {
       * ) echo "invalid answer";;
     esac
 
+    echo "Installing Yarn packages"
+    yarn global add tldr
+
     echo "Installing VIM packages"
     echo ""
     rm -rf ~/.vim/bundle && mkdir -p ~/.vim/bundle
