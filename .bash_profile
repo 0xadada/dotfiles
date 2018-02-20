@@ -71,6 +71,7 @@ fi
 # Run SSH-agent (if it's not already running)
 if ! pgrep -u $USER ssh-agent > /dev/null; then
     ssh-agent > ~/.ssh-agent-pid
+    trap 'ssh-agent -k' EXIT
 fi
 # Add SSH to the shell
 [ -e ~/.ssh-agent-pid ] && eval $(<~/.ssh-agent-pid) > /dev/null
