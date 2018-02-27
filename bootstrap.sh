@@ -40,9 +40,11 @@ function install_asdf() {
     # install latest elixir, set it globally
     asdf install elixir $(asdf list-all elixir | grep -E '^(\d+).(\d+).(\d+)$' | tail -n 1)
     asdf global elixir $(asdf list elixir | tail -n 1)
-    # install latest python, set it globally
-    asdf install python $(asdf list-all python | grep -E '^(\d+).(\d+).(\d+)$' | tail -n 1)
-    asdf global python $(asdf list python | tail -n 1)
+    # install latest python2
+    asdf install python $(asdf list-all python | grep -E '^2.(\d+).(\d+)$' | tail -n 1)
+    # install latest python3, set it globally
+    asdf install python $(asdf list-all python | grep -E '^3.(\d+).(\d+)$' | tail -n 1)
+    asdf global python $(asdf list python | grep -E '^3.(\d+).(\d+)$' | tail -n 1)
     # install latest ruby, set it globally
     asdf install ruby $(asdf list-all ruby | grep -E '^(\d+).(\d+).(\d+)$' | tail -n 1)
     asdf global ruby $(asdf list ruby | tail -n 1)
