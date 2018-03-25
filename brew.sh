@@ -49,7 +49,6 @@ fi
 # Install homebrew cask packages
 brew cask install bitcoin-core
 brew cask install clipy
-brew cask install dash
 brew cask install firefoxdeveloperedition  # or firefoxnightly, firefox-beta, firefox
 brew cask install google-chrome-canary
 brew cask install gpgtools
@@ -74,10 +73,10 @@ brew cask install font-twitter-color-emoji
 
 # Prompt user to install optional homebrew kegs
 kegs=(
-    # ansible
     aws-cli
-    aws-elasticbeanstalk
     watchman              # Used by node to watch for file system changes
+    # ansible
+    # aws-elasticbeanstalk
 )
 
 for item in ${kegs[*]}
@@ -102,10 +101,10 @@ casks=(
     docker-compose  # Includes docker and docker-machine
     google-chrome
     google-earth
-    openbazaar
     sequel-pro
     psequel
     spotify
+    # openbazaar
     # vagrant
     # virtualbox
 )
