@@ -78,7 +78,10 @@ QT_IM_MODULE=ibus
 XMODIFIERS="@im=ibus"  # older x-org applications
 
 # Update path with yarn
-export PATH="$PATH:$(yarn global bin)"
+export PATH="$PATH:$HOME/.gem/bin" # ruby gem local path
+export GEM_HOME=~/.gem
+export GEM_PATH=~/.gem
+export PATH="$PATH:$(yarn global bin)" # yarn global path
 ```
 
 You could also use `~/.bash_custom` to override settings, functions and aliases
