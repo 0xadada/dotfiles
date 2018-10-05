@@ -28,8 +28,9 @@ brew upgrade --cleanup
 brew install android-platform-tools
 brew install asdf
 brew install bash
+brew install docker-compose  # Includes docker and docker-machine
 brew install git
-brew install gpg
+brew install gpg2
 brew install mobile-shell
 brew install openssl
 brew install yarn --without-node  # dont need node with nvm installed
@@ -49,7 +50,7 @@ fi
 # Install homebrew cask packages
 brew cask install bitcoin-core
 brew cask install clipy
-brew cask install firefoxdeveloperedition  # or firefoxnightly, firefox-beta, firefox
+brew cask install firefox-developer-edition  # or firefoxnightly, firefox-beta, firefox
 brew cask install google-chrome-canary
 brew cask install gpgtools
 brew cask install imageoptim
@@ -94,11 +95,9 @@ done
 
 # Prompt user to install optional homebrew casks
 casks=(
-    1password
     audioscrobbler
     brave
     docker
-    docker-compose  # Includes docker and docker-machine
     google-chrome
     google-earth
     sequel-pro

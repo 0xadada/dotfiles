@@ -9,8 +9,8 @@ git pull origin master;
 function sync() {
     rsync --exclude ".git/" \
         --exclude ".DS_Store" \
+        --exclude ".macos" \
         --exclude "bootstrap.sh" \
-        --exclude "defaults.sh" \
         --exclude "brew.sh" \
         --exclude "README.md" \
         --exclude "LICENSE" \
@@ -32,6 +32,7 @@ function install_asdf() {
     asdf plugin-add ruby
     asdf plugin-update --all
     # install latest 8-branch Nodejs, set it globally
+    bash /usr/local/opt/asdf/plugins/nodejs/bin/import-release-team-keyring
     asdf install nodejs $(asdf list-all nodejs | grep '^8.' | tail -n 1)
     asdf global nodejs $(asdf list nodejs | tail -n 1)
     # install latest erlang, set it globally
@@ -129,7 +130,7 @@ function provision_darwin() {
     # Setup OS X system defaults
     read -p "Setup OS X system defaults (y/n)? " choice
     case "$choice" in
-      y|Y ) source defaults.sh;;
+      y|Y ) source .macos;;
       n|N ) echo "Skipping OS X defaults";;
       * ) echo "invalid answer";;
     esac
