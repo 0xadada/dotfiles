@@ -12,13 +12,14 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Set computer name (as done via System Preferences → Sharing)
 # Note: LocalHostName and NetBIOSName must use only ASCII.
 #
-#     žižek        # Apple Macbookpro 15" Early-2011 MacBookPro8,2
-#     derrida      # Apple Macbookpro 13" Mid-2010   MacBookPro7,1
-#     rancière     # Apple Macbookpro 15" Mid-2015   MacBookPro11,5
-#     foucault     # LG/Google Nexus 5               LG-D820
-#     chomsky      # Google Pixel                    G-2PW4100
 #     baudrillard  # WD MyCloud
+#     chomsky      # Google Pixel                    G-2PW4100
+#     derrida      # Apple 13" Mid-2010   MacBookPro7,1
+#     foucault     # LG/Google Nexus 5               LG-D820
 #     guattari     # Google Chromecast               NC2-6A5
+#     negri        # Google Samsung Chromebook 3 XE500C13 K02US
+#     rancière     # Apple 15" Mid-2015   MacBookPro11,5
+#     žižek        # Apple 15" Early-2011 MacBookPro8,2
 # Future use:
 #     arendt
 #     butler
@@ -29,7 +30,6 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #     heidegger
 #     kant
 #     lacan
-#     negri
 #     nietzsche
 #     sartre
 #     sloterdijk
