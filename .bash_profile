@@ -69,7 +69,7 @@ fi
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 
 # Run SSH-agent (if it's not already running)
-if ! pgrep -u $USER ssh-agent > /dev/null; then
+if ! pgrep ssh-agent > /dev/null; then
     ssh-agent > ~/.ssh-agent-pid
     trap 'ssh-agent -k' EXIT
 fi
