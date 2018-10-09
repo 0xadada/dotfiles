@@ -81,7 +81,7 @@ XMODIFIERS="@im=ibus"  # older x-org applications
 export PATH="$PATH:$HOME/.gem/bin" # ruby gem local path
 export GEM_HOME=~/.gem
 export GEM_PATH=~/.gem
-export PATH="$PATH:$(yarn global bin)" # yarn global path
+export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin" # yarn global path
 ```
 
 You could also use `~/.bash_custom` to override settings, functions and aliases
