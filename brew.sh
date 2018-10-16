@@ -64,7 +64,7 @@ brew cask install resilio-sync
 brew cask install signal
 brew cask install slack
 brew cask install transmission
-brew cask install torbrowser
+brew cask install tor-browser
 brew cask install vlc
 
 # Install fonts
