@@ -46,11 +46,10 @@ function install_asdf() {
     # install latest python2
     asdf install python $(asdf list-all python | grep -E '^2.(\d+).(\d+)$' | tail -n 1)
     # install latest python3, set it globally
-    brew install pyenv && \
-      LDFLAGS="-L$(brew --prefix openssl)/lib" \
-      CPPFLAGS="-I$(brew --prefix openssl)/include" \
-      CFLAGS="-I$(brew --prefix openssl)/include" \
-      asdf install python $(asdf list-all python | grep -E '^3.(\d+).(\d+)$' | tail -n 1)
+    LDFLAGS="-L$(brew --prefix openssl)/lib" \
+    CPPFLAGS="-I$(brew --prefix openssl)/include" \
+    CFLAGS="-I$(brew --prefix openssl)/include" \
+    asdf install python $(asdf list-all python | grep -E '^3.(\d+).(\d+)$' | tail -n 1)
     asdf global python $(asdf list python | tail -n 1)
     # install latest ruby, set it globally
     asdf install ruby $(asdf list-all ruby | grep -E '^(\d+).(\d+).(\d+)$' | tail -n 1)

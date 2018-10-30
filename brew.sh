@@ -33,6 +33,7 @@ brew install git
 brew install gpg2
 brew install mobile-shell
 brew install openssl
+brew install pyenv  # not used, but required for asdf-python
 brew install yarn --without-node  # dont need node with nvm installed
 
 # Neovim
