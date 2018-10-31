@@ -16,7 +16,7 @@ fi
 # Tap homebrew-cask versions
 brew tap caskroom/fonts
 brew tap caskroom/versions
-brew tap buo/cask-upgrade
+brew tap buo/cask-upgrade  # CLI for upgrading every outdated app installed cask
 
 # Make sure we’re using the latest Homebrew.
 brew update
@@ -34,7 +34,7 @@ brew install gpg2
 brew install mobile-shell
 brew install openssl
 brew install pyenv  # not used, but required for asdf-python
-brew install yarn --without-node  # dont need node with nvm installed
+brew install yarn --without-node  # dont need node, I use asdf
 
 # Neovim
 brew install neovim/neovim/neovim
@@ -75,7 +75,8 @@ brew cask install font-twitter-color-emoji
 
 # Prompt user to install optional homebrew kegs
 kegs=(
-    aws-cli
+    awscli
+    postgresql
     watchman              # Used by node to watch for file system changes
     # ansible
     # aws-elasticbeanstalk
