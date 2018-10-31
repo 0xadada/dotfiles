@@ -67,7 +67,7 @@ source /usr/local/opt/asdf/asdf.sh
 GIT_AUTHOR_NAME="0xADADA"
 GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 git config --global user.name "$GIT_AUTHOR_NAME"
-GIT_AUTHOR_EMAIL="0x_____.pub@0xadada.pub"
+GIT_AUTHOR_EMAIL="0x_____.pub@0xadada.pub"          # CHANGEME
 GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
 git config --global user.signingkey 19656CA4
@@ -78,7 +78,7 @@ QT_IM_MODULE=ibus
 XMODIFIERS="@im=ibus"  # older x-org applications
 
 # Update path with yarn
-export PATH="$PATH:$HOME/.gem/bin" # ruby gem local path
+export PATH="$HOME/.gem/bin:$PATH:" # ruby gem local path
 export GEM_HOME=~/.gem
 export GEM_PATH=~/.gem
 export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin" # yarn global path
