@@ -23,7 +23,7 @@ Bootstrap will install or update your dotfiles, and install some core utilities:
 * asdf (with latest Stable nodejs, erlang, elixir, ruby, python)
 * homebrew, cask and its packages (see `brew.sh`)
 
-Boostrap will then initialize OS X defaults (see `defaults.sh`)
+Boostrap will then initialize OS X defaults (see `.macos`)
 
 To update, `cd` into your local `dotfiles` repository and then:
 
@@ -37,19 +37,6 @@ Alternatively, to update while avoiding the confirmation prompt:
 set -- -f; source bootstrap.sh
 ```
 
-### Specify the `$PATH`
-
-If `~/.path` exists, it will be sourced along with the other files, before any
-feature testing (such as [detecting which version of `ls` is being
-used](https://github.com/mathiasbynens/dotfiles/blob/aff769fd75225d8f2e481185a71d5e05b76002dc/.aliases#L21-26))
-takes place.
-
-Here’s an example `~/.path` file that adds `/usr/local/bin` to the `$PATH`:
-
-```bash
-export PATH="/usr/local/bin:$PATH"
-```
-
 ### Add custom commands without creating a new fork
 
 If `~/.bash_custom` exists, it will be sourced along with the other files. You
@@ -59,15 +46,12 @@ repository, or to add commands you don’t want to commit to a public repository
 My `~/.bash_custom` looks something like this:
 
 ```bash
-# Setup asdf
-source /usr/local/opt/asdf/asdf.sh
-
 # Git credentials
 # Not in the repository, to prevent people from accidentally committing under my name
 GIT_AUTHOR_NAME="0xADADA"
 GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 git config --global user.name "$GIT_AUTHOR_NAME"
-GIT_AUTHOR_EMAIL="0x_____.pub@0xadada.pub"          # CHANGEME
+GIT_AUTHOR_EMAIL="CHANGEME@example.com"             # CHANGEME
 GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
 git config --global user.signingkey 19656CA4
@@ -77,11 +61,16 @@ GTK_IM_MODULE=ibus
 QT_IM_MODULE=ibus
 XMODIFIERS="@im=ibus"  # older x-org applications
 
-# Update path with yarn
-export PATH="$HOME/.gem/bin:$PATH:" # ruby gem local path
-export GEM_HOME=~/.gem
+# add XCode to the PATH
+export PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
+# update ruby gem path
 export GEM_PATH=~/.gem
-export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin" # yarn global path
+export PATH="$HOME/.gem/bin:$PATH"
+# add yarn to PATH
+export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# Setup asdf
+source /usr/local/opt/asdf/asdf.sh
 ```
 
 You could also use `~/.bash_custom` to override settings, functions and aliases
@@ -90,15 +79,15 @@ repository](https://github.com/0xADADA/dotfiles/fork) instead, though.
 
 ### Sensible OS X defaults
 
-When setting up a new Mac, you may want to set some sensible OS X defaults:
+When setting up a new macos device, you may want to set some sensible macos defaults:
 
 ```bash
-./.defaults.sh
+./.macos
 ```
 
 ### Install Homebrew formulae
 
-When setting up a new Mac, you may want to install some common
+When setting up a new macos device, you may want to install some common
 [Homebrew](http://brew.sh/) formulae:
 
 ```bash
