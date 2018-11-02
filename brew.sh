@@ -25,15 +25,16 @@ brew update
 brew upgrade --cleanup
 
 # Install homebrew packages
-brew install android-platform-tools
 brew install asdf
 brew install bash
 brew install docker-compose  # Includes docker and docker-machine
 brew install git
 brew install gpg2
+brew install pinentry-mac  # fixes git signing issue
 brew install mobile-shell
 brew install openssl
 brew install pyenv  # not used, but required for asdf-python
+brew install watchman  # Used by node to watch for file system changes
 brew install yarn --without-node  # dont need node, I use asdf
 
 # Neovim
@@ -56,7 +57,6 @@ brew cask install google-chrome-canary
 brew cask install gpg-suite
 brew cask install imageoptim
 brew cask install iterm2
-brew cask install keybase
 brew cask install qlcolorcode
 brew cask install qlstephen
 brew cask install qlmarkdown
@@ -64,9 +64,7 @@ brew cask install quicklook-json
 brew cask install resilio-sync
 brew cask install signal
 brew cask install slack
-brew cask install transmission
 brew cask install tor-browser
-brew cask install vlc
 
 # Install fonts
 brew cask install font-source-code-pro
@@ -75,11 +73,9 @@ brew cask install font-twitter-color-emoji
 
 # Prompt user to install optional homebrew kegs
 kegs=(
+    android-platform-tools
     awscli
     postgresql
-    watchman              # Used by node to watch for file system changes
-    # ansible
-    # aws-elasticbeanstalk
 )
 
 for item in ${kegs[*]}
@@ -102,12 +98,12 @@ casks=(
     docker
     google-chrome
     google-earth
+    keybase
     sequel-pro
     psequel
     spotify
-    # openbazaar
-    # vagrant
-    # virtualbox
+    transmission
+    vlc
 )
 
 for item in ${casks[*]}
