@@ -1,10 +1,10 @@
 # Make neovim the default editor
 export EDITOR="nvim --noplugin"
-export GIT_EDITOR=$EDITOR # git uses the normal editor
+export GIT_EDITOR=$EDITOR # git uses the default editor
 
 if [[ $OSTYPE == darwin* ]]; then
     # Install ruby gems locally
-    export GEM_HOME=$(brew --prefix)
+    export GEM_HOME=~/.gem
 fi;
 
 # Larger bash history (allow 32³ entries; default is 500)
@@ -26,7 +26,4 @@ export LESS_TERMCAP_md="$ORANGE"
 export MANPAGER="less -X"
 
 # Add `~/bin` to the `$PATH`
-export PATH="$PATH:$HOME/bin"
-
-# Add XCode bin to the `$PATH`
-export PATH="$PATH:/Applications/Xcode.app/Contents/Developer/usr/bin"
+export PATH="$HOME/bin:$PATH"
