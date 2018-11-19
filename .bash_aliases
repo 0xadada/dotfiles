@@ -71,7 +71,7 @@ if [[ $OSTYPE == darwin* ]]; then
 
     # Get OS X Software Updates, and update installed Ruby gems, Homebrew,
     # npm, and their installed packages
-    alias update='echo "Upgrading packages..." && cd ~ && sudo -v && brew update && brew upgrade && brew cask upgrade && brew cleanup && asdf plugin-update --all && sudo softwareupdate -i -a && gem update --quiet || echo "update Done!"'
+    alias update='echo "Upgrading packages..." && cd ~ && sudo -v && brew update && brew upgrade && brew cask upgrade && brew cleanup && asdf plugin-update --all && sudo softwareupdate -i -a && gem update --default --quiet || echo "update Done!"'
 else
     # Linux, use pacman
     alias update='sudo yaourt -Syyuc'
