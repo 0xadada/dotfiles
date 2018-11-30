@@ -20,6 +20,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #
 #     baudrillard  # WD MyCloud
 #     chomsky      # Google Pixel                    G-2PW4100
+#     deleuze      # Raspberry Pi 3 Model A+
 #     derrida      # Apple 13" Mid-2010   MacBookPro7,1
 #     foucault     # LG/Google Nexus 5               LG-D820
 #     guattari     # Google Chromecast               NC2-6A5
@@ -29,7 +30,6 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Future use:
 #     arendt
 #     butler
-#     deleuze
 #     camus
 #     hardt
 #     hegel
