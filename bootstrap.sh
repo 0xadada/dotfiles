@@ -35,7 +35,7 @@ function install_asdf() {
     asdf plugin-update --all
     # install latest 8-branch Nodejs, set it globally
     bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
-    asdf install nodejs $(asdf list-all nodejs | grep '^8.' | tail -n 1)
+    asdf install nodejs $(asdf list-all nodejs | grep '^\b[0-9]*[02468]\b' | tail -n 1)
     asdf global nodejs $(asdf list nodejs | tail -n 1)
     # install latest erlang, set it globally
     asdf install erlang $(asdf list-all erlang | grep -E '^(\d+).(\d+).(\d+)$' | tail -n 1)
