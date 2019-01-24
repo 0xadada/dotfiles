@@ -18,7 +18,7 @@ HISTTIMEFORMAT='%F %T '
 
 # After each command, append to the history file and reread it
 # Note: Enables shared history amongst multiple terminals.
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'} history -a; history -c; history -r"
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
@@ -70,13 +70,11 @@ fi
 
 # Run SSH-agent (if it's not already running)
 if ! pgrep ssh-agent > /dev/null; then
-    ssh-agent > ~/.ssh-agent-pid
-    trap 'ssh-agent -k' EXIT
+    ssh-agent > /dev/null
 fi
-# Add SSH to the shell
-[ -e ~/.ssh-agent-pid ] && eval $(<~/.ssh-agent-pid) > /dev/null
-# Add SSH identities to the agent (if they haven't been added)
+# Add SSH identities to the agent
 if ! ssh-add -l > /dev/null; then
     echo "Add SSH identity to ssh-agent:"
-    ssh-add
+    # store passphrase to Keychain
+    ssh-add ~/.ssh/id_rsa
 fi
