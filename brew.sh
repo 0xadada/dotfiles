@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Install homebrew and install packages.
-# Author Ron. A @0xADADA
+# Author @0xADADA
 
 # Ask for the administrator password upfront.
 sudo -v
@@ -29,7 +29,6 @@ brew install asdf
 brew install bash
 brew install docker-compose  # Includes docker and docker-machine
 brew install git
-brew install gpg2
 brew install pinentry-mac  # fixes git signing issue
 brew install mobile-shell
 brew install openssl
@@ -54,7 +53,7 @@ brew cask install bitcoin-core
 brew cask install clipy
 brew cask install firefox-developer-edition  # or firefoxnightly, firefox-beta, firefox
 brew cask install google-chrome-canary
-brew cask install gpg-suite
+brew cask install gpg-suite-no-mail
 brew cask install imageoptim
 brew cask install iterm2
 brew cask install qlcolorcode
