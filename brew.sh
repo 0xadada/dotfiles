@@ -50,7 +50,6 @@ fi
 
 # Install homebrew cask packages
 brew cask install bitcoin-core
-brew cask install clipy
 brew cask install firefox-developer-edition  # or firefoxnightly, firefox-beta, firefox
 brew cask install google-chrome-canary
 brew cask install gpg-suite-no-mail
