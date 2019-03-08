@@ -143,3 +143,6 @@ let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fixers['scss'] = ['prettier']
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
+
+" vim-mix-format set to run Elixir formatter upon save
+let g:mix_format_on_save = 1

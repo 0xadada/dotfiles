@@ -81,8 +81,9 @@ function provision_universal() {
     # install improved css3 syntax
     git clone https://github.com/hail2u/vim-css3-syntax.git ~/.vim/bundle/vim-css3-syntax
 
-    # install elixir syntax
+    # install elixir syntax and auto-formatter
     git clone https://github.com/elixir-lang/vim-elixir.git ~/.vim/bundle/vim-elixir
+    git clone https://github.com/mhinz/vim-mix-format ~/.vim/bundle/vim-mix-format
 
     # install NERDTree plugin
     git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
