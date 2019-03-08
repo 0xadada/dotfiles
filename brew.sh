@@ -61,6 +61,7 @@ brew cask install qlmarkdown
 brew cask install quicklook-json
 brew cask install resilio-sync
 brew cask install signal
+brew cask install spectacle
 brew cask install slack
 brew cask install tor-browser
 
