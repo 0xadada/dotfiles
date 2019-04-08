@@ -201,3 +201,6 @@ alias copybranch='git branch | head -1 | sed -e "s/* //"| pbcopy'
 
 # GPG symmetric encrypt file (with just a password)
 alias encsym='gpg --armor --symmetric --cipher-algo AES256'
+
+# find yarn linked packages
+alias linked="(ls -l node_modules/; ls -l node_modules/@*) | grep ^l"
