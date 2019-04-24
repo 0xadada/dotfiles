@@ -52,7 +52,13 @@ set number
 syntax on
 " Enable plugins
 filetype plugin indent on
-"
+
+" code folding
+set foldmethod=indent
+set nofoldenable
+set foldnestmax=10
+set foldlevel=2
+
 " Highlight current line
 set nocursorline
 " Highlight columns after 80 characters
