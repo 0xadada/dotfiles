@@ -33,6 +33,7 @@ brew install pinentry-mac  # fixes git signing issue
 brew install mobile-shell
 brew install openssl
 brew install pyenv  # not used, but required for asdf-python
+brew install rg  # ripgrep, used by neovim::denite plugin
 brew install watchman  # Used by node to watch for file system changes
 brew install yarn --without-node  # dont need node, I use asdf
 

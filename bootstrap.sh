@@ -109,7 +109,11 @@ function provision_universal() {
     # Mustache / Handlebars templates
     git clone git://github.com/mustache/vim-mustache-handlebars.git ~/.vim/bundle/vim-mustache-handlebars
 
-    # install deoplete autocomplete plugin
+    # Denite
+    pip3 install --user pynvim  #install dependency for Denite
+    git clone git://github.com/Shougo/denite.nvim.git ~/.vim/bundle/vim-denite
+
+    # Deoplete
     pip3 install neovim  # a dependency
     git clone https://github.com/Shougo/deoplete.nvim.git \
       ~/.vim/bundle/deoplete.nvim.git  # autocomplete
