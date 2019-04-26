@@ -127,6 +127,18 @@ function provision_darwin() {
     echo "Installing XCode command line tools..."
     xcode-select --install
 
+    # Remove garageband
+    pkgutil --forget com.apple.pkg.GarageBand_AppStore
+    pkgutil --forget com.apple.pkg.GarageBandBasicContent
+    sudo rm -rfv /Applications/GarageBand.app && \
+      rm -rfv /Library/Application\ Support/GarageBand && \
+      rm -rfv /Library/Application\ Support/Logic/ && \
+      rm -rfv /Library/Audio/Apple\ Loops && \
+      rm -rfv /Library/Audio/Apple\ Loops\ Index && \
+      rm -rfv /Library/Receipts/com.apple.pkg.*GarageBand* && \
+      rm -rfv ~/Library/Audio/Apple Loops && \
+      rm -rfv ~/Library/Application\ Support/GarageBand
+
     # call homebrew and homebrew cask scripts (installs NPM, etc)
     read -p "Install Homebrew and all packages (y/n)? " choice
     case "$choice" in
