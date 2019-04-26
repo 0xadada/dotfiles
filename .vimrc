@@ -201,22 +201,18 @@ nmap <leader>t :Denite file/rec -split=floating -winrow=1<CR>
 nnoremap <leader>g :<C-u>Denite grep:. -no-empty -mode=normal<CR>
 nnoremap <leader>j :<C-u>DeniteCursorWord grep:. -mode=normal<CR>
 
-" deoplete
-let g:deoplete#enable_at_startup = 1
-" Use tern for deoplete
-let g:tern_request_timeout = 1
-" let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
-"Add extra filetypes
-let g:tern#filetypes = [
-                \ 'jsx',
-                \ 'vue']
+" coc.nvim shortcut mappings
+nmap <silent> <leader>dd <Plug>(coc-definition)
+nmap <silent> <leader>dr <Plug>(coc-references)
+nmap <silent> <leader>dj <Plug>(coc-implementation)
 
-" w0rp ale configuration
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
-let g:ale_fixers['scss'] = ['prettier']
-let g:ale_fix_on_save = 1
-let g:ale_javascript_prettier_use_local_config = 1
+" Specify a directory for plugins
+" - For Neovim:
+call plug#begin('~/.local/share/nvim/plugged')
+" Make sure you use single quotes
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+" Initialize plugin system
+call plug#end()
 
 " vim-mix-format set to run Elixir formatter upon save
 let g:mix_format_on_save = 1

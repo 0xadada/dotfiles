@@ -71,6 +71,16 @@ function provision_universal() {
     echo "Installing VIM packages"
     echo ""
     rm -rf ~/.vim/bundle && mkdir -p ~/.vim/bundle
+
+    # install vim-plug
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    nvim -c ":PlugInstall" -c q -c q && echo "installed vim-plug"
+
+    # install coc.nvim language servers
+    vim -c ":CocInstall coc-tsserver coc-eslint coc-prettier coc-html coc-css coc-json coc-python coc-yaml" && \
+      echo " installed coc.nvim language servers"
+
     # install gruvbox color scheme
     git clone https://github.com/morhetz/gruvbox.git ~/.vim/bundle/gruvbox
 
@@ -100,9 +110,6 @@ function provision_universal() {
     # install vim-gitgutter
     git clone https://github.com/airblade/vim-gitgutter.git ~/.vim/bundle/vim-gitgutter
 
-    # install w0rp/ale
-    git clone https://github.com/w0rp/ale.git ~/.vim/bundle/ale
-
     # Elixir autocomplete
     git clone https://github.com/slashmili/alchemist.vim ~/.vim/bundle/alchemist
 
@@ -112,15 +119,6 @@ function provision_universal() {
     # Denite
     pip3 install --user pynvim  #install dependency for Denite
     git clone git://github.com/Shougo/denite.nvim.git ~/.vim/bundle/vim-denite
-
-    # Deoplete
-    pip3 install neovim  # a dependency
-    git clone https://github.com/Shougo/deoplete.nvim.git \
-      ~/.vim/bundle/deoplete.nvim.git  # autocomplete
-    yarn global add tern  # another dependency, for javascript
-    git clone https://github.com/carlitux/deoplete-ternjs.git \
-      ~/.vim/bundle/deoplete-ternjs.git  # javascript plugin
-    nvim -c ":UpdateRemotePlugins" -c q && echo "updated NeoVim"
 }
 
 # Bootstrap provisioning for OS X
