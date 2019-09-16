@@ -56,6 +56,7 @@ brew cask install google-chrome-canary
 brew cask install gpg-suite-no-mail
 brew cask install imageoptim
 brew cask install iterm2
+brew cask install protonvpn
 brew cask install qlcolorcode
 brew cask install qlstephen
 brew cask install qlmarkdown
