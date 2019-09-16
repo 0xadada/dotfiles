@@ -43,36 +43,6 @@ If `~/.bash_custom` exists, it will be sourced along with the other files. You
 can use this to add a few custom commands without the need to fork this entire
 repository, or to add commands you don’t want to commit to a public repository.
 
-My `~/.bash_custom` looks something like this:
-
-```bash
-# Git credentials
-# Not in the repository, to prevent people from accidentally committing under my name
-GIT_AUTHOR_NAME="0xADADA"
-GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-git config --global user.name "$GIT_AUTHOR_NAME"
-GIT_AUTHOR_EMAIL="CHANGEME@example.com"             # CHANGEME
-GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
-git config --global user.email "$GIT_AUTHOR_EMAIL"
-git config --global user.signingkey 19656CA4
-
-# ibus settings (IME tools)
-GTK_IM_MODULE=ibus
-QT_IM_MODULE=ibus
-XMODIFIERS="@im=ibus"  # older x-org applications
-
-# add XCode to the PATH
-export PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
-# update ruby gem path
-export GEM_PATH=~/.gem
-export PATH="$HOME/.gem/bin:$PATH"
-# add yarn to PATH
-export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-# Setup asdf
-source /usr/local/opt/asdf/asdf.sh
-```
-
 You could also use `~/.bash_custom` to override settings, functions and aliases
 from my dotfiles repository. It’s probably better to [fork this
 repository](https://github.com/0xADADA/dotfiles/fork) instead, though.

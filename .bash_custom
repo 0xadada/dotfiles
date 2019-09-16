@@ -1,0 +1,27 @@
+# GIT_AUTHOR_NAME="0xADADA"
+# GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+# git config --global user.name "$GIT_AUTHOR_NAME"
+# GIT_AUTHOR_EMAIL="CHANGEME@example.com"
+# GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+# git config --global user.email "$GIT_AUTHOR_EMAIL"
+# git config --global user.signingkey 19656CA4
+#
+# # ibus settings (IME tools)
+# GTK_IM_MODULE=ibus
+# QT_IM_MODULE=ibus
+# XMODIFIERS="@im=ibus"  # older x-org applications
+#
+# # add XCode to the PATH
+# export PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
+#
+# # add yarn to PATH
+# export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+#
+# # add ruby gems to PATH
+# export GEM_PATH=~/.gem
+# export PATH="$HOME/.gem/bin:$PATH"
+#
+# # Setup asdf
+# source /usr/local/opt/asdf/asdf.sh
+# # Setup rvm
+# source /Users/ronadams/.rvm/scripts/rvm

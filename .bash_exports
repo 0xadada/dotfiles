@@ -2,11 +2,6 @@
 export EDITOR="nvim --noplugin"
 export GIT_EDITOR=$EDITOR # git uses the default editor
 
-if [[ $OSTYPE == darwin* ]]; then
-    # Install ruby gems locally
-    export GEM_HOME=~/.gem
-fi;
-
 # Larger bash history (allow 32³ entries; default is 500)
 export HISTSIZE=32768
 export HISTFILESIZE=$HISTSIZE
