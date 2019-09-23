@@ -27,6 +27,7 @@ brew upgrade --cleanup
 # Install homebrew packages
 brew install asdf
 brew install bash
+brew install bash-completion
 brew install docker-compose  # Includes docker and docker-machine
 brew install git
 brew install pinentry-mac  # fixes git signing issue
