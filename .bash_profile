@@ -67,6 +67,8 @@ fi
 
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
+# bash completion via homebrew
+[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 
 # Run SSH-agent (if it's not already running)
 if ! pgrep ssh-agent > /dev/null; then
