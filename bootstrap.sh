@@ -19,7 +19,7 @@ function sync() {
 
 # Homebrew OS X package manager
 function install_homebrew() {
-    echo "Installing Homebrew and packages..."
+    echo "Installing Homebrew kegs and casks..."
     source brew.sh
 }
 
