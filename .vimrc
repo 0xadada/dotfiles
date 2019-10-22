@@ -133,6 +133,9 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#branch#displayed_head_limit = 10
 
+" NERDTree
+let g:NERDTreeIgnore = ['^dist$', '^node_modules$']
+
 try
 " Denite setup
 " Use ripgrep for searching current directory for files
