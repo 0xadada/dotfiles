@@ -1,11 +1,31 @@
-" Make Vim more useful
+" make Vim more useful
 set nocompatible
 
-" Plugins - Enable runtime path manipulation
-execute pathogen#infect()
+" plugins
+call plug#begin(stdpath('data') . '/plugged')
+" Colors, visual looks
+Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline'
+" LSP
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" completion
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemovePlugins' }
+" features
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'scrooloose/nerdtree'
+" fuzzy search
+Plug 'Shougo/denite.nvim'
+" code formatting
+Plug 'slashmili/alchemist.vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'elixir-lang/vim-elixir'
+Plug 'mhinz/vim-mix-format'
+Plug 'mustache/vim-mustache-handlebars'
+call plug#end()
 
 " set the color palette - Gruvbox
-" old - " colors molokai
 colorscheme gruvbox
 set background=dark
 
@@ -209,13 +229,8 @@ nmap <silent> <leader>dd <Plug>(coc-definition)
 nmap <silent> <leader>dr <Plug>(coc-references)
 nmap <silent> <leader>dj <Plug>(coc-implementation)
 
-" Specify a directory for plugins
-" - For Neovim:
-call plug#begin('~/.local/share/nvim/plugged')
-" Make sure you use single quotes
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-" Initialize plugin system
-call plug#end()
-
 " vim-mix-format set to run Elixir formatter upon save
 let g:mix_format_on_save = 1
+
+" enable autocompletion
+let g:deoplete#enable_at_startup = 1

@@ -10,7 +10,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Install homebrew if it doesn't exist
 if ! [ -x /usr/local/bin/brew ]; then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 # Install all the fun
@@ -18,10 +18,6 @@ brew bundle
 
 # Upgrade any already-installed formulae.
 brew upgrade --cleanup
-
-# finalize Neovim
-ln -s ~/.vim ~/.config/nvim
-ln -s ~/.vimrc ~/.config/nvim/init.vim
 
 # finalize Bash
 if ! cat /etc/shells | grep -q "/usr/local/bin/bash"; then
