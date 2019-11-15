@@ -14,7 +14,7 @@ end_of_line = lf
 insert_final_newline = true
 
 # Javascript
-[*.js]
+[*.{js,ts}]
 indent_style = space
 indent_size = 2
 
