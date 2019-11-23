@@ -66,8 +66,11 @@ function provision_universal() {
   esac
 
   echo "Installing Yarn packages"
-  yarn global add tldr neovim
+  yarn global add tldr
+}
 
+# Bootstrap provisioning for vim
+function provision_vim() {
   echo "Installing VIM packages"
   # finalize Neovim
   rm -rf ~/.vim*
@@ -75,15 +78,19 @@ function provision_universal() {
   ln -s ~/.config/nvim/init.vim ~/.vimrc
   echo ""
 
-  pip3 install --user pynvim  #install dependency for Denite
+  # install neovim language deps
+  yarn global add neovim
+  gem install neovim
+  pip3 install pynvim  #install dependency for Denite
 
   # install vim-plug
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  nvim -c ":PlugInstall" -c q -c q && echo "installed vim-plug and plugins"
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && \
+    echo "installed vim-plug"
+  nvim -c ":PlugInstall" -c q -c q && echo "installed all vim plugins"
 
   # install coc.nvim language servers
-  vim -c ":CocInstall coc-tsserver coc-eslint coc-prettier coc-html coc-css coc-json coc-python coc-yaml" && \
+  nvim -c ":CocInstall coc-tsserver coc-eslint coc-prettier coc-html coc-css coc-json coc-python coc-yaml" -c q -c q && \
     echo " installed coc.nvim language servers"
 }
 
@@ -237,6 +244,13 @@ if [[ $OSTYPE == linux* ]]; then
     * ) echo "invalid answer";;
   esac
 fi
+# Provision any vim specific deps
+read -p "Provision vim? (y/n)? " choice
+case "$choice" in
+  y|Y ) provision_vim;;
+  n|N ) echo "Skiping provisioning";;
+  * ) echo "invalid answer";;
+esac
 
 # Provision any OS-non specific applications
 read -p "Provision non-specific OS software? (y/n)? " choice
@@ -251,6 +265,7 @@ unset sync;
 unset install_homebrew;
 unset install_asdf;
 unset provision_universal;
+unset provision_vim;
 unset provision_darwin;
 unset provision_linux;
 

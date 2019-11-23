@@ -16,7 +16,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 " fuzzy search
 Plug 'Shougo/denite.nvim'
-" code formatting
+" code formatting/highlighting
+Plug 'leafgarland/typescript-vim'
 Plug 'slashmili/alchemist.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'hail2u/vim-css3-syntax'
