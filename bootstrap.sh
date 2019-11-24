@@ -76,6 +76,7 @@ function provision_vim() {
   rm -rf ~/.vim*
   ln -s ~/.config/nvim ~/.vim
   ln -s ~/.config/nvim/init.vim ~/.vimrc
+  mkdir -p ~/.config/nvim/backup ~/.config/nvim/swaps ~/.config/nvim/undo
   echo ""
 
   # install neovim language deps
