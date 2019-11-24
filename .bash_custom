@@ -4,7 +4,7 @@
 # GIT_AUTHOR_EMAIL="CHANGEME@example.com"
 # GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 # git config --global user.email "$GIT_AUTHOR_EMAIL"
-# git config --global user.signingkey 19656CA4
+# git config --global user.signingkey 6BBE9BB119656CA4
 #
 # # ibus settings (IME tools)
 # GTK_IM_MODULE=ibus
