@@ -8,8 +8,6 @@ Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 " LSP
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemovePlugins' }
 " features
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -227,6 +225,3 @@ nmap <silent> <leader>dj <Plug>(coc-implementation)
 
 " vim-mix-format set to run Elixir formatter upon save
 let g:mix_format_on_save = 1
-
-" enable autocompletion
-let g:deoplete#enable_at_startup = 1
