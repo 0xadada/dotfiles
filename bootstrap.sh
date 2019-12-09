@@ -15,6 +15,9 @@ function sync() {
     --exclude "README.md" \
     --exclude "LICENSE" \
     -av --no-perms . ~
+  # add SSH key to macOS keychain
+  echo "⚠️  Adding SSH key to macOS Keychain⚠️  "
+  ssh-add -K ~/.ssh/id_rsa
 }
 
 # Homebrew OS X package manager

@@ -70,13 +70,3 @@ fi
 # bash completion via homebrew
 [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 
-# Run SSH-agent (if it's not already running)
-if ! pgrep ssh-agent > /dev/null; then
-    ssh-agent > /dev/null
-fi
-# Add SSH identities to the agent
-if ! ssh-add -l > /dev/null; then
-    echo "Add SSH identity to ssh-agent:"
-    # store passphrase to Keychain
-    ssh-add ~/.ssh/id_rsa
-fi
