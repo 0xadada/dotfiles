@@ -7,7 +7,7 @@ brew "docker-compose"
 brew "git"
 brew "pinentry-mac"
 brew "mobile-shell"
-brew "neovim/neovim/neovim"
+brew "neovim"
 brew "openssl"
 brew "pyenv"
 brew "rg"
@@ -39,3 +39,4 @@ cask "font-twitter-color-emoji"
 cask "vlc"
 mas "Slack", id: 803453959
 mas "Next Meeting", id:1017470484
+mas "Giphy Capture", id:668208984
