@@ -90,10 +90,11 @@ function provision_vim() {
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && \
     echo "installed vim-plug"
-  nvim -c ":PlugInstall" -c q -c q && echo "installed all vim plugins"
+  nvim -c ":PlugInstall" -c ":qall" && echo "installed all vim plugins"
 
   # install coc.nvim language servers
-  nvim -c ":CocInstall coc-tsserver coc-eslint coc-prettier coc-html coc-css coc-json coc-python coc-yaml" -c q -c q && \
+  nvim -c ":CocInstall coc-tsserver coc-eslint coc-prettier coc-html coc-css coc-json coc-python coc-yaml" \
+    -c ":qall" && \
     echo " installed coc.nvim language servers"
 }
 
