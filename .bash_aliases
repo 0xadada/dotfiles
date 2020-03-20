@@ -205,4 +205,4 @@ alias encsym='gpg --armor --symmetric --cipher-algo AES256'
 # find yarn linked packages
 alias linked="(ls -l node_modules/; ls -l node_modules/@*) | grep ^l"
 # show packetloss
-alias packetloss="~./bin/notify-on-packetloss.sh"
+alias packetloss="$HOME/bin/notify-on-packetloss.sh"
