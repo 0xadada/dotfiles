@@ -18,14 +18,14 @@ while true; do
     ping="$(ping -c 1 -W 500 -q ${gateway} 2>&1)"
     result=$?
     packet_loss=$(echo "${ping}" | rg 'packet loss' | awk '{print $7}')
-    echo "${datetime} packet ${count_packets} status   ${packet_loss}"
+    # echo "${datetime} packet ${count_packets} status   ${packet_loss}"
     if (( $result != 0 )); then
       count_dropped=$(($count_dropped + 1))
       fail_per=$(echo $(bc <<< "scale=2; ${count_dropped} / ${count_packets} * 100"))
       message="${datetime} packet ${count_packets} dropped ${fail_per}% of ${count_dropped} total"
-      echo "${message}" # stdout
+      # echo "${message}" # stdout
       echo "${message}" >&2 # stderr
-      script="$(echo display notification \"$message\" with title \"Packetloss\")"
+      script="$(echo display notification \"${message}\" with title \"${fail_per}% packetloss\")"
       echo \'"${script}"\' | xargs osascript -e
     fi
     sleep 1
