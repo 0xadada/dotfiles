@@ -13,6 +13,7 @@ brew "pyenv"
 brew "rg"
 brew "watchman"
 brew "yarn", args: ["--without-node"]
+cask "anybar"
 cask "bitcoin-core"
 cask "brave-browser"
 cask "firefox-developer-edition"
