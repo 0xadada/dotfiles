@@ -2,7 +2,7 @@
 # Send a macos notification when packetloss is detected
 # Author @0xADADA
 
-trap '' EXIT
+trap 'echo -n "white" | nc -4u -w0 localhost 1738' EXIT # reset anybar upon exit
 
 count_packets=0
 count_dropped=0
@@ -19,9 +19,18 @@ while true; do
     result=$?
     packet_loss=$(echo "${ping}" | grep 'packet loss' | awk '{print $7}')
     logger -is -p 'user.notice' -t 'pub.0xadada.notify-on-packetloss' "packet ${count_packets} status ${packet_loss}"
+    # set anybar color to white
+    echo -n "white" | nc -4u -w0 localhost 1738
     if (( $result != 0 )); then
       count_dropped=$(($count_dropped + 1))
-      fail_per=$(echo $(bc <<< "scale=2; ${count_dropped} / ${count_packets} * 100"))
+      fail_per=$(bc <<< "${count_dropped} * 100 / ${count_packets}")
+      # change anybar color based on packet dropped rate
+      if (( $fail_per >= 1 )); then echo -n "green" | nc -4u -w0 localhost 1738; fi
+      if (( $fail_per >= 3 )); then echo -n "yellow" | nc -4u -w0 localhost 1738; fi
+      if (( $fail_per >= 5 )); then echo -n "orange" | nc -4u -w0 localhost 1738; fi
+      if (( $fail_per >= 8 )); then echo -n "red" | nc -4u -w0 localhost 1738; fi
+      if (( $fail_per >= 21 )); then echo -n "exclamation" | nc -4u -w0 localhost 1738; fi
+      # compose messaging
       message="packet ${count_packets} dropped ${fail_per}% of ${count_dropped} total"
       logger -is -p 'user.err' -t "pub.0xadada.notify-on-packetloss" "${message}"
       script="$(echo display notification \"${message}\" with title \"${fail_per}% packetloss\")"
@@ -30,6 +39,8 @@ while true; do
     sleep 1
   else
     logger -is -p 'user.notice' -t "pub.0xadada.notify-on-packetloss" "network inactive"
+    # set anybar color to question
+    echo -n "question" | nc -4u -w0 localhost 1738
     sleep 10
   fi
 done
