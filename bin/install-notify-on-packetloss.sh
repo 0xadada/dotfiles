@@ -20,5 +20,5 @@ if (( $result != 0 )); then
   echo "Failed to install with code: ${result}"
 else
   pid=$(launchctl list | rg 'pub.0xadada.notify-on-packetloss' | awk '{print $1}')
-  echo "Successfully installed notify-on-packetloss.sh, PID ${pid}"
+  echo "Installed launchd service 'pub.0xadada.notify-on-packetloss' with PID ${pid}"
 fi
