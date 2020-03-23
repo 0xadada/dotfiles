@@ -19,8 +19,8 @@ while true; do
     result=$?
     packet_loss=$(echo "${ping}" | grep 'packet loss' | awk '{print $7}')
     logger -is -p 'user.notice' -t 'pub.0xadada.notify-on-packetloss' "packet ${count_packets} status ${packet_loss}"
-    # set anybar color to white
-    echo -n "white" | nc -4u -w0 localhost 1738
+    # set anybar color to white every 5 packet/seconds
+    if (( $count_packets % 5 == 0 )); then echo -n "white" | nc -4u -w0 localhost 1738; fi
     if (( $result != 0 )); then
       count_dropped=$(($count_dropped + 1))
       fail_per=$(bc <<< "${count_dropped} * 100 / ${count_packets}")
