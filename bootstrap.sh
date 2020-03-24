@@ -131,6 +131,13 @@ function provision_darwin() {
     n|N ) echo "Skipping OS X defaults";;
     * ) echo "invalid answer";;
   esac
+
+  # install notify-on-packetloss launchd service
+  git clone -q git@github.com:0xadada/notify-on-packetloss.git asdftmp # tmp dir
+  pushd asdftmp
+  source install.sh
+  popd
+  rm -rf asdftmp # cleanup tmp dir
 }
 
 function install_linux() {
