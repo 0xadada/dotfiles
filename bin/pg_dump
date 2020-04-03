@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# drop-in replacement for dockerized pg_dump CLI
+
+params=$*
+volmount=""
+while [[ $# -gt 1 ]]
+do
+  if [ "-f" = "$1" ]
+  then
+    volmount="--volume $2:$2"
+    shift
+  fi
+  shift
+done
+docker run \
+  -it \
+  --rm \
+  --name postgres-pg_dump \
+  $volmount \
+  postgres:9.6.12 \
+  env PGPASSWORD="password" pg_dump -h host.docker.internal -U postgres $params

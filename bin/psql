@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# drop-in replacement for dockerized psql CLI
+
+params=$*
+docker run \
+  -it \
+  --rm \
+  --name postgres-psql \
+  postgres:9.6.12 \
+  env PGPASSWORD="password" psql -h host.docker.internal -U postgres $params
