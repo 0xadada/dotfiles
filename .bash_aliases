@@ -189,7 +189,7 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 alias reload="exec $SHELL -l"
 
 # source local .env file
-alias dotenv="export $(cat .env | xargs)"
+alias dotenv='export $(cat .env | xargs); cat .env'
 
 # Simply python linter, checks for syntax errors
 alias pylint="python -m py_compile"
