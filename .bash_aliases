@@ -188,8 +188,8 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
 
-# Kill docker-machine VM with fire
-alias puff-down='docker-machine stop docker-vm && docker-machine rm docker-vm && docker-machine create --driver virtualbox --virtualbox-memory "2048"  docker-vm && docker-machine start docker-vm && echo eval \$\(docker-machine env docker-vm\)'
+# source local .env file
+alias dotenv="export $(cat .env | xargs)"
 
 # Simply python linter, checks for syntax errors
 alias pylint="python -m py_compile"
@@ -204,5 +204,6 @@ alias encsym='gpg --armor --symmetric --cipher-algo AES256'
 
 # find yarn linked packages
 alias linked="(ls -l node_modules/; ls -l node_modules/@*) | grep ^l"
+
 # show packetloss
 alias packetloss="$HOME/bin/notify-on-packetloss.sh"
