@@ -1,4 +1,4 @@
-# Easier navigation: .., ..., ...., ....., ~ and -
+# Easier navigation: ..
 alias ..="cd .."
 
 alias battery="acpi -V"
@@ -61,7 +61,7 @@ fi;
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias whatsmyip="ip"
-alias localip="netstat -rn | grep 'default' | head -n 1 | awk '{print $6}' | xargs ipconfig getifaddr"
+alias localip="netstat -rn | grep default | head -n 1 | awk '{print \$6}' | xargs ipconfig getifaddr"
 
 # Trim new lines and copy to clipboard
 alias c="tr -d '\n' | pbcopy"

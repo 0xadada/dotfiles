@@ -28,5 +28,4 @@ if ! cat /etc/shells | grep -q "/usr/local/bin/bash"; then
 fi
 
 # cleanup
-brew cask cleanup
 brew cleanup
