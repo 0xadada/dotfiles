@@ -12,7 +12,7 @@
 # XMODIFIERS="@im=ibus"  # older x-org applications
 #
 # # add XCode to the PATH
-# PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:${PATH}"
+# PATH="${PATH}:$(xcode-select --print-path)/usr/bin"
 #
 # # add yarn to PATH
 # PATH="${HOME}/.config/yarn/global/node_modules/.bin:${PATH}"
