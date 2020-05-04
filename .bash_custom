@@ -12,16 +12,18 @@
 # XMODIFIERS="@im=ibus"  # older x-org applications
 #
 # # add XCode to the PATH
-# export PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
+# PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:${PATH}"
 #
 # # add yarn to PATH
-# export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# PATH="${HOME}/.config/yarn/global/node_modules/.bin:${PATH}"
 #
 # # add ruby gems to PATH
-# export GEM_PATH=~/.gem
-# export PATH="$HOME/.gem/bin:$PATH"
+# export GEM_PATH="${HOME}/.gem"
+# PATH="${GEM_PATH}/bin:${PATH}"
 #
 # # Setup asdf
 # source /usr/local/opt/asdf/asdf.sh
 # # Setup rvm
-# source /Users/ronadams/.rvm/scripts/rvm
+# source "${HOME}/.rvm/scripts/rvm"
+#
+# alias aws-update-certs='test -e ~/.aws/credentials && mv ~/.aws/credentials ~/.aws/credentials.bak.\`date +%Y%b%d-%H%M%S\`; mv ~/Desktop/credentials ~/.aws/credentials && echo -e "\nregion = us-east-1" >> ~/.aws/credentials'

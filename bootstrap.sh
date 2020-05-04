@@ -46,14 +46,17 @@ function install_asdf() {
   # install latest elixir, set it globally
   asdf install elixir $(asdf list-all elixir | grep -E '^(\d+).(\d+).(\d+)$' | tail -n 1)
   asdf global elixir $(asdf list elixir | tail -n 1)
+  # setup a fix for openssl in python
+  brew link --force openssl
+  LDFLAGS="-L$(brew --prefix openssl)/lib"
+  CPPFLAGS="-I$(brew --prefix openssl)/include"
+  CFLAGS="-I$(brew --prefix openssl)/include"
   # install latest python2
-  asdf install python $(asdf list-all python | grep -E '^2.(\d+).(\d+)$' | tail -n 1)
-  # install latest python3, set it globally
-  LDFLAGS="-L$(brew --prefix openssl)/lib" \
-  CPPFLAGS="-I$(brew --prefix openssl)/include" \
-  CFLAGS="-I$(brew --prefix openssl)/include" \
-  asdf install python $(asdf list-all python | grep -E '^3.(\d+).(\d+)$' | tail -n 1)
-  asdf global python $(asdf list python | tail -n 1)
+  asdf install python $(asdf list-all python | grep -E '^2.(\d+).(\d+)$' | tail -n1)
+  # install latest python3
+  asdf install python $(asdf list-all python | grep -E '^3.(\d+).(\d+)$' | tail -n1)
+  # set python3 default with python2 fallback
+  asdf global python $(asdf list python | tail -n2 | sort -r | xargs echo -n)
   # install latest ruby, set it globally
   asdf install ruby $(asdf list-all ruby | grep -E '^(\d+).(\d+).(\d+)$' | tail -n 1)
   asdf global ruby $(asdf list ruby | tail -n 1)
@@ -70,6 +73,8 @@ function provision_universal() {
 
   echo "Installing Yarn packages"
   yarn global add tldr
+  echo "Installing Ansible"
+  pip install --user ansible
 }
 
 # Bootstrap provisioning for vim
