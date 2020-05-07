@@ -1,5 +1,4 @@
-tap "caskroom/fonts"
-tap "buo/cask-upgrade"
+tap "homebrew/cask-fonts"
 brew "asdf"
 brew "bash"
 brew "bash-completion"
