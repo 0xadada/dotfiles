@@ -20,4 +20,8 @@ Thumbs.db
 .Spotlight-V100
 .Trashes
 .python-version
+
+.venv/
+node_modules/
+ansible/vendor/
 Brewfile.lock.json

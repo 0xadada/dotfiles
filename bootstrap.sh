@@ -1,17 +1,60 @@
 #!/usr/bin/env bash
-# Provision a new Apple OS X machine
-# Author Ron. A @0xADADA
+# Provision a new Apple macOS machine
+# Author @0xADADA
+
+
+sudo -v # ask for the administrator password upfront.
+
+# Keep-alive: update existing `sudo` time stamp until the script has finished.
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 cd "$(dirname "${BASH_SOURCE}")";
 
 git pull origin master;
+
+if ! command -v xcode-select > /dev/null
+then
+  echo 'Installing xcode command line tools...'
+  xcode-select --install
+fi
+
+if ! [ -x /usr/local/bin/brew ]; then
+  echo 'Installing Homebrew...'
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+fi
+
+echo 'Installing Homebrew taps, kegs, casks, and brews...'
+brew update
+brew bundle
+brew upgrade # upgrade installed formulae
+brew cask upgrade --greedy # force auto-upgrade casks
+brew cleanup
+
+# switch from system Bash to Homebrew Bash
+if ! cat /etc/shells | grep -q "/usr/local/bin/bash"; then
+  # Add the new bash to our available shells
+  echo '/usr/local/bin/bash' | sudo tee -a /etc/shells
+  # switch current users shell to the new bash
+  chsh -s /usr/local/bin/bash
+fi
+
+echo 'Installing Yarn packages'
+yarn global add tldr
+
+echo 'Installing Ansible'
+PATH="${HOME}/Library/Python/3.7/bin:${PATH}"
+pip3 install --user ansible
+
+echo 'Installing tools with Ansible'
+ansible-playbook \
+  --ask-become-pass \
+  ansible/main.yml
 
 function sync() {
   rsync --exclude ".git/" \
     --exclude ".DS_Store" \
     --exclude ".macos" \
     --exclude "bootstrap.sh" \
-    --exclude "brew.sh" \
     --exclude "README.md" \
     --exclude "LICENSE" \
     -av --no-perms . ~
@@ -20,11 +63,6 @@ function sync() {
   ssh-add -K ~/.ssh/id_rsa
 }
 
-# Homebrew OS X package manager
-function install_homebrew() {
-  echo "Installing Homebrew kegs and casks..."
-  source brew.sh
-}
 
 function install_asdf() {
   # Setup asdf (installed via homebrew)
@@ -70,11 +108,6 @@ function provision_universal() {
     n|N ) echo "Skipping asdf";;
     * ) echo "invalid answer";;
   esac
-
-  echo "Installing Yarn packages"
-  yarn global add tldr
-  echo "Installing Ansible"
-  pip install --user ansible
 }
 
 # Bootstrap provisioning for vim
@@ -105,10 +138,6 @@ function provision_vim() {
 
 # Bootstrap provisioning for OS X
 function provision_darwin() {
-  # Install XCcode command line tools
-  echo "Installing XCode command line tools..."
-  xcode-select --install
-
   # Remove garageband
   pkgutil --forget com.apple.pkg.GarageBand_AppStore
   pkgutil --forget com.apple.pkg.GarageBandBasicContent
@@ -121,16 +150,8 @@ function provision_darwin() {
     rm -rfv ~/Library/Audio/Apple Loops && \
     rm -rfv ~/Library/Application\ Support/GarageBand
 
-  # call homebrew and homebrew cask scripts (installs NPM, etc)
-  read -p "Install Homebrew and all packages (y/n)? " choice
-  case "$choice" in
-    y|Y ) install_homebrew;;
-    n|N ) echo "Skipping homebrew";;
-    * ) echo "invalid answer";;
-  esac
-
   # Setup OS X system defaults
-  read -p "Setup OS X system defaults (y/n)? " choice
+  read -p "Personalize macOS system defaults (y/n)? " choice
   case "$choice" in
     y|Y ) source .macos;;
     n|N ) echo "Skipping OS X defaults";;
@@ -145,91 +166,6 @@ function provision_darwin() {
   rm -rf asdftmp # cleanup tmp dir
 }
 
-function install_linux() {
-  # Stuff to install after installing linux
-  sudo pacman -Sy
-
-  echo "General utilities"
-  sudo pacman -S tree \
-         rsync \
-         which \
-         dialog \
-         wpa_supplicant \
-         yarn
-
-  echo "Power utilities"
-  sudo pacman -S cpupower \
-         powertop \
-         acpi \
-         acpid
-  yaourt -S    laptop-mode-tools \
-         mbpfan-git \
-         thermald
-}
-
-function provision_linux() {
-  # we're in linux
-  echo "Updating pacman database"
-  sudo pacman -Sy
-
-  echo "Actually installing shit..."
-  # some base utils
-  sudo pacman -S openssh \
-         keybase \
-         git \
-         vim \
-         bluez \
-         bluez-utils
-
-  # Install X
-  sudo pacman -S xf86-video-intel \
-         xf86-input-synaptics \
-         xorg-server \
-         xorg-init \
-         rxvt-unicode
-
-  # Install X utilities and apps
-  yaourt -S awesome \
-    vicious \
-    xbindkeys \
-    xautolock \
-    xorg-xsetroot \
-    slock \
-    lain-git  # Layouts n shit, yo
-
-  # install some great fonts
-  yaourt -S noto-fonts-emoji \
-    terminus-font \
-    adobe-source-sans-pro-fonts \
-    adobe-source-serif-pro-fonts \
-    adobe-source-code-pro-fonts \
-    otf-sauce-code-powerline-git \  # Adobe Source Code Pro (Patched for Powerline)
-    ttf-twitter-color-emoji-svginot # Twitter Emoji for Everyone
-
-  # install keyboard / IME tools
-  yaourt -S ibus \
-    ibus-uniemoji-git
-
-  # Install monitor calibration tools
-  yaourt -S xcalib \
-    xflux \
-    xfluxd \
-    kbdlight
-
-  # Install some useful applications
-  yaourt -S rslsync \
-    nvm-git \
-    pyenv \
-    firefox-beta-bin \
-    google-chrome \
-    google-earth \
-    mpv \
-    mysql-workbench \
-    spotify \
-    android-tools \
-    bitcoin-qt \
-    transmission-gtk
-}
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
   sync;
@@ -251,15 +187,6 @@ if [[ $OSTYPE == darwin* ]]; then
   esac
 fi
 
-# Provision GNU/Linux applications
-if [[ $OSTYPE == linux* ]]; then
-  read -p "Provision Linux software? (y/n)? " choice
-  case "$choice" in
-    y|Y ) provision_linux;;
-    n|N ) echo "Skiping Linux provisioning";;
-    * ) echo "invalid answer";;
-  esac
-fi
 # Provision any vim specific deps
 read -p "Provision vim? (y/n)? " choice
 case "$choice" in
@@ -278,12 +205,10 @@ esac
 
 # cleanup
 unset sync;
-unset install_homebrew;
 unset install_asdf;
 unset provision_universal;
 unset provision_vim;
 unset provision_darwin;
-unset provision_linux;
 
 # finish up
 echo
