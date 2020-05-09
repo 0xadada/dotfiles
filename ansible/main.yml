@@ -6,24 +6,38 @@
   vars_files:
     - vars.yml
 
+  # collect required information from the user
+  vars_prompt:
+    - name: ssh_public_key
+      prompt: ssh public key
+
+    - name: ssh_private_key
+      prompt: ssh private key
+
+    - name: ssh_key_passphrase
+      prompt: ssh key passphrase
+      private: yes
+      confirm: yes
+
   tasks:
-    - name: "Installing nvm"
+    - name: Creating SSH keys
       shell: |
-        touch ~/.bash_profile
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-      args:
-        creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+        echo '{{ ssh_public_key }}' > $HOME/.ssh/id_rsa.pub
+        echo '{{ ssh_private_key }}' > $HOME/.ssh/id_rsa
 
-    - name: "Installing NodeJS version {{ node_default_version }}"
-      shell: |
-        source $HOME/.nvm/nvm.sh
-        nvm install {{ node_default_version }}
-      args:
-        executable: /bin/bash
+    - name: Change permission on SSH keys
+      file:
+        path: $HOME/.ssh/id_rsa.pub
+        mode: '0644'
+      file:
+        path: $HOME/.ssh/id_rsa.pub
+        mode: '0600'
 
-    - name: "Set default Node to version {{ node_default_version }}"
+    - name: Add SSH key to macOS keychain
       shell: |
-        source $HOME/.nvm/nvm.sh
-        nvm alias default {{ node_default_version }}
-      args:
-        executable: /bin/bash
+        expect <<EOD
+        spawn ssh-add -K $HOME/.ssh/id_rsa
+        expect {
+        "Enter passphrase for" {send "{{ ssh_key_passphrase }}\r"; exp_continue}
+        }
+        EOD
