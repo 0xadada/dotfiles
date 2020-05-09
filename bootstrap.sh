@@ -186,13 +186,13 @@ ansible-playbook \
 
 # Remove garageband
 sudo rm -rfv /Applications/GarageBand.app && \
-rm -rfv /Library/Application\ Support/GarageBand && \
-rm -rfv /Library/Application\ Support/Logic/ && \
-rm -rfv /Library/Audio/Apple\ Loops && \
-rm -rfv /Library/Audio/Apple\ Loops\ Index && \
-rm -rfv /Library/Receipts/com.apple.pkg.*GarageBand* && \
-rm -rfv ~/Library/Audio/Apple Loops && \
-rm -rfv ~/Library/Application\ Support/GarageBand
+  rm -rfv /Library/Application\ Support/GarageBand && \
+  rm -rfv /Library/Application\ Support/Logic/ && \
+  rm -rfv /Library/Audio/Apple\ Loops && \
+  rm -rfv /Library/Audio/Apple\ Loops\ Index && \
+  rm -rfv /Library/Receipts/com.apple.pkg.*GarageBand* && \
+  rm -rfv ~/Library/Audio/Apple Loops && \
+  rm -rfv ~/Library/Application\ Support/GarageBand
 
 # Setup OS X system defaults
 read -p 'Personalize macOS system defaults (y/n)? ' choice
@@ -209,15 +209,16 @@ source install.sh
 popd
 rm -rf asdftmp # cleanup tmp dir
 
-
+# sync if the --force argument was passed
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
   sync;
 else
- read -p 'This may overwrite existing files in your home directory. Are you sure? (y/n) ' -n 1;
- echo '';
- if [[ $REPLY =~ ^[Yy]$ ]]; then
-   sync;
- fi;
+  # else ask
+  read -p 'This may overwrite existing files in your home directory. Are you sure? (y/n) ' -n 1;
+  echo '';
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sync;
+  fi;
 fi;
 
 # Provision any vim specific deps

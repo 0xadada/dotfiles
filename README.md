@@ -1,4 +1,4 @@
-# 0xADADA’s dotfiles
+# dotfiles
 
 ![Screenshot of the shell prompt](https://media.giphy.com/media/l2QZR9exGEB6CRzpK/giphy.gif)
 
@@ -6,34 +6,50 @@
 
 **Warning:** If you want to give these dotfiles a try, you should first fork
 this repository, review the code, and remove things you don’t want or need.
-Don’t blindly use my settings unless you know what that entails. Use at your own risk!
+Don’t blindly use my settings unless you know what that entails. Use at your own 
+risk!
 
-### Using Git and the bootstrap script
+### Installing and the bootstrap script
 
 You can clone the repository wherever you want. (I like to keep it in 
 `~/$USER/dotfiles`, with `~/dotfiles` as a symlink.) The bootstrapper script
 will pull in the latest version and copy the files to your home folder.
 
 ```bash
-git clone https://github.com/0xADADA/dotfiles.git && cd dotfiles && source bootstrap.sh
+curl -#L https://github.com/0xadada/dotfiles/tarball/master | tar -xzv
+cd 0xadada-dotfiles-*
+./bootstrap.sh
 ```
 
 Bootstrap will install or update your dotfiles, and install some core utilities:
-* `asdf` (with latest Stable nodejs, erlang, elixir, python, ruby)
-* homebrew, cask and its packages (see `brew.sh`)
 
-Boostrap will then initialize OS X defaults (see `.macos`)
+* Bash shell, latest version
+* homebrew, cask and its packages (see `brew.sh`)
+* `asdf` (with latest Stable Elixir, Erlang, NodeJS, Python 2 & 3, Ruby)
+
+Boostrap will then initialize macOS defaults (see `.macos`)
 
 To update, `cd` into your local `dotfiles` repository and then:
 
 ```bash
-source bootstrap.sh
+./bootstrap.sh
 ```
 
-Alternatively, to update while avoiding the confirmation prompt:
+### Sensible macOS defaults
+
+When setting up a new Macbook, you may want to set some sensible macOS defaults:
 
 ```bash
-set -- -f; source bootstrap.sh
+./.macos
+```
+
+### Install Homebrew formulae
+
+When setting up a new Macbook, you may want to install some common
+[Homebrew](https://brew.sh/) formulae (after installing Homebrew, of course):
+
+```bash
+./brew.sh
 ```
 
 ### Add custom commands without creating a new fork
