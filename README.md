@@ -19,8 +19,7 @@ git clone https://github.com/0xADADA/dotfiles.git && cd dotfiles && source boots
 ```
 
 Bootstrap will install or update your dotfiles, and install some core utilities:
-* XCode
-* asdf (with latest Stable nodejs, erlang, elixir, ruby, python)
+* `asdf` (with latest Stable nodejs, erlang, elixir, python, ruby)
 * homebrew, cask and its packages (see `brew.sh`)
 
 Boostrap will then initialize OS X defaults (see `.macos`)
