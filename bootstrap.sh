@@ -56,7 +56,7 @@ sudo -v # ask for the administrator password upfront.
 # Keep-alive: update existing `sudo` time stamp until the script has finished.
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-if ! [[ $(command -v xcode-select ) ]]; then
+if ! [[ $(command -v xcode-select) ]]; then
   echo 'Installing xcode command line tools...'
   xcode-select --install
 fi
@@ -170,10 +170,9 @@ fi
 
 
 # Install Python3 / Ansible
-if ! command -v ansible > /dev/null
-then
-  echo "Using $(python -V)"
+if ! [[ $(command -v ansible) ]]; then
   echo 'Installing Ansible...'
+  echo "Using $(python -V)"
   pip install ansible
   # see https://github.com/danhper/asdf-python#pip-installed-modules-and-binaries
   asdf reshim python
