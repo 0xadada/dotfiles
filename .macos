@@ -47,10 +47,10 @@ read -p "Name this computer (e.g. žižek): " MYNAME
 sudo scutil --set ComputerName $MYNAME
 sudo scutil --set HostName $MYNAME
 # Force-transliterate computer name to ASCII
-MYNAME=`echo $MYNAME | iconv -f utf-8 -t US-ASCII//TRANSLIT | tr -cd '[:alnum:]_-'`
+MYNAME=$(echo $MYNAME | iconv -f utf-8 -t US-ASCII//TRANSLIT | tr -cd '[:alnum:]_-')
 sudo scutil --set LocalHostName $MYNAME
 
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$MYNAME"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${MYNAME}"
 
 # Set standby delay to 24 hours (default is 1 hour)
 sudo pmset -a standbydelay 86400
