@@ -1,10 +1,24 @@
 #!/usr/bin/env bash
 # drop-in replacement for dockerized psql CLI
 
-params=$*
+# Grab postgres version from .tool-versions
+if test -f .tool-versions; then
+  PG_VERSION=$(grep postgres < .tool-versions | awk -F ' ' '{print $2}')
+fi
+
+host="host.docker.internal" # run dockerized psql against internal docker address
+port="${DB_PORT:-5432}"     # use env vars, if available, or use defaults
+user="${DB_USER:-postgres}"
+pass="${DB_PASSWORD:-password}"
+version="${PG_VERSION:-9.6.12}"
+
 docker run \
-  -it \
   --rm \
-  --name postgres-psql \
-  postgres:9.6.12 \
-  env PGPASSWORD="password" psql -h host.docker.internal -U postgres $params
+  -it \
+  --mount type=bind,source="$(pwd)",target="$(pwd)" \
+  postgres:${version} \
+  env PGHOST="${host}" \
+  env PGPORT="${port}" \
+  env PGUSER="${user}" \
+  env PGPASSWORD="${pass}" \
+  psql "$@"
