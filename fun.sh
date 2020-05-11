@@ -6,8 +6,6 @@ os_defaults=$(which defaults)
 
 # a wrapper for macOS defaults to enable logging and debugging
 function defaults() {
-  # command
-  echo "defaults ${@}"
   # value
   defaults_write=''
 
@@ -46,9 +44,16 @@ function defaults() {
     set -- "${@:1:1}" "write" "${@:3}"
   fi
 
-  # call defaults with original 'write' params
-  echo "read  ${defaults_read}"
-  echo "write ${defaults_write}"
+  # if the values are different, then run defaults write
+  if [[ "${defaults_read}" != "${defaults_write}" ]]; then
+    # values are different, execute
+    $os_defaults "$@"
+    # output command
+    echo "defaults ${@}"
+    # output changed values
+    echo "  read  ${defaults_read}"
+    echo "  write ${defaults_write}"
+  fi
 }
 
 defaults -currentHost write com.apple.screensaver idleTime 180
