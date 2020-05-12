@@ -4,10 +4,23 @@
 
 os_defaults=$(which defaults)
 
+# Set the colors you can use
+red=$(tput setaf 124)
+green=$(tput setaf 142)
+reset=$(tput sgr0) # resets the style
+
+# color-echo
+# arg $1 = message
+# arg $2 = Color
+cecho() {
+  echo "${2}${1}${reset}"
+  return
+}
+
 # a wrapper for macOS defaults to enable logging and debugging
 function defaults() {
   # write existing defaults to a file
-  defaults read > defaults.before.log
+  $os_defaults read > defaults.before.log
 
   # value
   defaults_write=''
@@ -54,12 +67,12 @@ function defaults() {
     # output command
     echo "defaults ${@}"
     # output changed values
-    echo "  read  ${defaults_read}"
-    echo "  write ${defaults_write}"
+    cecho "- ${defaults_read}" $red
+    cecho "+ ${defaults_write}" $green
   fi
 
   # write defaults after to file
-  defaults read > defaults.after.log
+  $os_defaults read > defaults.after.log
 }
 
 defaults -currentHost write com.apple.screensaver idleTime 180
