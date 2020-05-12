@@ -22,8 +22,15 @@ export LESS_TERMCAP_md="$ORANGE"
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
 
-# fixes gnupg see: https://github.com/keybase/keybase-issues/issues/2798
+# fixes gpg: signing failed: Inappropriate ioctl for device
+# see: https://github.com/keybase/keybase-issues/issues/2798
 # export GPG_TTY=$(tty)
+
+# turn homebrew analytics off
+export HOMEBREW_NO_ANALYTICS=1
+# enable additional homebrew security options
+# HOMEBREW_NO_INSECURE_REDIRECT=1
+# HOMEBREW_CASK_OPTS=--require-sha.
 
 # add XCode to the PATH
 PATH="${PATH}:$(xcode-select --print-path)/usr/bin"
