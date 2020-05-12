@@ -151,6 +151,12 @@ defaults write com.apple.helpviewer DevMode -bool true
 # Reveal IP address, hostname, OS version, etc. when clicking the clock
 # in the login window
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
+# Add custom message to the loginwindow text
+loginwindowmsg="$(hostname)
+$(system_profiler SPHardwareDataType | sed -e 's/^[ ]*//' | grep 'Model Identifier' | awk '{print $3}')
+$(system_profiler SPHardwareDataType | sed -e 's/^[ ]*//' | head -n8 | tail -n2 | awk '{print $3 " " $4 " " $5}' | xargs echo) $(sysctl -n hw.physicalcpu_max) Physical / $(sysctl -n hw.logicalcpu_max) Logical $(system_profiler SPHardwareDataType | sed -e 's/^[ ]*//' | grep 'Memory' | awk '{print $2 " " $3}') Memory
+macOS $(/usr/bin/sw_vers | head -n2 | tail -n1 | awk '{print $2}' | xargs echo)"
+sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "${loginwindowmsg}"
 
 # Disable automatic capitalization as it’s annoying when typing code
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
