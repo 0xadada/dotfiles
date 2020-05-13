@@ -19,9 +19,6 @@ cecho() {
 
 # a wrapper for macOS defaults to enable logging and debugging
 function defaults() {
-  # write existing defaults to a file
-  $os_defaults read > defaults.before.log
-
   # value
   defaults_write=''
 
@@ -70,9 +67,6 @@ function defaults() {
     cecho "- ${defaults_read}" $red
     cecho "+ ${defaults_write}" $green
   fi
-
-  # write defaults after to file
-  $os_defaults read > defaults.after.log
 }
 
 # Close any open System Preferences panes, to prevent them from overriding
@@ -139,9 +133,6 @@ sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resourc
 
 # Destroy file vault key when going into standby
 sudo pmset -a destroyfvkeyonstandby 1
-
-# Require an administrator password to access system-wide preferences
-security authorizationdb read system.preferences > /tmp/system.preferences.plist &&/usr/libexec/PlistBuddy -c \"Set :shared false\" /tmp/system.preferences.plist && security authorizationdb write system.preferences < /tmp/system.preferences.plist
 
 # Restart automatically if the computer freezes
 sudo systemsetup -setrestartfreeze on
@@ -285,7 +276,7 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 # defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
 
 # Disable “natural” (Lion-style) scrolling
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+# defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 # Increase sound quality for Bluetooth headphones/headsets
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
