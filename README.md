@@ -4,30 +4,17 @@
 
 ## Installation
 
-**Warning:** If you want to give these dotfiles a try, you should first fork
-this repository, review the code, and remove things you don’t want or need.
-Don’t blindly use my settings unless you know what that entails. Use at your own 
-risk!
-
-### Installing and the bootstrap script
-
-You can clone the repository wherever you want. (I like to keep it in 
-`~/$USER/dotfiles`, with `~/dotfiles` as a symlink.) The bootstrapper script
-will pull in the latest version and copy the files to your home folder.
-
 ```bash
 curl -#L https://github.com/0xadada/dotfiles/tarball/master | tar -xzv
 cd 0xadada-dotfiles-*
 ./bootstrap.sh
 ```
 
-Bootstrap will install or update your dotfiles, and install some core utilities:
+Bootstrap will install the dotfiles, and install core utilities:
 
 * Bash shell, latest version
-* homebrew, cask and its packages (see `brew.sh`)
+* Homebrew, cask and its packages
 * `asdf` (with latest Stable Elixir, Erlang, NodeJS, Python 2 & 3, Ruby)
-
-Boostrap will then initialize macOS defaults (see `.macos`)
 
 To update, `cd` into your local `dotfiles` repository and then:
 
@@ -35,7 +22,7 @@ To update, `cd` into your local `dotfiles` repository and then:
 ./bootstrap.sh
 ```
 
-### Sensible macOS defaults
+## macOS hacker defaults
 
 When setting up a new Macbook, you may want to set some sensible macOS defaults:
 
@@ -43,46 +30,11 @@ When setting up a new Macbook, you may want to set some sensible macOS defaults:
 ./.macos
 ```
 
-### Install Homebrew formulae
-
-When setting up a new Macbook, you may want to install some common
-[Homebrew](https://brew.sh/) formulae (after installing Homebrew, of course):
-
-```bash
-./brew.sh
-```
-
-### Add custom commands without creating a new fork
+## Add custom commands without creating a new fork
 
 If `~/.bash_custom` exists, it will be sourced along with the other files. You
 can use this to add a few custom commands without the need to fork this entire
 repository, or to add commands you don’t want to commit to a public repository.
-
-You could also use `~/.bash_custom` to override settings, functions and aliases
-from my dotfiles repository. It’s probably better to [fork this
-repository](https://github.com/0xADADA/dotfiles/fork) instead, though.
-
-### Sensible OS X defaults
-
-When setting up a new macos device, you may want to set some sensible macos defaults:
-
-```bash
-./.macos
-```
-
-### Install Homebrew formulae
-
-When setting up a new macos device, you may want to install some common
-[Homebrew](http://brew.sh/) formulae:
-
-```bash
-./brew.sh
-```
-
-## Feedback
-
-Suggestions/improvements
-[welcome](https://github.com/0xADADA/dotfiles/issues)!
 
 ## Author
 

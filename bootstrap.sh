@@ -56,17 +56,7 @@ sudo -v # ask for the administrator password upfront.
 # Keep-alive: update existing `sudo` time stamp until the script has finished.
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-if ! [[ $(command -v xcode-select) ]]; then
-  echo 'Installing xcode command line tools...'
-  xcode-select --install
-  # loop until installation completes
-  while (( $(xcode-select -p &> /dev/null; echo "$?") != 0 )); do
-    printf "%s" '.'
-    sleep 1
-  done
-  printf "\n%s\n" 'done'
-fi
-
+# install homebrew (ProTip: homebrew installs xcode CLI tools for us!)
 if ! [[ $(command -v brew) ]]; then
   echo 'Installing Homebrew...'
   /bin/bash -c \
