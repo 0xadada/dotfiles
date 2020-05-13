@@ -13,7 +13,7 @@ cd 0xadada-dotfiles-*
 Bootstrap will install the dotfiles, and install core utilities:
 
 * Bash shell, latest version
-* Homebrew, cask and its packages
+* Homebrew, [cask and its packages](https://github.com/0xadada/dotfiles/blob/master/Brewfile)
 * `asdf` (with latest Stable Elixir, Erlang, NodeJS, Python 2 & 3, Ruby)
 
 To update, `cd` into your local `dotfiles` repository and then:
