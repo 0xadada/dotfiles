@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Provision a new Apple macOS machine
+# Provision a new Apple Macbook
 # Author @0xADADA
 
 
@@ -163,7 +163,6 @@ if ! [[ "${current}" =~ "${latest}" ]]; then
   asdf install ruby $latest
   asdf global ruby $latest
 fi
-
 
 # Install Python3 / Ansible
 if ! [[ $(command -v ansible) ]]; then

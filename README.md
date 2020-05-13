@@ -5,8 +5,10 @@
 ## Installation
 
 ```bash
-curl -#L https://github.com/0xadada/dotfiles/tarball/master | tar -xzv
-cd 0xadada-dotfiles-*
+mkdir -p dotfiles && \
+  curl -#L https://github.com/0xadada/dotfiles/tarball/master | \
+  tar -xzv -C dotfiles --strip-components=1
+cd dotfiles
 ./bootstrap.sh
 ```
 
