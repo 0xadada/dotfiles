@@ -17,7 +17,9 @@ function sync() {
   rsync --exclude ".git/" \
     --exclude ".DS_Store" \
     --exclude ".macos" \
+    --exclude "ansible" \
     --exclude "bootstrap.sh" \
+    --exclude "iTerm" \
     --exclude "README.md" \
     --exclude "LICENSE" \
     -av --no-perms . $HOME
