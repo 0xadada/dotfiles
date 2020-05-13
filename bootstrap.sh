@@ -59,6 +59,12 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 if ! [[ $(command -v xcode-select) ]]; then
   echo 'Installing xcode command line tools...'
   xcode-select --install
+  # loop until installation completes
+  while (( $(xcode-select -p &> /dev/null; echo "$?") != 0 )); do
+    printf "%s" '.'
+    sleep 1
+  done
+  printf "\n%s\n" 'done'
 fi
 
 if ! [[ $(command -v brew) ]]; then
@@ -214,7 +220,7 @@ if [ "$1" == "--force" -o "$1" == "-f" ]; then
   sync;
 else
   # else ask
-  read -p 'This may overwrite existing files in your home directory. Are you sure? (y/n) ' -n 1;
+  read -p 'Symlinking dotfiles to $HOME directory. Are you sure? (y/n) ' -n 1;
   echo '';
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     sync;
