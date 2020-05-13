@@ -38,12 +38,6 @@ If `~/.bash_custom` exists, it will be sourced along with the other files. You
 can use this to add a few custom commands without the need to fork this entire
 repository, or to add commands you don’t want to commit to a public repository.
 
-## Author
-
-| [![twitter/0xADADA](https://github.com/0xadada.png)](https://twitter.com/0xadada "Follow @0xADADA on Twitter") |
-|---|
-| [0xADADA](https://0xADADA.pub/) |
-
 ## Thanks to…
 
 * [Mathias Bynens](http://twitter.com/mathias) and his [dotfiles repository](https://github.com/mathiasbynens/dotfiles)
