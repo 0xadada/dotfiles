@@ -4,22 +4,20 @@
 
 os_defaults=$(which defaults)
 
-# Set the colors you can use
+# set some default colors
 red=$(tput setaf 124)
 green=$(tput setaf 142)
-reset=$(tput sgr0) # resets the style
+reset=$(tput sgr0)
 
 # color-echo
-# arg $1 = message
-# arg $2 = Color
+# usage cecho 'hello world' $green
 cecho() {
   echo "${2}${1}${reset}"
   return
 }
 
-# a wrapper for macOS defaults to enable logging and debugging
+# a wrapper for macOS defaults to make changes visible
 function defaults() {
-  # value
   defaults_write=''
 
   # handles: defaults write... case
@@ -42,7 +40,7 @@ function defaults() {
 
   # call defaults with adjusted 'read' params to capture "before" value
   # suppress errors if the key doesn't exist with 2>/dev/null
-  defaults_read=$($os_defaults "$@" 2> /dev/null && true)
+  defaults_read=$("${os_defaults}" "$@" 2> /dev/null && true)
 
   # handles: defaults write... case
   # if the first of 1 arguments is read
@@ -61,12 +59,13 @@ function defaults() {
   # if the values are different, then run defaults write
   if [[ "${defaults_read}" != "${defaults_write}" ]]; then
     # values are different, commit the defaults write
-    os_defaults "$@"
-    # output command
+    ${os_defaults} "$@"
+    # show command (helpful for debugging)
     echo "defaults ${@}"
     # output changed values
     cecho "- ${defaults_read}" $red
     cecho "+ ${defaults_write}" $green
+    echo
   fi
 }
 
