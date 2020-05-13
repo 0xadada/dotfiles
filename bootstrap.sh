@@ -17,8 +17,6 @@ function sync() {
   rsync --exclude ".git/" \
     --exclude ".DS_Store" \
     --exclude ".macos" \
-    --exclude "ansible" \
-    --exclude "ansible.cfg" \
     --exclude "bootstrap.sh" \
     --exclude "Brewfile" \
     --exclude "iTerm" \
@@ -138,6 +136,8 @@ if ! [[ "${current}" =~ "${latest}" ]]; then
   # install latest python 3
   asdf install python $latest
   asdf global python $latest
+  # see https://github.com/danhper/asdf-python#pip-installed-modules-and-binaries
+  asdf reshim python
 fi
 
 # install latest ruby, set it globally
@@ -148,21 +148,6 @@ if ! [[ "${current}" =~ "${latest}" ]]; then
   asdf install ruby $latest
   asdf global ruby $latest
 fi
-
-# Install Python3 / Ansible
-if ! [[ $(command -v ansible) ]]; then
-  echo 'Installing Ansible...'
-  echo "Using $(python -V)"
-  pip install ansible
-  # see https://github.com/danhper/asdf-python#pip-installed-modules-and-binaries
-  asdf reshim python
-  echo "Ansible installed at $(which ansible)"
-fi
-
-echo 'Installing tools with Ansible'
-ansible-playbook \
-  --ask-become-pass \
-  ansible/main.yml
 
 # Remove garageband
 sudo rm -rfv /Applications/GarageBand.app && \

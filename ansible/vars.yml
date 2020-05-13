@@ -1,3 +1,0 @@
----
-homebrew_brewfile_dir: "{{ lookup('env','PWD') }}"
-node_default_version: '12'
