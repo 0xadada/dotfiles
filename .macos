@@ -40,8 +40,9 @@ function defaults() {
     set -- "${@:1:1}" "read" "${@:3}"
   fi
 
-  # call defaults with adjusted 'read' params
-  defaults_read=$($os_defaults "$@")
+  # call defaults with adjusted 'read' params to capture "before" value
+  # suppress errors if the key doesn't exist with 2>/dev/null
+  defaults_read=$($os_defaults "$@" 2> /dev/null && true)
 
   # handles: defaults write... case
   # if the first of 1 arguments is read
