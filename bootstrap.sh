@@ -130,32 +130,13 @@ current=$(asdf_list_package_sorted 'python')
 if ! [[ "${current}" =~ "${latest}" ]]; then
   echo "Installing latest Python ${latest}..."
   # setup a fix for openssl in python
-  brew link --force openssl
   LDFLAGS="-L$(brew --prefix openssl)/lib"
   CPPFLAGS="-I$(brew --prefix openssl)/include"
   CFLAGS="-I$(brew --prefix openssl)/include"
   # install latest python 3
   asdf install python $latest
+  asdf global python $latest
 fi
-
-# install latest Python 2
-latest=$(asdf list-all python | grep -E '^2.(\d+).(\d+)$' | tail -n1)
-current=$(asdf_list_package_sorted 'python')
-if ! [[ "${current}" =~ "${latest}" ]]; then
-  echo "Installing latest Python ${latest}..."
-  # setup a fix for openssl in python
-  brew link --force openssl
-  LDFLAGS="-L$(brew --prefix openssl)/lib"
-  CPPFLAGS="-I$(brew --prefix openssl)/include"
-  CFLAGS="-I$(brew --prefix openssl)/include"
-  # install latest python 2
-  asdf install python $latest
-fi
-
-# set global Python 3 with a 2 fallback
-python_latest_3=$(asdf_list_package_sorted 'python' | tr ' ' '\n' | grep -E '^3' | tail -n1)
-python_latest_2=$(asdf_list_package_sorted 'python' | tr ' ' '\n' | grep -E '^2' | tail -n1)
-asdf global python $python_latest_3 $python_latest_2
 
 # install latest ruby, set it globally
 latest=$(asdf list-all ruby | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
