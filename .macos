@@ -183,6 +183,7 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 ###############################################################################
 # macOS Lockdown security tweaks
 # read more: https://github.com/SummitRoute/osxlockdown
+#            https://github.com/drduh/macOS-Security-and-Privacy-Guide
 ###############################################################################
 
 # Disable infrared receiver
@@ -615,6 +616,16 @@ killall mds > /dev/null 2>&1
 sudo mdutil -i on / > /dev/null
 # Rebuild the index from scratch
 sudo mdutil -E / > /dev/null
+
+###############################################################################
+# Terminal & iTerm 2                                                          #
+###############################################################################
+
+# read preferences from Library/Preferences/com.googlecode.iterm2.plist
+defaults read com.googlecode.iterm2 &> /dev/null
+
+# Don’t display the annoying prompt when quitting iTerm
+defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
 ###############################################################################
 # Time Machine                                                                #

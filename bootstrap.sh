@@ -172,23 +172,6 @@ sudo rm -rfv /Applications/GarageBand.app && \
   rm -rfv ~/Library/Audio/Apple Loops && \
   rm -rfv ~/Library/Application\ Support/GarageBand
 
-# Setup OS X system defaults
-read -p 'Personalize macOS system defaults (y/n)? ' choice
-case "$choice" in
-y|Y ) source .macos;;
-n|N ) echo 'Skipping macOS defaults';;
-* ) echo 'invalid answer';;
-esac
-
-echo 'installing notify-on-packetloss launchd service'
-mkdir -p nop && \
-  curl -#L https://github.com/0xadada/notify-on-packetloss/tarball/master | \
-  tar -xzv -C nop --strip-components=1
-pushd nop
-source install.sh
-popd
-rm -rf nop # cleanup tmp dir
-
 # sync if the --force argument was passed
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
   sync;
@@ -208,6 +191,23 @@ case "$choice" in
   n|N ) echo 'Skiping provisioning';;
   * ) echo 'invalid answer';;
 esac
+
+# Setup OS X system defaults
+read -p 'Personalize macOS system defaults (y/n)? ' choice
+case "$choice" in
+y|Y ) source .macos;;
+n|N ) echo 'Skipping macOS defaults';;
+* ) echo 'invalid answer';;
+esac
+
+echo 'installing notify-on-packetloss launchd service'
+mkdir -p nop && \
+  curl -#L https://github.com/0xadada/notify-on-packetloss/tarball/master | \
+  tar -xzv -C nop --strip-components=1
+pushd nop
+source install.sh
+popd
+rm -rf nop # cleanup tmp dir
 
 # finish up
 echo
