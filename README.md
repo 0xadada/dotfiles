@@ -26,7 +26,7 @@ To update, `cd` into your local `dotfiles` repository and then:
 
 ## macOS hacker defaults
 
-When setting up a new Macbook, you may want to set some sensible macOS defaults:
+When setting up a new Macbook, you may want to set some hacker macOS defaults:
 
 ```bash
 ./.macos
