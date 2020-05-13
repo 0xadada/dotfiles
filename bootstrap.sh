@@ -18,7 +18,9 @@ function sync() {
     --exclude ".DS_Store" \
     --exclude ".macos" \
     --exclude "ansible" \
+    --exclude "ansible.cfg" \
     --exclude "bootstrap.sh" \
+    --exclude "Brewfile" \
     --exclude "iTerm" \
     --exclude "README.md" \
     --exclude "LICENSE" \
