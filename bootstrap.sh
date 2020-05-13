@@ -69,7 +69,7 @@ echo 'Installing Homebrew taps, kegs, casks, and brews...'
 brew update
 brew bundle
 brew upgrade # upgrade installed formulae
-brew cask upgrade --greedy # force auto-upgrade casks
+brew cask upgrade # --greedy to force auto-upgrade casks
 brew cleanup
 
 # switch from system Bash to Homebrew Bash
