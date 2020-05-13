@@ -198,11 +198,13 @@ n|N ) echo 'Skipping macOS defaults';;
 esac
 
 echo 'installing notify-on-packetloss launchd service'
-git clone -q git@github.com:0xadada/notify-on-packetloss.git asdftmp # tmp dir
-pushd asdftmp
+mkdir -p nop && \
+  curl -#L https://github.com/0xadada/notify-on-packetloss/tarball/master | \
+  tar -xzv -C nop --strip-components=1
+pushd nop
 source install.sh
 popd
-rm -rf asdftmp # cleanup tmp dir
+rm -rf nop # cleanup tmp dir
 
 # sync if the --force argument was passed
 if [ "$1" == "--force" -o "$1" == "-f" ]; then

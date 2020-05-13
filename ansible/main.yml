@@ -9,9 +9,11 @@
   # collect required information from the user
   vars_prompt:
     - name: ssh_public_key
+      private: no
       prompt: ssh public key
 
     - name: ssh_private_key
+      private: no
       prompt: ssh private key
 
     - name: ssh_key_passphrase
@@ -22,6 +24,7 @@
   tasks:
     - name: Creating SSH keys
       shell: |
+        mkdir -p $HOME/.ssh
         echo '{{ ssh_public_key }}' > $HOME/.ssh/id_rsa.pub
         echo '{{ ssh_private_key }}' > $HOME/.ssh/id_rsa
 
@@ -30,7 +33,7 @@
         path: $HOME/.ssh/id_rsa.pub
         mode: '0644'
       file:
-        path: $HOME/.ssh/id_rsa.pub
+        path: $HOME/.ssh/id_rsa
         mode: '0600'
 
     - name: Add SSH key to macOS keychain
