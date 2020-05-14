@@ -3,6 +3,8 @@
 # ~/.macos — https://mths.be/macos
 
 os_defaults=$(which defaults)
+# Get the macOS release (e.g. "13": High Sierra, "14": Mojave, "15": Catalina)
+os_release=$(sw_vers | grep 'ProductVersion' | awk '{print $2}' | awk -F "." '{print $2}')
 
 # set some default colors
 red=$(tput setaf 124)
@@ -123,6 +125,13 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.serve
 
 # Disable transparency in the menu bar and elsewhere on Yosemite
 defaults write com.apple.universalaccess reduceTransparency -bool true
+
+# Replace Time Machine with Bluetooth on the menu bar
+defaults write com.apple.systemuiserver menuExtras -array \
+  "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+  "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+  "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+  "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
 # Set highlight color to green
 defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600"
@@ -701,8 +710,8 @@ defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 # Prevent Time Machine from prompting to use new hard drives as backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
-# Disable local Time Machine backups
-hash tmutil &> /dev/null && sudo tmutil disablelocal
+# Disable local Time Machine backups (removed in macOS Sierra)
+# hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 ###############################################################################
 # Activity Monitor                                                            #
@@ -839,5 +848,18 @@ defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
 
 # Randomize port on launch
 defaults write org.m0k.transmission RandomPort -bool true
+
+###############################################################################
+# 0xADADA                                                                     #
+###############################################################################
+
+# Add AnyBar to user login items
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/AnyBar.app", hidden:false}' 1> /dev/null
+
+# Add Rectangle to login items
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Rectangle.app", hidden:false}' 1> /dev/null
+
+# Add Resilio Sync to login items
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Resilio Sync.app", hidden:false}' 1> /dev/null
 
 echo 'Done. Note that some of these changes require a logout/restart to take effect.'
