@@ -21,8 +21,6 @@ Thumbs.db
 .Trashes
 .python-version
 
-.venv/
 node_modules/
-ansible/vendor/
 Brewfile.lock.json
 *.log

@@ -32,7 +32,7 @@ function provision_vim() {
   rm -rf ~/.vim*
   ln -s ~/.config/nvim ~/.vim
   ln -s ~/.config/nvim/init.vim ~/.vimrc
-  echo ''
+  echo
 
   echo 'installing neovim language deps'
   npm install -g neovim
@@ -83,7 +83,7 @@ fi
 # Install asdf programming language plugins
 echo 'Installing asdf programming language package...'
 # Setup asdf (installed via homebrew)
-source /usr/local/opt/asdf/asdf.sh
+source "$(brew --prefix asdf)/asdf.sh"
 asdf plugin add elixir || true
 asdf plugin add erlang || true
 asdf plugin add python || true
