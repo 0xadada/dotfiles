@@ -869,6 +869,9 @@ dscl . delete "${HOME}" JPEGPhoto
 dscl . delete "${HOME}" Picture
 sudo dscl . create ${HOME} Picture "${PWD}/avatar.jpg"
 
+# Set a dark gray wallpaper on all desktops
+osascript -e 'tell application "System Events" to set picture of every desktop to "/Library/Desktop Pictures/Solid Colors/Stone.png"'
+
 # Add AnyBar to user login items
 osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/AnyBar.app", hidden:false}' 1> /dev/null
 
