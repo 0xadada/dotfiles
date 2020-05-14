@@ -17,6 +17,7 @@ function sync() {
   rsync --exclude ".git/" \
     --exclude ".DS_Store" \
     --exclude ".macos" \
+    --exclude "avatar.jpg" \
     --exclude "bootstrap.sh" \
     --exclude "Brewfile" \
     --exclude "iTerm" \

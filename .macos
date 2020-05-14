@@ -864,6 +864,11 @@ defaults write org.m0k.transmission RandomPort -bool true
 # 0xADADA                                                                     #
 ###############################################################################
 
+# Set a custom user account image
+dscl . delete "${HOME}" JPEGPhoto
+dscl . delete "${HOME}" Picture
+sudo dscl . create ${HOME} Picture "${PWD}/avatar.jpg"
+
 # Add AnyBar to user login items
 osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/AnyBar.app", hidden:false}' 1> /dev/null
 
