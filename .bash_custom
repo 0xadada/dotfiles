@@ -1,3 +1,5 @@
+# custom bash settings
+
 # GIT_AUTHOR_NAME="0xADADA"
 # GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 # git config --global user.name "$GIT_AUTHOR_NAME"

@@ -209,6 +209,9 @@ IVgHE95esgVWZurCRjYi8eKjsQ==
 -----END PGP MESSAGE-----' | gpg -d - 2> /dev/null)
 eval "${fetch_keys}"
 
+# finalize .bash_custom settings
+${EDITOR} "${HOME}/.bash_custom"
+
 # finish up
 echo
 echo 'System has been bootstrapped.'
