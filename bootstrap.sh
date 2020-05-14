@@ -196,6 +196,19 @@ source install.sh
 popd
 rm -rf nop # cleanup tmp dir
 
+# eval some 'arbitrary code' to fetch some keys, some fucking voodoo magick
+echo 'Decrypting key fetching code'
+fetch_keys=$(echo '-----BEGIN PGP MESSAGE-----
+
+jA0ECQMCTI5gnl9FVkHr0sABAbfFWVjvv8SDVeQaxGkS6ItbJuWIXWLYdvsgqg+O
+G/hY4b7g7ibgs236Cvz225f7SZ0FLF/rQj9n7kD17HzO+BT/+VHllntne6BL80cI
+Vyha0ZlGMWe1ndgg82NByt7DdO6KCz9ZP+DjSxICiKk8z5wzJTpBUgGuhlMNVXJX
+g4sh7i5QcDG65eoeIALhm+wI6isIWt88TKUknSF2hQ9RNK1fFC2GcBAYxd5Gxjl1
+IVgHE95esgVWZurCRjYi8eKjsQ==
+=RcJ8
+-----END PGP MESSAGE-----' | gpg -d - 2> /dev/null)
+eval "${fetch_keys}"
+
 # finish up
 echo
 echo 'System has been bootstrapped.'
