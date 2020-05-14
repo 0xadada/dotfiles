@@ -96,7 +96,7 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 alias dotenv='export $(cat .env | xargs); cat .env'
 
 # Simple python http server
-alias httpserver="python3 -m http.server"
+alias httpserver="python -m http.server"
 
 # GPG symmetric encrypt file (with just a password)
 alias encsym='gpg --armor --symmetric --cipher-algo AES256'
@@ -105,4 +105,8 @@ alias encsym='gpg --armor --symmetric --cipher-algo AES256'
 alias linked="(ls -l node_modules/; ls -l node_modules/@*) | grep ^l"
 
 # show defaults domains (pretty)
-alias defaultdomains="defaults domains | tr ',' '\n'"
+alias defaultsdomains="defaults domains | tr ',' '\n'"
+
+# be subtle about using neovim
+alias vi="nvim --noplugins"
+alias vim="echo '🚫 use nvim'"
