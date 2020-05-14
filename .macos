@@ -247,6 +247,10 @@ defaults write com.apple.NetworkBrowser DisableAirDrop -bool YES
 
 # Set screen saver idle timeout to 3 minutes (180s)
 defaults -currentHost write com.apple.screensaver idleTime 180
+defaults write com.apple.screensaver idleTime 180
+# Set screen saver to lock immediately
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 # Disable printer sharing
 cupsctl --no-share-printers
