@@ -2,17 +2,7 @@
 # Provision a new Apple Macbook
 # Author @0xADADA
 
-
-# list installed language package versions on a single line
-# usage: asdf_list_package_sorted 'python'
-function asdf_list_package_sorted() {
-  package=$1
-  asdf list "${package}" | \
-    sed -e 's/^[ ]*//' | \
-    sort -n | \
-    tr '\n' ' '
-}
-
+# sync dotfiles to $HOME
 function sync() {
   rsync --exclude ".git/" \
     --exclude ".DS_Store" \
@@ -24,6 +14,16 @@ function sync() {
     --exclude "README.md" \
     --exclude "LICENSE" \
     -av --no-perms . $HOME
+}
+
+# list installed language package versions on a single line
+# usage: asdf_list_package_sorted 'python'
+function asdf_list_package_sorted() {
+  package=$1
+  asdf list "${package}" | \
+    sed -e 's/^[ ]*//' | \
+    sort -n | \
+    tr '\n' ' '
 }
 
 # Bootstrap provisioning for vim
@@ -74,10 +74,10 @@ brew cask upgrade # --greedy to force auto-upgrade casks
 brew cleanup
 
 # switch from system Bash to Homebrew Bash
-if ! cat /etc/shells | grep -q "/usr/local/bin/bash"; then
+if ! [[ $(cat /etc/shells | grep -q '/usr/local/bin/bash') ]]; then
   # Add the new bash to our available shells
+  echo 'switching shell to latest homebrew bash'
   echo '/usr/local/bin/bash' | sudo tee -a /etc/shells
-  echo 'switch current shell to homebrew bash'
   chsh -s /usr/local/bin/bash
 fi
 
@@ -97,7 +97,7 @@ latest=$(asdf list-all nodejs | grep '^\b[0-9]*[02468]\b' | tail -n 1)
 current=$(asdf_list_package_sorted 'nodejs')
 if ! [[ "${current}" =~ "${latest}" ]]; then
   echo "Installing NodeJS ${latest}..."
-  bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+  bash ${HOME}/.asdf/plugins/nodejs/bin/import-release-team-keyring
   asdf install nodejs $latest
   asdf global nodejs $latest
   echo 'Installing global node tools...'
@@ -130,7 +130,7 @@ latest=$(asdf list-all python | grep -E '^3.(\d+).(\d+)$' | tail -n1)
 current=$(asdf_list_package_sorted 'python')
 if ! [[ "${current}" =~ "${latest}" ]]; then
   echo "Installing latest Python ${latest}..."
-  # setup a fix for openssl in python
+  # a fix for openssl in python
   LDFLAGS="-L$(brew --prefix openssl)/lib"
   CPPFLAGS="-I$(brew --prefix openssl)/include"
   CFLAGS="-I$(brew --prefix openssl)/include"
