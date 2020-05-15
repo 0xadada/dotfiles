@@ -74,7 +74,8 @@ brew cask upgrade # --greedy to force auto-upgrade casks
 brew cleanup
 
 # switch from system Bash to Homebrew Bash
-if ! [[ $(cat /etc/shells | grep -q '/usr/local/bin/bash') ]]; then
+grep -q '/usr/local/bin/bash' /etc/shells
+if (( "$?" != 0 )); then
   # Add the new bash to our available shells
   echo 'switching shell to latest homebrew bash'
   echo '/usr/local/bin/bash' | sudo tee -a /etc/shells
