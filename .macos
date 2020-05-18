@@ -827,6 +827,13 @@ defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
 
 ###############################################################################
+# Mozilla Firefox                                                             #
+###############################################################################
+
+# Disable Firefox Crash reporter
+defaults write org.mozilla.crashreporter submitReport -int 0
+
+###############################################################################
 # Rectangle.app                                                               #
 ###############################################################################
 
@@ -867,6 +874,28 @@ defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
 
 # Randomize port on launch
 defaults write org.m0k.transmission RandomPort -bool true
+
+###############################################################################
+# zoom.us.app                                                                 #
+###############################################################################
+
+# Dont show shared screens and participants window on separate monitors
+defaults write ZoomChat ZMEnableDualMonitor -string false
+
+# Always show usernames on videos
+defaults write ZoomChat ZMEnableShowUserName -string true
+
+# Go fullscreen when screen is shared
+defaults write ZoomChat ZoomEnterFullscreenWhenDualMonitorSetted -string true
+
+# Scale shared screen to fit contents
+defaults write ZoomChat ZoomEnterMaxWndWhenViewShare -string false
+
+# Dont split the shared screen with partipants window
+defaults write ZoomChat ZoomShouldShowSharingWithSplitView -string false
+
+# Dont add zoom to menubar
+defaults write ZoomChat ZoomShowIconInMenuBar -string false
 
 ###############################################################################
 # 0xADADA                                                                     #
