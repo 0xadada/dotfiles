@@ -598,7 +598,8 @@ defaults write com.apple.dock show-recents -bool false
 #defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 
 # Reset Launchpad, but keep the desktop wallpaper intact
-find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -delete
+# old way: find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -delete
+defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 
 # Add iOS & Watch Simulator to Launchpad
 sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app" "/Applications/Simulator.app"
@@ -827,6 +828,13 @@ defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
 
 ###############################################################################
+# Mozilla Firefox                                                             #
+###############################################################################
+
+# Disable Firefox Crash reporter
+defaults write org.mozilla.crashreporter submitReport -int 0
+
+###############################################################################
 # Rectangle.app                                                               #
 ###############################################################################
 
@@ -867,6 +875,28 @@ defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
 
 # Randomize port on launch
 defaults write org.m0k.transmission RandomPort -bool true
+
+###############################################################################
+# zoom.us.app                                                                 #
+###############################################################################
+
+# Dont show shared screens and participants window on separate monitors
+defaults write ZoomChat ZMEnableDualMonitor -string false
+
+# Always show usernames on videos
+defaults write ZoomChat ZMEnableShowUserName -string true
+
+# Go fullscreen when screen is shared
+defaults write ZoomChat ZoomEnterFullscreenWhenDualMonitorSetted -string true
+
+# Scale shared screen to fit contents
+defaults write ZoomChat ZoomEnterMaxWndWhenViewShare -string false
+
+# Dont split the shared screen with partipants window
+defaults write ZoomChat ZoomShouldShowSharingWithSplitView -string false
+
+# Dont add zoom to menubar
+defaults write ZoomChat ZoomShowIconInMenuBar -string false
 
 ###############################################################################
 # 0xADADA                                                                     #

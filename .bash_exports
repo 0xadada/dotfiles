@@ -43,9 +43,6 @@ PATH="$(brew --prefix openssl)/bin:$PATH"
 # add XCode to the PATH
 PATH="${PATH}:$(xcode-select --print-path)/usr/bin"
 
-# add yarn to PATH
-PATH="${HOME}/.config/yarn/global/node_modules/.bin:${PATH}"
-
 # add ruby gems to PATH
 export GEM_PATH="${HOME}/.gem"
 PATH="${GEM_PATH}/bin:${PATH}"
