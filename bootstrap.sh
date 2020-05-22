@@ -94,7 +94,7 @@ asdf plugin add ruby || true
 asdf plugin-update --all
 
 # install latest NodeJS, set it globally
-latest=$(asdf list-all nodejs | grep '^\b[0-9]*[02468]\b' | tail -n 1)
+latest=$(asdf list-all nodejs | grep '^\b[0-9]*[02468]\b' | tail -n1 | tr '.' ' ' | awk '{print $1 "." $2}')
 current=$(asdf_list_package_sorted 'nodejs')
 if ! [[ "${current}" =~ ${latest} ]]; then
   echo "Installing NodeJS ${latest}..."
