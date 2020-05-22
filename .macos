@@ -65,8 +65,8 @@ function defaults() {
     # show command (helpful for debugging)
     echo "defaults ${@}"
     # output changed values
-    cecho "- ${defaults_read}" $red
-    cecho "+ ${defaults_write}" $green
+    cecho "- ${defaults_read}" "${red}"
+    cecho "+ ${defaults_write}" "${green}"
     echo
   fi
 }
@@ -112,13 +112,13 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #     kant (v1)    # OM2P-HS v2 wireless wifi router
 ###############################################################################
 
-read -p "Name this computer (e.g. žižek): " MYNAME
+read -r -p "Name this computer (e.g. žižek): " device
 # Force-transliterate computer name to ASCII
-MYNAME=$(echo $MYNAME | iconv -f utf-8 -t US-ASCII//TRANSLIT | tr -cd '[:alnum:]_-')
+MYNAME=$(echo "${device}" | iconv -f utf-8 -t US-ASCII//TRANSLIT | tr -cd '[:alnum:]_-')
 sudo scutil --set ComputerName "${MYNAME}"
 sudo scutil --set HostName "${MYNAME}"
 sudo scutil --set LocalHostName "${MYNAME}"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${MYNAME}"
+sudo "${os_defaults}" write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${MYNAME}"
 
 # Disable the sound effects on boot
 #sudo nvram SystemAudioVolume=" "
@@ -202,7 +202,7 @@ defaults write com.apple.helpviewer DevMode -bool true
 
 # Reveal IP address, hostname, OS version, etc. when clicking the clock
 # in the login window
-sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
+sudo "${os_defaults}" write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 # Add custom message to the loginwindow text
 loginwindowmsg="$(hostname)
 $(system_profiler SPHardwareDataType | sed -e 's/^[ ]*//' | \
@@ -213,7 +213,7 @@ $(system_profiler SPHardwareDataType | sed -e 's/^[ ]*//' | head -n8 | \
   xargs echo) $(sysctl -n hw.physicalcpu_max) Physical / $(sysctl -n \
   hw.logicalcpu_max) Logical $(system_profiler SPHardwareDataType | \
   sed -e 's/^[ ]*//' | grep 'Memory' | awk '{print $2 " " $3}') Memory"
-sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "${loginwindowmsg}"
+sudo "${os_defaults}" write /Library/Preferences/com.apple.loginwindow LoginwindowText "${loginwindowmsg}"
 
 # Disable Notification Center and remove the menu bar icon
 # launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
@@ -246,7 +246,7 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 ###############################################################################
 
 # Disable infrared receiver
-sudo defaults write /Library/Preferences/com.apple.driver.AppleIRController DeviceEnabled -int 0
+sudo "${os_defaults}" write /Library/Preferences/com.apple.driver.AppleIRController DeviceEnabled -int 0
 
 # Disable AirDrop
 defaults write com.apple.NetworkBrowser DisableAirDrop -bool YES
@@ -347,7 +347,7 @@ defaults write NSGlobalDomain AppleMeasurementUnits -string "Inches"
 defaults write NSGlobalDomain AppleMetricUnits -bool false
 
 # Show language menu in the top right corner of the boot screen
-sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
+sudo "${os_defaults}" write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
 # Set the timezone; see `sudo systemsetup -listtimezones` for other values
 sudo systemsetup -settimezone "America/New_York" > /dev/null
@@ -418,7 +418,7 @@ defaults write com.apple.screencapture disable-shadow -bool true
 defaults write NSGlobalDomain AppleFontSmoothing -int 1
 
 # Enable HiDPI display modes (requires restart)
-sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+sudo "${os_defaults}" write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
 
 ###############################################################################
 # Finder                                                                      #
@@ -666,7 +666,7 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 # Disable Spotlight indexing for any volume that gets mounted and has not yet
 # been indexed before.
 # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
-sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
+sudo "${os_defaults}" write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 # Change indexing order and disable some search results
 # Yosemite-specific search results (remove them if you are using macOS 10.9 or older):
 # 	MENU_DEFINITION
@@ -905,14 +905,14 @@ defaults write ZoomChat ZoomShowIconInMenuBar -string false
 # Set a custom user account image
 dscl . delete "${HOME}" JPEGPhoto
 dscl . delete "${HOME}" Picture
-sudo dscl . create ${HOME} Picture "${PWD}/avatar.jpg"
+sudo dscl . create "${HOME}" Picture "${PWD}/avatar.jpg"
 
 # Set a dark gray wallpaper on all desktops
-if [[ '10.14' =~ "${os_release}" ]]; then
-  osascript -e 'tell application "System Events" to set picture of every desktop to "/Library/Desktop Pictures/Solid Colors/Stone.png"'
-fi
-if [[ '10.13' =~ "${os_release}" ]]; then
+if [[ '10.13' =~ ${os_release} ]]; then
   osascript -e 'tell application "System Events" to set picture of every desktop to "/Library/Desktop Pictures/Solid Colors/Solid Gray Pro Ultra Dark.png"'
+fi
+if [[ '10.14' =~ ${os_release} ]]; then
+  osascript -e 'tell application "System Events" to set picture of every desktop to "/Library/Desktop Pictures/Solid Colors/Stone.png"'
 fi
 
 # Add AnyBar to user login items
