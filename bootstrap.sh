@@ -13,7 +13,7 @@ function sync() {
     --exclude "iTerm" \
     --exclude "README.md" \
     --exclude "LICENSE" \
-    -av --no-perms . $HOME
+    -av --no-perms . "${HOME}"
 }
 
 # list installed language package versions on a single line
@@ -74,8 +74,7 @@ brew cask upgrade # --greedy to force auto-upgrade casks
 brew cleanup
 
 # switch from system Bash to Homebrew Bash
-grep -q '/usr/local/bin/bash' /etc/shells
-if (( "$?" != 0 )); then
+if ! grep -q '/usr/local/bin/bash' /etc/shells; then
   # Add the new bash to our available shells
   echo 'switching shell to latest homebrew bash'
   echo '/usr/local/bin/bash' | sudo tee -a /etc/shells
@@ -85,6 +84,7 @@ fi
 # Install asdf programming language plugins
 echo 'Installing asdf programming language package...'
 # Setup asdf (installed via homebrew)
+# shellcheck source=/usr/local/opt/asdf/asdf.sh
 source "$(brew --prefix asdf)/asdf.sh"
 asdf plugin add elixir || true
 asdf plugin add erlang || true
@@ -96,11 +96,11 @@ asdf plugin-update --all
 # install latest NodeJS, set it globally
 latest=$(asdf list-all nodejs | grep '^\b[0-9]*[02468]\b' | tail -n 1)
 current=$(asdf_list_package_sorted 'nodejs')
-if ! [[ "${current}" =~ "${latest}" ]]; then
+if ! [[ "${current}" =~ ${latest} ]]; then
   echo "Installing NodeJS ${latest}..."
-  bash ${HOME}/.asdf/plugins/nodejs/bin/import-release-team-keyring
-  asdf install nodejs $latest
-  asdf global nodejs $latest
+  bash "${HOME}/.asdf/plugins/nodejs/bin/import-release-team-keyring"
+  asdf install nodejs "${latest}"
+  asdf global nodejs "${latest}"
   echo 'Installing global node tools...'
   npm install -g \
     ember-cli \
@@ -111,33 +111,36 @@ fi
 # install latest erlang, set it globally
 latest=$(asdf list-all erlang | grep -E '^(\d+).(\d+).(\d+)$' | tail -n 1)
 current=$(asdf_list_package_sorted 'erlang')
-if ! [[ "${current}" =~ "${latest}" ]]; then
+if ! [[ "${current}" =~ ${latest} ]]; then
   echo "Installing latest Erlang ${latest}..."
-  asdf install erlang $latest
-  asdf global erlang $latest
+  asdf install erlang "${latest}"
+  asdf global erlang "${latest}"
 fi
 
 # install latest elixir, set it globally
 latest=$(asdf list-all elixir | grep -E '^(\d+).(\d+).(\d+)$' | tail -n 1)
 current=$(asdf_list_package_sorted 'elixir')
-if ! [[ "${current}" =~ "${latest}" ]]; then
+if ! [[ "${current}" =~ ${latest} ]]; then
   echo "Installing latest Elixir ${latest}..."
-  asdf install elixir $latest
-  asdf global elixir $latest
+  asdf install elixir "${latest}"
+  asdf global elixir "${latest}"
 fi
 
 # install latest Python 3
 latest=$(asdf list-all python | grep -E '^3.(\d+).(\d+)$' | tail -n1)
 current=$(asdf_list_package_sorted 'python')
-if ! [[ "${current}" =~ "${latest}" ]]; then
+if ! [[ "${current}" =~ ${latest} ]]; then
   echo "Installing latest Python ${latest}..."
   # a fix for openssl in python
   LDFLAGS="-L$(brew --prefix openssl)/lib"
+  export LDFLAGS
   CPPFLAGS="-I$(brew --prefix openssl)/include"
+  export CPPFLAGS
   CFLAGS="-I$(brew --prefix openssl)/include"
+  export CFLAGS
   # install latest python 3
-  asdf install python $latest
-  asdf global python $latest
+  asdf install python "${latest}"
+  asdf global python "${latest}"
   # see https://github.com/danhper/asdf-python#pip-installed-modules-and-binaries
   asdf reshim python
 fi
@@ -145,10 +148,10 @@ fi
 # install latest ruby, set it globally
 latest=$(asdf list-all ruby | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
 current=$(asdf_list_package_sorted 'ruby')
-if ! [[ "${current}" =~ "${latest}" ]]; then
+if ! [[ "${current}" =~ ${latest} ]]; then
   echo "Installing latest Ruby ${latest}..."
-  asdf install ruby $latest
-  asdf global ruby $latest
+  asdf install ruby "${latest}"
+  asdf global ruby "${latest}"
 fi
 
 # Remove garageband
@@ -161,41 +164,32 @@ sudo rm -rfv /Applications/GarageBand.app && \
   rm -rfv ~/Library/Audio/Apple Loops && \
   rm -rfv ~/Library/Application\ Support/GarageBand
 
-# sync if the --force argument was passed
-if [ "$1" == "--force" -o "$1" == "-f" ]; then
-  sync;
-else
-  # else ask
-  read -p 'Symlinking dotfiles to $HOME directory. Are you sure? (y/n) ' -n 1;
-  echo '';
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sync;
-  fi;
-fi;
+# sync the home directory
+read -r -p 'Symlink dotfiles to home directory? (y/n) '
+if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
+  sync
+fi
 
 # Provision any vim specific deps
-read -p 'Provision vim? (y/n)? ' choice
-case "$choice" in
-  y|Y ) provision_vim;;
-  n|N ) echo 'Skiping provisioning';;
-  * ) echo 'invalid answer';;
-esac
+read -r -p 'Provision vim? (y/n) '
+if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
+  provision_vim
+fi
 
-# Setup OS X system defaults
-read -p 'Personalize macOS system defaults (y/n)? ' choice
-case "$choice" in
-y|Y ) source .macos;;
-n|N ) echo 'Skipping macOS defaults';;
-* ) echo 'invalid answer';;
-esac
+# Setup macOS defaults
+read -r -p 'Personalize macOS system defaults (y/n)? '
+if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
+  source .macos
+fi
 
 echo 'installing notify-on-packetloss launchd service'
 mkdir -p nop && \
   curl -#L https://github.com/0xadada/notify-on-packetloss/tarball/master | \
   tar -xzv -C nop --strip-components=1
-pushd nop
+pushd nop || exit 1
+# shellcheck disable=SC1091
 source install.sh
-popd
+popd || exit 1
 rm -rf nop # cleanup tmp dir
 
 # eval some 'arbitrary code' to fetch some keys, some fucking voodoo magick
