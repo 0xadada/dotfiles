@@ -1,6 +1,6 @@
 # dotfiles
 
-![Screenshot of the shell prompt](https://media.giphy.com/media/l2QZR9exGEB6CRzpK/giphy.gif)
+![Screencast of the shell prompt](https://media.giphy.com/media/UsT5IGZ5dSRlL0nxjQ/giphy.gif)
 
 ## Installation
 
