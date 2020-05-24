@@ -87,7 +87,7 @@ fi
 # Install asdf programming language plugins
 echo 'Installing asdf programming language package...'
 # Setup asdf (installed via homebrew)
-# shellcheck source=/usr/local/opt/asdf/asdf.sh
+# shellcheck disable=SC1090,SC1091
 source "$(brew --prefix asdf)/asdf.sh"
 asdf plugin add elixir || true
 asdf plugin add erlang || true
