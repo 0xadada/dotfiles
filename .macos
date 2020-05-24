@@ -24,8 +24,10 @@ function defaults() {
 
   # handles: defaults write... case
   # if the first of 1 arguments is write
+  # shellcheck disable=SC2199
   if [[ "${@:1:1}" == 'write' ]]; then
     # store original value
+    # shellcheck disable=SC2124
     defaults_write="${@:5:1}"
     # set the first positional param to 'read', and append all args from the 2nd
     set -- "read" "${@:2}"
@@ -33,8 +35,10 @@ function defaults() {
 
   # handles: defaults -currentHost write... case
   # if the 2nd of 1 args is write
+  # shellcheck disable=SC2199
   if [[ "${@:2:1}" == 'write' ]]; then
     # store original value
+    # shellcheck disable=SC2124
     defaults_write="${@:5:1}"
     # use 1st arg, replace 2nd with 'read', and append all args from the 3rd
     set -- "${@:1:1}" "read" "${@:3}"
@@ -46,6 +50,7 @@ function defaults() {
 
   # handles: defaults write... case
   # if the first of 1 arguments is read
+  # shellcheck disable=SC2199
   if [[ "${@:1:1}" == 'read' ]]; then
     # set the first positional param to 'write', and append all args from the 2nd
     set -- "write" "${@:2}"
@@ -53,6 +58,7 @@ function defaults() {
 
   # handles: defaults -currentHost read... case
   # if the 2nd of 1 args is write
+  # shellcheck disable=SC2199
   if [[ "${@:2:1}" == 'read' ]]; then
     # use 1st arg, replace 2nd with 'write', and append all args from the 3rd
     set -- "${@:1:1}" "write" "${@:3}"
@@ -63,6 +69,7 @@ function defaults() {
     # values are different, commit the defaults write
     ${os_defaults} "$@"
     # show command (helpful for debugging)
+    # zshellcheck disable=SC2145
     echo "defaults ${@}"
     # output changed values
     cecho "- ${defaults_read}" "${red}"
