@@ -282,6 +282,12 @@ defaults write com.apple.CrashReporter DialogType -string "none"
 # Disable the guest account
 sudo sysadminctl -guestAccount off &> /dev/null
 
+# Disable ad tracking library: System Preferences → Security & Privacy → Privacy → Advertising
+defaults write com.apple.AdLib forceLimitAdTracking -bool true
+# NOTE: https://github.com/blochberger/IDFA#facts
+# Override ad tracking device ID with a zeroed ID
+defaults write com.apple.AdLib AD_DEVICE_IDFA -string '00000000-0000-0000-0000-000000000000'
+
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
