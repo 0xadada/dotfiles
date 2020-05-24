@@ -5,6 +5,7 @@
 # sync dotfiles to $HOME
 function sync() {
   rsync --exclude ".git/" \
+    --exclude ".github" \
     --exclude ".DS_Store" \
     --exclude ".macos" \
     --exclude "avatar.jpg" \
