@@ -69,7 +69,7 @@ function defaults() {
     # values are different, commit the defaults write
     ${os_defaults} "$@"
     # show command (helpful for debugging)
-    # zshellcheck disable=SC2145
+    # shellcheck disable=SC2145
     echo "defaults ${@}"
     # output changed values
     cecho "- ${defaults_read}" "${red}"
