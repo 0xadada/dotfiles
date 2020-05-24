@@ -26,7 +26,7 @@ jobs:
         sudo cp shellcheck /usr/local/bin
 
     - name: shellcheck bootstrap.sh
-      run: shellcheck bootstrap.sh
+      run: shellcheck -x bootstrap.sh
       
     - name: shellcheck .macos
-      run: shellcheck .macos
+      run: shellcheck -x .macos
