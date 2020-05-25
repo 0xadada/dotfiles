@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-if [ "${TERM%%-*}" = "screen" ]; then
-  if [ -n "$TMUX" ]; then
+if [[ "${TERM%%-*}" = 'screen' ]]; then
+  if [[ -n "$TMUX" ]]; then
     printf "\033Ptmux;\033\033]4;236;rgb:26/24/23\007\033\\"
     printf "\033Ptmux;\033\033]4;234;rgb:16/18/19\007\033\\"
 
