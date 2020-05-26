@@ -53,9 +53,16 @@ function provision_vim() {
   echo 'installed all vim plugins'
 
   echo 'install coc.nvim language servers'
-  nvim -c ":CocInstall coc-tsserver coc-eslint coc-prettier coc-html coc-css coc-json coc-python coc-yaml" \
-    -c ":qall"
-  echo ' installed coc.nvim language servers'
+  local servers=(coc-tsserver \
+                 coc-eslint \
+                 coc-prettier \
+                 coc-html \
+                 coc-css \
+                 coc-json \
+                 coc-python \
+                 coc-yaml)
+  nvim -c ":CocInstall ${servers[@]}" -c ":qall"
+  echo "installed coc.nvim servers: ${servers[@]}"
 }
 
 sudo -v # ask for the administrator password upfront.
@@ -108,6 +115,7 @@ if ! [[ "${latest}" =~ ${current} ]]; then
   echo 'Installing global node tools...'
   npm install -g \
     ember-cli \
+    neovim \
     tldr \
     yarn
 fi
