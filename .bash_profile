@@ -1,7 +1,7 @@
 # Load the shell dotfiles, and then some:
 # * ~/.bash_custom can be used for other settings you don’t want to commit.
-for file in ~/.{bash_prompt,bash_exports,bash_aliases,bash_custom}; do
-  [ -r "$file" ] && [ -f "$file" ] && source "$file"
+for file in ${HOME}/.bash_{prompt,exports,aliases,custom}; do
+  [[ -r "${file}" ]] && [[ -f "${file}" ]] && source "${file}"
 done
 unset file
 
@@ -40,14 +40,14 @@ bind "set completion-map-case on"
 bind "set show-all-if-ambiguous on"
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-if [[ -e "$HOME/.ssh/config" ]]; then
+if [[ -e "${HOME}/.ssh/config" ]]; then
   complete -o "default" \
     -o "nospace" \
     -W "$(grep '^Host' ~/.ssh/config | grep -v '[?*]' | awk '{print $2}')" \
     scp sftp ssh
 fi
 
-if [[ $OSTYPE == darwin* ]]; then
+if [[ "${OSTYPE}" == darwin* ]]; then
   # Add tab completion for `defaults read|write NSGlobalDomain`
   # You could just use `-g` instead, but I like being explicit
   complete -W "NSGlobalDomain" defaults
