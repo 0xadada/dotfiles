@@ -39,9 +39,9 @@ export HOMEBREW_NO_ANALYTICS=1
 PATH="/usr/local/sbin:${PATH}"
 
 # fixes for homebrew installed openssl linking
-export LDFLAGS="-L$(brew --prefix openssl)/lib"
-export CPPFLAGS="-I$(brew --prefix openssl)/include"
-PATH="$(brew --prefix openssl)/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 
 # add XCode to the PATH
 PATH="${PATH}:$(xcode-select --print-path)/usr/bin"
