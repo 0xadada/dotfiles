@@ -40,10 +40,12 @@ bind "set completion-map-case on"
 bind "set show-all-if-ambiguous on"
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "$HOME/.ssh/config" ] && complete -o "default" \
-  -o "nospace" \
-  -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" \
-  scp sftp ssh
+if [[ -e "$HOME/.ssh/config" ]]; then
+  complete -o "default" \
+    -o "nospace" \
+    -W "$(grep '^Host' ~/.ssh/config | grep -v '[?*]' | awk '{print $2}')" \
+    scp sftp ssh
+fi
 
 if [[ $OSTYPE == darwin* ]]; then
   # Add tab completion for `defaults read|write NSGlobalDomain`
@@ -55,7 +57,7 @@ if [[ $OSTYPE == darwin* ]]; then
 fi
 
 # If possible, add tab completion for many more commands
-[ -r /etc/bash_completion ] && source /etc/bash_completion
+[[ -r /etc/bash_completion ]] && source /etc/bash_completion
 # bash completion via homebrew
 [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 
