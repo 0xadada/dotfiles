@@ -61,8 +61,8 @@ function provision_vim() {
                  coc-json \
                  coc-python \
                  coc-yaml)
-  nvim -c ":CocInstall ${servers[@]}" -c ":qall"
-  echo "installed coc.nvim servers: ${servers[@]}"
+  nvim -c ":CocInstall ${servers[*]}" -c ":qall"
+  echo "installed coc.nvim servers: ${servers[*]}"
 }
 
 sudo -v # ask for the administrator password upfront.
