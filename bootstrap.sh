@@ -17,17 +17,17 @@ function sync() {
     -av --no-perms . "${HOME}"
 }
 
-# list latest installed language package major/minor version number
+# list latest installed languages major/minor version number
 # usage: asdf_list_package_sorted 'python'
-# output: 3.8
+# output: 3.8 2.7
 function asdf_list_package_sorted() {
   package=$1
   asdf list "${package}" | \
     sed -e 's/^[ ]*//' | \
     sort -n | \
-    tail -n1 | \
     tr '.' ' ' | \
-    awk '{print $1 "." $2}'
+    awk '{print $1 "." $2}' | \
+    xargs echo
 }
 
 # Bootstrap provisioning for vim
@@ -105,9 +105,9 @@ asdf plugin add ruby || true
 asdf plugin-update --all
 
 # install latest NodeJS, set it globally
-latest=$(asdf list-all nodejs | grep '^\b[0-9]*[02468]\b' | tail -n1)
+latest=$(asdf list-all nodejs | grep '^\b[0-9]*[02468]\b' | tail -n1 | tr '.' ' ' | awk '{print $1 "." $2}')
 current=$(asdf_list_package_sorted 'nodejs')
-if ! [[ "${latest}" =~ ${current} ]]; then
+if ! [[ "${current}" =~ ${latest} ]]; then
   echo "Installing NodeJS ${latest}..."
   bash "${HOME}/.asdf/plugins/nodejs/bin/import-release-team-keyring"
   asdf install nodejs "${latest}"
@@ -121,27 +121,27 @@ if ! [[ "${latest}" =~ ${current} ]]; then
 fi
 
 # install latest erlang, set it globally
-latest=$(asdf list-all erlang | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
+latest=$(asdf list-all erlang | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1 | tr '.' ' ' | awk '{print $1 "." $2}')
 current=$(asdf_list_package_sorted 'erlang')
-if ! [[ "${latest}" =~ ${current} ]]; then
+if ! [[ "${current}" =~ ${latest} ]]; then
   echo "Installing latest Erlang ${latest}..."
   asdf install erlang "${latest}"
   asdf global erlang "${latest}"
 fi
 
 # install latest elixir, set it globally
-latest=$(asdf list-all elixir | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
+latest=$(asdf list-all elixir | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1 | tr '.' ' ' | awk '{print $1 "." $2}')
 current=$(asdf_list_package_sorted 'elixir')
-if ! [[ "${latest}" =~ ${current} ]]; then
+if ! [[ "${current}" =~ ${latest} ]]; then
   echo "Installing latest Elixir ${latest}..."
   asdf install elixir "${latest}"
   asdf global elixir "${latest}"
 fi
 
 # install latest Python 3
-latest=$(asdf list-all python | grep -E '^3.(\d+).(\d+)$' | tail -n1)
+latest=$(asdf_list_latest 'python')
 current=$(asdf_list_package_sorted 'python')
-if ! [[ "${latest}" =~ ${current} ]]; then
+if ! [[ "${current}" =~ ${latest} ]]; then
   echo "Installing latest Python ${latest}..."
   # a fix for openssl in python
   LDFLAGS="-L$(brew --prefix openssl)/lib"
