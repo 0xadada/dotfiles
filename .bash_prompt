@@ -71,13 +71,18 @@ function __prompt {
   }
 
   function git_branch {
-    local BRANCH="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+    local BRANCH
+    BRANCH="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
                     git rev-parse --short HEAD 2> /dev/null || \
                     printf "(unknown)")"
-    local COLORCODE=$(git_state_color)
-    local BG_COLOR=$(tput setab ${COLORCODE})
-    local FG_COLOR=$(tput setaf ${COLORCODE})
-    local TXT_COLOR="${GRAY}"
+    local COLORCODE
+    COLORCODE=$(git_state_color)
+    local BG_COLOR
+    BG_COLOR=$(tput setab "${COLORCODE}")
+    local FG_COLOR
+    FG_COLOR=$(tput setaf "${COLORCODE}")
+    local TXT_COLOR
+    TXT_COLOR="${GRAY}"
 
     # If the BG_COLOR isn't "clean", change text color to black (more contrast)
     if [[ ${COLORCODE} != '237' && ${COLORCODE} != '0' ]]; then
