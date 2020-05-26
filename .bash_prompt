@@ -11,7 +11,7 @@ function __prompt {
   fi
 
   # Prompt prefix, use `$` for successful exit code, `!` for error.
-  PREFIX_0='$'
+  PREFIX_0=''
   PREFIX_1='!'
 
   if tput setaf 1 &> /dev/null; then
