@@ -92,8 +92,8 @@ alias encsym='gpg --armor --symmetric --cipher-algo AES256'
 # find yarn linked packages
 alias linked="(ls -l node_modules/; ls -l node_modules/@*) | grep ^l"
 
-# show defaults domains (pretty)
-alias defaultsdomains="defaults domains | tr ',' '\n'"
+# show defaults domains broken by line break
+alias defaultsdomains="defaults domains | sed -e 's/, /,/g' | tr ',' '\n'"
 
 # be subtle about using neovim
 alias vi="nvim --noplugins"
