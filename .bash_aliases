@@ -81,7 +81,7 @@ alias plistbuddy="/usr/libexec/PlistBuddy"
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # source local .env file
-alias dotenv='export $(cat .env | xargs); cat .env'
+alias dotenv='export $(cat .env | xargs); cat .env && echo 💫'
 
 # Simple python http server
 alias httpserver="python -m http.server"
