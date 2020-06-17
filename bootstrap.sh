@@ -81,7 +81,7 @@ echo 'Installing Homebrew taps, kegs, casks, and brews...'
 brew update
 brew bundle
 brew upgrade # upgrade installed formulae
-brew cask upgrade # --greedy to force auto-upgrade casks
+brew cask upgrade # --greedy to force auto-upgrade existing casks
 brew cleanup
 
 # switch from system Bash to Homebrew Bash
@@ -117,6 +117,7 @@ if ! [[ "${current}" =~ ${latest} ]]; then
     ember-cli \
     neovim \
     tldr \
+    yalc \
     yarn
 fi
 
@@ -222,5 +223,5 @@ ${EDITOR} "${HOME}/.bash_custom"
 
 # finish up
 echo
-echo 'System has been bootstrapped.'
+echo 'System has been bootstrapped 💫'
 echo 'You probably should restart.'
