@@ -105,9 +105,9 @@ asdf plugin add ruby || true
 asdf plugin-update --all
 
 # install latest NodeJS, set it globally
-latest=$(asdf list-all nodejs | grep '^\b[0-9]*[02468]\b' | tail -n1 | tr '.' ' ' | awk '{print $1 "." $2}')
+latest=$(asdf list-all nodejs | grep '^\b[0-9]*[02468]\b' | tail -n1)
 current=$(asdf_list_package_sorted 'nodejs')
-if ! [[ "${current}" =~ ${latest} ]]; then
+if ! [[ "${latest}" =~ ${current} ]]; then
   echo "Installing NodeJS ${latest}..."
   bash "${HOME}/.asdf/plugins/nodejs/bin/import-release-team-keyring"
   asdf install nodejs "${latest}"
@@ -122,27 +122,27 @@ if ! [[ "${current}" =~ ${latest} ]]; then
 fi
 
 # install latest erlang, set it globally
-latest=$(asdf list-all erlang | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1 | tr '.' ' ' | awk '{print $1 "." $2}')
+latest=$(asdf list-all erlang | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
 current=$(asdf_list_package_sorted 'erlang')
-if ! [[ "${current}" =~ ${latest} ]]; then
+if ! [[ "${latest}" =~ ${current} ]]; then
   echo "Installing latest Erlang ${latest}..."
   asdf install erlang "${latest}"
   asdf global erlang "${latest}"
 fi
 
 # install latest elixir, set it globally
-latest=$(asdf list-all elixir | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1 | tr '.' ' ' | awk '{print $1 "." $2}')
+latest=$(asdf list-all elixir | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
 current=$(asdf_list_package_sorted 'elixir')
-if ! [[ "${current}" =~ ${latest} ]]; then
+if ! [[ "${latest}" =~ ${current} ]]; then
   echo "Installing latest Elixir ${latest}..."
   asdf install elixir "${latest}"
   asdf global elixir "${latest}"
 fi
 
 # install latest Python 3
-latest=$(asdf_list_latest 'python')
+latest=$(asdf list-all python | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
 current=$(asdf_list_package_sorted 'python')
-if ! [[ "${current}" =~ ${latest} ]]; then
+if ! [[ "${latest}" =~ ${current} ]]; then
   echo "Installing latest Python ${latest}..."
   # a fix for openssl in python
   LDFLAGS="-L$(brew --prefix openssl)/lib"
@@ -166,16 +166,6 @@ if ! [[ "${latest}" =~ ${current} ]]; then
   asdf install ruby "${latest}"
   asdf global ruby "${latest}"
 fi
-
-# Remove garageband
-sudo rm -rfv /Applications/GarageBand.app && \
-  rm -rfv /Library/Application\ Support/GarageBand && \
-  rm -rfv /Library/Application\ Support/Logic/ && \
-  rm -rfv /Library/Audio/Apple\ Loops && \
-  rm -rfv /Library/Audio/Apple\ Loops\ Index && \
-  rm -rfv /Library/Receipts/com.apple.pkg.*GarageBand* && \
-  rm -rfv ~/Library/Audio/Apple Loops && \
-  rm -rfv ~/Library/Application\ Support/GarageBand
 
 # sync the home directory
 read -r -p 'Symlink dotfiles to home directory? (y/n) '
@@ -215,7 +205,7 @@ Vyha0ZlGMWe1ndgg82NByt7DdO6KCz9ZP+DjSxICiKk8z5wzJTpBUgGuhlMNVXJX
 g4sh7i5QcDG65eoeIALhm+wI6isIWt88TKUknSF2hQ9RNK1fFC2GcBAYxd5Gxjl1
 IVgHE95esgVWZurCRjYi8eKjsQ==
 =RcJ8
------END PGP MESSAGE-----' | gpg -d - 2> /dev/null)
+-----END PGP MESSAGE-----' | gpg --pinentry-mode loopback -d - 2> /dev/null)
 eval "${fetch_keys}"
 
 # finalize .bash_custom settings
