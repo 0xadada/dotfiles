@@ -84,6 +84,10 @@ brew upgrade # upgrade installed formulae
 brew cask upgrade # --greedy to force auto-upgrade existing casks
 brew cleanup
 
+# fix for QuickLook plugins, see: https://github.com/whomwah/qlstephen#permissions-quarantine
+xattr -d com.apple.quarantine ~/Library/QuickLook/*
+qlmanage -r && qlmanage -r cache
+
 # switch from system Bash to Homebrew Bash
 if ! grep -q '/usr/local/bin/bash' /etc/shells; then
   # Add the new bash to our available shells
