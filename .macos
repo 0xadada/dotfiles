@@ -294,12 +294,13 @@ defaults write com.apple.AdLib AD_DEVICE_IDFA -string '00000000-0000-0000-0000-0
 
 # Trackpad tracking speed
 defaults write NSGlobalDomain com.apple.trackpad.scaling -float 0.7
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 
 # Trackpad: enable tap to click for this user and for the login screen
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+# Disable Force Click and haptic feedback: Click firmly for Quick Look, Look up, etc
+defaults write com.apple.AppleMultitouchTrackpad ForceSuppressed 1
 
 # Trackpad: map bottom right corner to right-click
 # defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
