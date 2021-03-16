@@ -16,9 +16,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Shougo/denite.nvim'
 " code formatting/highlighting
 Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'mxw/vim-jsx'
-Plug 'maxmellon/vim-jsx-pretty'
+Plug 'maxmellon/vim-jsx-pretty' " .jsx, .tsx syntax highlighting
 Plug 'slashmili/alchemist.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'hail2u/vim-css3-syntax'
@@ -140,9 +138,6 @@ augroup VimCSS3Syntax
     autocmd!
     autocmd FileType css setlocal iskeyword+=-
 augroup END
-
-" vim-jsx-typescript: set filetypes as typescriptreact
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
 " vim-airline
 let g:airline_detect_paste=1       " enable paste detection
