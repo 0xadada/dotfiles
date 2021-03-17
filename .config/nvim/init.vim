@@ -15,8 +15,7 @@ Plug 'scrooloose/nerdtree'
 " fuzzy search
 Plug 'Shougo/denite.nvim'
 " code formatting/highlighting
-Plug 'leafgarland/typescript-vim'
-Plug 'maxmellon/vim-jsx-pretty' " .jsx, .tsx syntax highlighting
+Plug 'HerringtonDarkholme/yats.vim' " .ts, .tsx syntax highlighting
 Plug 'slashmili/alchemist.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'hail2u/vim-css3-syntax'
@@ -25,6 +24,7 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'mhinz/vim-mix-format'
 Plug 'jparise/vim-graphql'
 Plug 'mustache/vim-mustache-handlebars'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 call plug#end()
 
 " set the color palette - Gruvbox
@@ -200,3 +200,8 @@ nmap <silent> <leader>dj <Plug>(coc-implementation)
 
 " vim-mix-format set to run Elixir formatter upon save
 let g:mix_format_on_save = 1
+
+" vim-pandoc-syntax
+augroup pandoc_syntax
+  au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+augroup END
