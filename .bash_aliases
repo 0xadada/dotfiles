@@ -52,7 +52,7 @@ fi;
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias whatsmyip="ip"
 # shellcheck disable=SC2142
-alias localip="netstat -rn | grep default | head -n1 | awk '{print \$6}' | xargs ipconfig getifaddr"
+alias localip="netstat -rn | rg default | head -n1 | awk '{print \$4}' | xargs ipconfig getifaddr"
 
 # Empty the Trash on all mounted volumes and the main HDD
 # Also, clear Apple’s System Logs to improve shell startup speed
