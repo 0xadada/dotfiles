@@ -45,6 +45,6 @@ cask "slack"
 cask "spotify"
 cask "tor-browser"
 cask "transmission"
-cask "zoomus"
+cask "zoom"
 mas "Giphy Capture", id:668208984
 mas "Next Meeting", id:1017470484
