@@ -194,9 +194,11 @@ nmap ; :Denite buffer -split=floating -winrow=1<CR>
 nmap <leader>t :DeniteProjectDir file/rec<CR>
 
 " coc.nvim shortcut mappings
-nmap <silent> <leader>dd <Plug>(coc-definition)
-nmap <silent> <leader>dr <Plug>(coc-references)
-nmap <silent> <leader>dj <Plug>(coc-implementation)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 
 " vim-mix-format set to run Elixir formatter upon save
 let g:mix_format_on_save = 1
