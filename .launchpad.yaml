@@ -1,0 +1,141 @@
+apps:
+  pages:
+  - number: 1
+    items:
+    - Brave Browser
+    - iTerm
+    - Roam Research
+    - Google Chrome
+    - Firefox Developer Edition
+    - Signal
+    - Messages
+    - Tor Browser
+    - Safari
+    - Postman
+    - Slack
+    - zoom.us
+    - Resilio Sync
+    - The Society of the Spectacle
+    - folder: Other
+      pages:
+      - number: 1
+        items:
+        - Shortcuts
+        - Time Machine
+        - Font Book
+        - Image Capture
+        - VoiceOver Utility
+        - AirPort Utility
+        - Migration Assistant
+        - Terminal
+        - Activity Monitor
+        - Console
+        - Keychain Access
+        - System Information
+        - Automator
+        - Script Editor
+        - Disk Utility
+        - Boot Camp Assistant
+        - Digital Color Meter
+        - Screenshot
+        - Bluetooth File Exchange
+        - Audio MIDI Setup
+        - Home
+    - folder: Utilities
+      pages:
+      - number: 1
+        items:
+        - Siri
+        - Transmission
+        - DEPNotify
+        - Mission Control
+        - Calculator
+        - App Store
+        - System Preferences
+        - Voice Memos
+        - News
+        - Stocks
+        - Find My
+        - Reminders
+        - GPG Keychain
+        - Self Service
+        - AnyBar
+        - Xerox PowerENGAGE
+        - XeroxPEInstallationCompanion
+        - Rectangle
+    - folder: Developer Tools
+      pages:
+      - number: 1
+        items:
+        - PSequel
+        - OpenVPN Connect
+        - Docker
+        - DiffMerge
+        - Sequel Pro
+        - ImageOptim
+        - VirtualBox
+        - VMware CBCloud
+        - Android File Transfer
+    - folder: Productivity
+      pages:
+      - number: 1
+        items:
+        - Notes
+        - Preview
+        - TextEdit
+        - Mail
+        - Contacts
+        - ColorSync Utility
+        - Stickies
+        - Maps
+        - Calendar
+    - folder: Music
+      pages:
+      - number: 1
+        items:
+        - Spotify
+        - Podcasts
+        - Music
+    - folder: Video
+      pages:
+      - number: 1
+        items:
+        - VLC
+        - QuickTime Player
+        - TV
+    - folder: Social Networking
+      pages:
+      - number: 1
+        items:
+        - FaceTime
+        - Messages
+    - folder: Entertainment
+      pages:
+      - number: 1
+        items:
+        - Photo Booth
+        - Chess
+    - folder: Reference
+      pages:
+      - number: 1
+        items:
+        - Dictionary
+        - Books
+    - folder: Education
+      pages:
+      - number: 1
+        items:
+        - Grapher
+    - folder: Photography
+      pages:
+      - number: 1
+        items:
+        - Photos
+widgets:
+  pages: []
+dock_items:
+- Brave Browser
+- Roam Research
+- iTerm
+- ============
+desktop: {}

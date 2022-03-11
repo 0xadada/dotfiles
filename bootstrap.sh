@@ -187,6 +187,8 @@ fi
 read -r -p 'Personalize macOS system defaults (y/n)? '
 if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
   source .macos
+  # set default macOS Launchpad settings & folders
+  lporg load ~/.launchpad.yaml --no-backup
 fi
 
 echo 'installing notify-on-packetloss launchd service'
