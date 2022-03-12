@@ -4,18 +4,24 @@ apps:
     items:
     - Brave Browser
     - iTerm
-    - Roam Research
     - Google Chrome
     - Firefox Developer Edition
-    - Signal
-    - Messages
-    - Tor Browser
     - Safari
+    - Signal
+    - Tor Browser
     - Postman
     - Slack
     - zoom.us
     - Resilio Sync
+    - ProtonVPN
+    - OBS
     - The Society of the Spectacle
+    - Photos
+    - iMovie
+    - Snap Camera
+    - mpv
+    - Next Meeting
+    - GIPHY CAPTURE
     - folder: Other
       pages:
       - number: 1
@@ -45,10 +51,11 @@ apps:
       pages:
       - number: 1
         items:
-        - Siri
         - Transmission
-        - DEPNotify
+        - Rectangle
+        - Siri
         - Mission Control
+        - DEPNotify
         - Calculator
         - App Store
         - System Preferences
@@ -62,7 +69,6 @@ apps:
         - AnyBar
         - Xerox PowerENGAGE
         - XeroxPEInstallationCompanion
-        - Rectangle
     - folder: Developer Tools
       pages:
       - number: 1
@@ -71,6 +77,7 @@ apps:
         - OpenVPN Connect
         - Docker
         - DiffMerge
+        - Chromebook Recovery Utility
         - Sequel Pro
         - ImageOptim
         - VirtualBox
@@ -95,14 +102,16 @@ apps:
         items:
         - Spotify
         - Podcasts
+        - Audioscrobbler
         - Music
     - folder: Video
       pages:
       - number: 1
         items:
-        - VLC
         - QuickTime Player
         - TV
+        - YouTube
+        - VLC
     - folder: Social Networking
       pages:
       - number: 1
@@ -126,11 +135,6 @@ apps:
       - number: 1
         items:
         - Grapher
-    - folder: Photography
-      pages:
-      - number: 1
-        items:
-        - Photos
 widgets:
   pages: []
 dock_items:
