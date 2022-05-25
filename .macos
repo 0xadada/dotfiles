@@ -854,6 +854,7 @@ defaults write org.mozilla.crashreporter submitReport -int 0
 
 # Use default shortcuts
 defaults write com.knollsoft.Rectangle alternateDefaultShortcuts -bool true
+defaults write com.knollsoft.Rectangle subsequentExecutionMode -int 0
 
 ###############################################################################
 # Transmission.app                                                            #
