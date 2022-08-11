@@ -69,6 +69,6 @@ if [[ -r ~/bin/gruvbox_256palette_osx.sh ]]; then
 fi
 
 # initialize asdf
-if [[ -r /usr/local/opt/asdf/asdf.sh ]]; then
-  source /usr/local/opt/asdf/asdf.sh
+if [[ -r /usr/local/opt/asdf/libexec/asdf.sh ]]; then
+  . /usr/local/opt/asdf/libexec/asdf.sh
 fi
