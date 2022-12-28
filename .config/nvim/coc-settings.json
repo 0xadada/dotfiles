@@ -1,8 +1,0 @@
-{
-  "suggest.noselect": false,
-  "suggest.maxCompleteItemCount": 20,
-  "eslint.autoFixOnSave": true,
-  "diagnostic.errorSign": "•",
-  "diagnostic.warningSign": "•",
-  "diagnostic.infoSign": "•"
-}

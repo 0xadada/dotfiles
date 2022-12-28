@@ -40,9 +40,8 @@ function provision_vim() {
   echo
 
   echo 'installing neovim language deps'
-  npm install -g neovim
+  volta install neovim typescript typescript-language-server
   gem install neovim
-  pip install pynvim  #install dependency for Denite
 
   echo 'installing vim-plug'
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
@@ -51,18 +50,6 @@ function provision_vim() {
   echo 'installing all plugins'
   nvim -c ":PlugInstall" -c ":qall"
   echo 'installed all vim plugins'
-
-  echo 'install coc.nvim language servers'
-  local servers=(coc-tsserver \
-                 coc-eslint \
-                 coc-prettier \
-                 coc-html \
-                 coc-css \
-                 coc-json \
-                 coc-python \
-                 coc-yaml)
-  nvim -c ":CocInstall ${servers[*]}" -c ":qall"
-  echo "installed coc.nvim servers: ${servers[*]}"
 }
 
 sudo -v # ask for the administrator password upfront.
@@ -96,6 +83,14 @@ if ! grep -q '/usr/local/bin/bash' /etc/shells; then
   chsh -s /usr/local/bin/bash
 fi
 
+# Install Node w/Volta
+volta install node
+volta install \
+  ember-cli \
+  tldr \
+  yalc \
+  yarn
+
 # Install asdf programming language plugins
 echo 'Installing asdf programming language package...'
 # Setup asdf (installed via homebrew)
@@ -104,26 +99,15 @@ source "$(brew --prefix asdf)/asdf.sh"
 asdf plugin add elixir || true
 asdf plugin add erlang || true
 asdf plugin add python || true
-asdf plugin add nodejs || true
 asdf plugin add ruby || true
 asdf plugin-update --all
 
-# install latest NodeJS, set it globally
-latest=$(asdf list-all nodejs | grep '^\b[0-9]*[02468]\b' | tail -n1)
-current=$(asdf_list_package_sorted 'nodejs')
-if ! [[ "${latest}" =~ ${current} ]]; then
-  echo "Installing NodeJS ${latest}..."
-  bash "${HOME}/.asdf/plugins/nodejs/bin/import-release-team-keyring"
-  asdf install nodejs "${latest}"
-  asdf global nodejs "${latest}"
-  echo 'Installing global node tools...'
   npm install -g \
     ember-cli \
     neovim \
     tldr \
     yalc \
     yarn
-fi
 
 # install latest erlang, set it globally
 latest=$(asdf list-all erlang | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
@@ -160,15 +144,6 @@ if ! [[ "${latest}" =~ ${current} ]]; then
   asdf global python "${latest}"
   # see https://github.com/danhper/asdf-python#pip-installed-modules-and-binaries
   asdf reshim python
-fi
-
-# install latest ruby, set it globally
-latest=$(asdf list-all ruby | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
-current=$(asdf_list_package_sorted 'ruby')
-if ! [[ "${latest}" =~ ${current} ]]; then
-  echo "Installing latest Ruby ${latest}..."
-  asdf install ruby "${latest}"
-  asdf global ruby "${latest}"
 fi
 
 # sync the home directory

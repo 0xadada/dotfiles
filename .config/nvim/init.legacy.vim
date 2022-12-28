@@ -6,17 +6,14 @@ call plug#begin(stdpath('data') . '/plugged')
 " Colors, visual looks
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
-" LSP
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " features
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
-" fuzzy search
-Plug 'Shougo/denite.nvim'
 " code formatting/highlighting
-Plug 'HerringtonDarkholme/yats.vim' " .ts, .tsx syntax highlighting
-Plug 'slashmili/alchemist.vim'
+Plug 'neovim/nvim-lspconfig'
+" Plug 'HerringtonDarkholme/yats.vim' " .ts, .tsx syntax highlighting
+Plug 'slashmili/alchemist.vim' " Elixir Integration
 Plug 'editorconfig/editorconfig-vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'elzr/vim-json'
@@ -77,8 +74,8 @@ set foldlevel=2
 
 " Highlight current line
 set nocursorline
-" Highlight columns after 80 characters
-let &colorcolumn=join(range(81,999),",")
+" Highlight columns after 120 characters
+let &colorcolumn=join(range(121,999),",")
 " Make tabs as wide as four spaces
 set tabstop=4
 " Make shift indent operation add four spaces
@@ -90,8 +87,6 @@ set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
 " Highlight searches
 set hlsearch
-" Ignore case of searches
-set ignorecase
 " Highlight dynamically as pattern is typed
 set incsearch
 " Always show status line
@@ -141,80 +136,6 @@ let g:airline#extensions#branch#displayed_head_limit = 10
 
 " NERDTree
 let g:NERDTreeIgnore = ['^dist$', '^node_modules$']
-
-" Denite setup
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
-endfunction
-call denite#custom#var('file/rec', 'command', ['rg', '--files', '--glob', '!.git'])
-call denite#custom#var('grep', 'command', ['rg'])
-call denite#custom#var('grep', 'default_opts', ['--hidden', '--vimgrep', '--heading', '-S'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
-let s:denite_options = {'default' : {
-\ 'split': 'floating',
-\ 'start_filter': 1,
-\ 'auto_resize': 1,
-\ 'source_names': 'short',
-\ 'prompt': '? ',
-\ 'statusline': 0,
-\ 'highlight_matched_char': 'QuickFixLine',
-\ 'highlight_matched_range': 'Visual',
-\ 'highlight_window_background': 'Visual',
-\ 'highlight_filter_background': 'DiffAdd',
-\ 'winrow': 1,
-\ 'vertical_preview': 1
-\ }}
-function! s:profile(opts) abort
-  for l:fname in keys(a:opts)
-    for l:dopt in keys(a:opts[l:fname])
-      call denite#custom#option(l:fname, l:dopt, a:opts[l:fname][l:dopt])
-    endfor
-  endfor
-endfunction
-call s:profile(s:denite_options)
-nmap ; :Denite buffer -split=floating -winrow=1<CR>
-nmap <leader>t :DeniteProjectDir file/rec<CR>
-
-" coc.nvim shortcut mappings
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-" use <tab> for trigger completion and navigate to the next complete item
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-inoremap <silent><expr> <Tab>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
 
 " vim-mix-format set to run Elixir formatter upon save
 let g:mix_format_on_save = 1
