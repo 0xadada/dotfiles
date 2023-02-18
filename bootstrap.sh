@@ -122,7 +122,7 @@ if ! [[ "${latest}" =~ ${current} ]]; then
     neovim \
     tldr \
     yalc \
-    yarn
+    corepack
 fi
 
 # install latest erlang, set it globally
