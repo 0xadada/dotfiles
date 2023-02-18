@@ -104,26 +104,16 @@ source "$(brew --prefix asdf)/asdf.sh"
 asdf plugin add elixir || true
 asdf plugin add erlang || true
 asdf plugin add python || true
-asdf plugin add nodejs || true
 asdf plugin add ruby || true
 asdf plugin-update --all
 
-# install latest NodeJS, set it globally
-latest=$(asdf list-all nodejs | grep '^\b[0-9]*[02468]\b' | tail -n1)
-current=$(asdf_list_package_sorted 'nodejs')
-if ! [[ "${latest}" =~ ${current} ]]; then
-  echo "Installing NodeJS ${latest}..."
-  bash "${HOME}/.asdf/plugins/nodejs/bin/import-release-team-keyring"
-  asdf install nodejs "${latest}"
-  asdf global nodejs "${latest}"
-  echo 'Installing global node tools...'
-  npm install -g \
-    ember-cli \
-    neovim \
-    tldr \
-    yalc \
-    corepack
-fi
+# install nvm, and latest node
+export NVM_DIR="$HOME/.nvm" && (
+  git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+  cd "$NVM_DIR"
+  git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+) && \. "$NVM_DIR/nvm.sh"
+nvm install --lts
 
 # install latest erlang, set it globally
 latest=$(asdf list-all erlang | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
