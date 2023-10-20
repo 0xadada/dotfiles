@@ -103,11 +103,11 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #     rancière     # Apple 15" Mid-2015           MacBookPro11,5
 #     habermas     # Google Pixel                 3a
 #     kant         # Ubiquity EdgeRouter X        ER-X
+#     hardt        # Apple iPhone 15
+#     arendt       # Apple 15" 2018               MacBookPro15,1        
 # Pre-matriculated:
-#     arendt
 #     butler
 #     camus
-#     hardt
 #     hegel
 #     heidegger
 #     lacan
