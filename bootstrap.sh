@@ -17,19 +17,6 @@ function sync() {
     -av --no-perms . "${HOME}"
 }
 
-# list latest installed languages major/minor version number
-# usage: asdf_list_package_sorted 'python'
-# output: 3.8 2.7
-function asdf_list_package_sorted() {
-  package=$1
-  asdf list "${package}" | \
-    sed -e 's/^[ ]*//' | \
-    sort -n | \
-    tr '.' ' ' | \
-    awk '{print $1 "." $2}' | \
-    xargs echo
-}
-
 # Bootstrap provisioning for vim
 function provision_vim() {
   echo 'Installing VIM packages'
@@ -92,69 +79,17 @@ if ! grep -q '/usr/local/bin/bash' /etc/shells; then
   chsh -s /usr/local/bin/bash
 fi
 
-# Install asdf programming language plugins
-echo 'Installing asdf programming language package...'
-# Setup asdf (installed via homebrew)
-# shellcheck disable=SC1090,SC1091
-source "$(brew --prefix asdf)/asdf.sh"
-asdf plugin add elixir || true
-asdf plugin add erlang || true
-asdf plugin add python || true
-asdf plugin add ruby || true
-asdf plugin-update --all
-
 # install nvm, and latest node
-export NVM_DIR="$HOME/.nvm" && (
+read -r -p 'Provision nvm/nodejs? (y/n) '
+if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
+  export NVM_DIR="$HOME/.nvm"
   git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+  # shellcheck disable=SC2164
   cd "$NVM_DIR"
-  git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
-) && \. "$NVM_DIR/nvm.sh"
-nvm install --lts
-
-# install latest erlang, set it globally
-latest=$(asdf list-all erlang | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
-current=$(asdf_list_package_sorted 'erlang')
-if ! [[ "${latest}" =~ ${current} ]]; then
-  echo "Installing latest Erlang ${latest}..."
-  asdf install erlang "${latest}"
-  asdf global erlang "${latest}"
-fi
-
-# install latest elixir, set it globally
-latest=$(asdf list-all elixir | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
-current=$(asdf_list_package_sorted 'elixir')
-if ! [[ "${latest}" =~ ${current} ]]; then
-  echo "Installing latest Elixir ${latest}..."
-  asdf install elixir "${latest}"
-  asdf global elixir "${latest}"
-fi
-
-# install latest Python 3
-latest=$(asdf list-all python | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
-current=$(asdf_list_package_sorted 'python')
-if ! [[ "${latest}" =~ ${current} ]]; then
-  echo "Installing latest Python ${latest}..."
-  # a fix for openssl in python
-  LDFLAGS="-L$(brew --prefix openssl)/lib"
-  export LDFLAGS
-  CPPFLAGS="-I$(brew --prefix openssl)/include"
-  export CPPFLAGS
-  CFLAGS="-I$(brew --prefix openssl)/include"
-  export CFLAGS
-  # install latest python 3
-  asdf install python "${latest}"
-  asdf global python "${latest}"
-  # see https://github.com/danhper/asdf-python#pip-installed-modules-and-binaries
-  asdf reshim python
-fi
-
-# install latest ruby, set it globally
-latest=$(asdf list-all ruby | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
-current=$(asdf_list_package_sorted 'ruby')
-if ! [[ "${latest}" =~ ${current} ]]; then
-  echo "Installing latest Ruby ${latest}..."
-  asdf install ruby "${latest}"
-  asdf global ruby "${latest}"
+  git checkout "$(git describe --abbrev=0 --tags --match "v[0-9]*" "$(git rev-list --tags --max-count=1)")"
+  # shellcheck disable=SC1091
+  \. "$NVM_DIR/nvm.sh"
+  nvm install --lts
 fi
 
 # sync the home directory
@@ -170,22 +105,13 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 fi
 
 # Setup macOS defaults
-read -r -p 'Personalize macOS system defaults (y/n)? '
+read -r -p '.macOS system defaults (y/n)? '
 if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
+  # shellcheck disable=SC1091
   source .macos
   # set default macOS Launchpad settings & folders
   lporg load ~/.launchpad.yaml --no-backup
 fi
-
-echo 'installing notify-on-packetloss launchd service'
-mkdir -p nop && \
-  curl -#L https://github.com/0xadada/notify-on-packetloss/tarball/master | \
-  tar -xzv -C nop --strip-components=1
-pushd nop || exit 1
-# shellcheck disable=SC1091
-source install.sh
-popd || exit 1
-rm -rf nop # cleanup tmp dir
 
 # eval some 'arbitrary code' to fetch some keys, some fucking voodoo magick
 echo 'Decrypting key fetching code'
