@@ -18,8 +18,11 @@ elif (( os_minor_version >= 15 )); then
   os_release="Catalina"
 elif (( os_minor_version >= 14 )); then
   os_release="Mojave"
-else
+elif (( os_minor_version >= 13 )); then
   os_release="High Sierra"
+else
+  echo 'macOS older than High Sierra not supported'
+  exit 1
 fi
 echo "Detected macOS $os_release"
 
