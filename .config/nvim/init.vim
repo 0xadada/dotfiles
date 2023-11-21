@@ -16,6 +16,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Shougo/denite.nvim'
 " code formatting/highlighting
 Plug 'HerringtonDarkholme/yats.vim' " .ts, .tsx syntax highlighting
+Plug 'MaxMEllon/vim-jsx-pretty' " .jsx syntax highlighting
 Plug 'slashmili/alchemist.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'hail2u/vim-css3-syntax'
