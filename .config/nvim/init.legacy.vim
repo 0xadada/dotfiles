@@ -11,9 +11,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 " code formatting/highlighting
-Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/nvim-lspconfig' " LSP
 " Plug 'HerringtonDarkholme/yats.vim' " .ts, .tsx syntax highlighting
 Plug 'slashmili/alchemist.vim' " Elixir Integration
+Plug 'MaxMEllon/vim-jsx-pretty' " .jsx syntax highlighting
 Plug 'editorconfig/editorconfig-vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'elzr/vim-json'

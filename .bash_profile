@@ -54,10 +54,6 @@ if [[ "${OSTYPE}" == darwin* ]]; then
 
   # Add `killall` tab completion for common apps
   complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall
-
-  # add all known domains to macOS defaults command
-  domains=$(defaults domains | sed -e 's/, /,/g' | tr ',' ' ')
-  complete -o "nospace" -W "${domains}" defaults
 fi
 
 # bash completion via homebrew

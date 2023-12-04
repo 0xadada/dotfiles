@@ -17,26 +17,13 @@ function sync() {
     -av --no-perms . "${HOME}"
 }
 
-# list latest installed languages major/minor version number
-# usage: asdf_list_package_sorted 'python'
-# output: 3.8 2.7
-function asdf_list_package_sorted() {
-  package=$1
-  asdf list "${package}" | \
-    sed -e 's/^[ ]*//' | \
-    sort -n | \
-    tr '.' ' ' | \
-    awk '{print $1 "." $2}' | \
-    xargs echo
-}
-
 # Bootstrap provisioning for vim
 function provision_vim() {
   echo 'Installing VIM packages'
   # finalize Neovim
   rm -rf ~/.vim*
   ln -s ~/.config/nvim ~/.vim
-  ln -s ~/.config/nvim/init.vim ~/.vimrc
+  ln -s ~/.config/nvim/init.lua ~/.vimrc
   echo
 
   echo 'installing neovim language deps'
@@ -68,12 +55,8 @@ echo 'Installing Homebrew taps, kegs, casks, and brews...'
 brew update
 brew bundle
 brew upgrade # upgrade installed formulae
-brew cask upgrade # --greedy to force auto-upgrade existing casks
+brew upgrade --cask # --greedy to force auto-upgrade existing casks
 brew cleanup
-
-# fix for QuickLook plugins, see: https://github.com/whomwah/qlstephen#permissions-quarantine
-xattr -d com.apple.quarantine ~/Library/QuickLook/*
-qlmanage -r && qlmanage -r cache
 
 # switch from system Bash to Homebrew Bash
 if ! grep -q '/usr/local/bin/bash' /etc/shells; then
@@ -83,67 +66,18 @@ if ! grep -q '/usr/local/bin/bash' /etc/shells; then
   chsh -s /usr/local/bin/bash
 fi
 
-# Install Node w/Volta
-volta install node
-volta install \
-  ember-cli \
-  tldr \
-  yalc \
-  yarn
-
-# Install asdf programming language plugins
-echo 'Installing asdf programming language package...'
-# Setup asdf (installed via homebrew)
-# shellcheck disable=SC1090,SC1091
-source "$(brew --prefix asdf)/asdf.sh"
-asdf plugin add elixir || true
-asdf plugin add erlang || true
-asdf plugin add python || true
-asdf plugin add ruby || true
-asdf plugin-update --all
-
-  npm install -g \
-    ember-cli \
-    neovim \
-    tldr \
-    yalc \
-    yarn
-
-# install latest erlang, set it globally
-latest=$(asdf list-all erlang | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
-current=$(asdf_list_package_sorted 'erlang')
-if ! [[ "${latest}" =~ ${current} ]]; then
-  echo "Installing latest Erlang ${latest}..."
-  asdf install erlang "${latest}"
-  asdf global erlang "${latest}"
-fi
-
-# install latest elixir, set it globally
-latest=$(asdf list-all elixir | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
-current=$(asdf_list_package_sorted 'elixir')
-if ! [[ "${latest}" =~ ${current} ]]; then
-  echo "Installing latest Elixir ${latest}..."
-  asdf install elixir "${latest}"
-  asdf global elixir "${latest}"
-fi
-
-# install latest Python 3
-latest=$(asdf list-all python | grep -E '^(\d+).(\d+).(\d+)$' | tail -n1)
-current=$(asdf_list_package_sorted 'python')
-if ! [[ "${latest}" =~ ${current} ]]; then
-  echo "Installing latest Python ${latest}..."
-  # a fix for openssl in python
-  LDFLAGS="-L$(brew --prefix openssl)/lib"
-  export LDFLAGS
-  CPPFLAGS="-I$(brew --prefix openssl)/include"
-  export CPPFLAGS
-  CFLAGS="-I$(brew --prefix openssl)/include"
-  export CFLAGS
-  # install latest python 3
-  asdf install python "${latest}"
-  asdf global python "${latest}"
-  # see https://github.com/danhper/asdf-python#pip-installed-modules-and-binaries
-  asdf reshim python
+# install nvm, and latest node
+read -r -p 'Provision nvm/nodejs? (y/n) '
+if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
+  export NVM_DIR="$HOME/.nvm"
+  git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+  # shellcheck disable=SC2164
+  cd "$NVM_DIR"
+  git checkout "$(git describe --abbrev=0 --tags --match "v[0-9]*" "$(git rev-list --tags --max-count=1)")"
+  # shellcheck disable=SC1090,SC1091
+  \. "$NVM_DIR/nvm.sh"
+  nvm install --lts
+  npm install -g tldr yalc yarn
 fi
 
 # sync the home directory
@@ -159,22 +93,13 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 fi
 
 # Setup macOS defaults
-read -r -p 'Personalize macOS system defaults (y/n)? '
+read -r -p '.macOS system defaults (y/n)? '
 if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
+  # shellcheck disable=SC1091
   source .macos
   # set default macOS Launchpad settings & folders
   lporg load ~/.launchpad.yaml --no-backup
 fi
-
-echo 'installing notify-on-packetloss launchd service'
-mkdir -p nop && \
-  curl -#L https://github.com/0xadada/notify-on-packetloss/tarball/master | \
-  tar -xzv -C nop --strip-components=1
-pushd nop || exit 1
-# shellcheck disable=SC1091
-source install.sh
-popd || exit 1
-rm -rf nop # cleanup tmp dir
 
 # eval some 'arbitrary code' to fetch some keys, some fucking voodoo magick
 echo 'Decrypting key fetching code'
@@ -195,4 +120,4 @@ ${EDITOR} "${HOME}/.bash_custom"
 # finish up
 echo
 echo 'System has been bootstrapped 💫'
-echo 'You probably should restart.'
+echo 'You should restart.'
