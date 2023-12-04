@@ -15,7 +15,6 @@ Plug 'neovim/nvim-lspconfig' " LSP
 Plug 'hrsh7th/nvim-cmp' " Autocompletion plugin
 Plug 'hrsh7th/cmp-nvim-lsp' " LSP source for nvim-cmp
 " code formatting/highlighting
-Plug 'HerringtonDarkholme/yats.vim' " .ts, .tsx syntax highlighting
 Plug 'slashmili/alchemist.vim' " Elixir Integration
 Plug 'MaxMEllon/vim-jsx-pretty' " .jsx syntax highlighting
 Plug 'editorconfig/editorconfig-vim'
