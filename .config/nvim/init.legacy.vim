@@ -10,9 +10,12 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
-" code formatting/highlighting
+" LSP
 Plug 'neovim/nvim-lspconfig' " LSP
-" Plug 'HerringtonDarkholme/yats.vim' " .ts, .tsx syntax highlighting
+Plug 'hrsh7th/nvim-cmp' " Autocompletion plugin
+Plug 'hrsh7th/cmp-nvim-lsp' " LSP source for nvim-cmp
+" code formatting/highlighting
+Plug 'HerringtonDarkholme/yats.vim' " .ts, .tsx syntax highlighting
 Plug 'slashmili/alchemist.vim' " Elixir Integration
 Plug 'MaxMEllon/vim-jsx-pretty' " .jsx syntax highlighting
 Plug 'editorconfig/editorconfig-vim'

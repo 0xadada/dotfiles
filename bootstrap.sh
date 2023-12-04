@@ -26,9 +26,13 @@ function provision_vim() {
   ln -s ~/.config/nvim/init.lua ~/.vimrc
   echo
 
-  echo 'installing neovim language deps'
-  volta install neovim typescript typescript-language-server
-  gem install neovim
+  echo 'installing neovim LSP language servers'
+  npm install -g \
+    neovim \
+    typescript typescript-language-server \
+    vscode-langservers-extracted \
+    graphql-language-service-cli
+  # gem install neovim
 
   echo 'installing vim-plug'
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
