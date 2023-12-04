@@ -46,10 +46,6 @@ PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 # add XCode to the PATH
 PATH="${PATH}:$(xcode-select --print-path)/usr/bin"
 
-# add ruby gems to PATH
-export GEM_PATH="${HOME}/.gem"
-PATH="${GEM_PATH}/bin:${PATH}"
-
 # Add ~/bin to PATH
 PATH="${HOME}/bin:${PATH}"
 
