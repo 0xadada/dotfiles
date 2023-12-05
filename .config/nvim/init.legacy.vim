@@ -16,6 +16,7 @@ Plug 'hrsh7th/nvim-cmp' " Autocompletion plugin
 Plug 'hrsh7th/cmp-nvim-lsp' " LSP source for nvim-cmp
 " code formatting/highlighting
 Plug 'slashmili/alchemist.vim' " Elixir Integration
+Plug 'HerringtonDarkholme/yats.vim' " .tsx syntax highlighting
 Plug 'MaxMEllon/vim-jsx-pretty' " .jsx syntax highlighting
 Plug 'editorconfig/editorconfig-vim'
 Plug 'hail2u/vim-css3-syntax'
@@ -116,16 +117,20 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
 " Automatic commands
 if has("autocmd")
-    " Enable file type detection
-    filetype on
-    " Treat .json files as .js
-    autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+  " Enable file type detection
+  filetype on
 endif
 
-" for vim-css3-syntax
+" HerringtonDarkholme/yats.vim
+let g:yats_host_keyword=1 " yats should handle specfic keywords
+
+" MaxMEllon/vim-jsx-pretty
+let g:vim_jsx_pretty_disable_tsx=1 " let yats handle .tsx
+
+" for hail2u/vim-css3-syntax
 augroup VimCSS3Syntax
-    autocmd!
-    autocmd FileType css setlocal iskeyword+=-
+  autocmd!
+  autocmd FileType css setlocal iskeyword+=-
 augroup END
 
 " vim-airline
