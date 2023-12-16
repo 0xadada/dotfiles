@@ -7,7 +7,6 @@ alias battery="acpi -V"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias h="history"
-alias j="jobs"
 
 # Git
 alias g="git"
@@ -26,13 +25,6 @@ alias ls="command ls -G"
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
-
-# More usable PS processes
-if [[ $OSTYPE == darwin* ]]; then
-  alias ps='ps -ju `whoami`'
-else
-  alias ps='ps uf -U `whoami`'
-fi;
 
 alias screen='screen -RaAdaU'
 
