@@ -56,15 +56,12 @@ if [[ "${OSTYPE}" == darwin* ]]; then
   complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall
 fi
 
+# If possible, add tab completion for many more commands
+[[ -r /etc/bash_completion ]] && source /etc/bash_completion
 # bash completion via homebrew
 [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 
 # Load the high-color (more than 256) gruvbox colors
 if [[ -r ~/bin/gruvbox_256palette_osx.sh ]]; then
   source "${HOME}/bin/gruvbox_256palette_osx.sh"
-fi
-
-# initialize asdf
-if [[ -r /usr/local/opt/asdf/libexec/asdf.sh ]]; then
-  . /usr/local/opt/asdf/libexec/asdf.sh
 fi
