@@ -1,145 +1,114 @@
 apps:
   pages:
-  - number: 1
-    items:
-    - Brave Browser
-    - iTerm
-    - Google Chrome
-    - Firefox Developer Edition
-    - Safari
-    - Signal
-    - Tor Browser
-    - Postman
-    - Slack
-    - zoom.us
-    - Resilio Sync
-    - ProtonVPN
-    - OBS
-    - The Society of the Spectacle
-    - Photos
-    - iMovie
-    - Snap Camera
-    - mpv
-    - Next Meeting
-    - GIPHY CAPTURE
-    - folder: Other
-      pages:
-      - number: 1
-        items:
-        - Shortcuts
-        - Time Machine
-        - Font Book
-        - Image Capture
-        - VoiceOver Utility
-        - AirPort Utility
-        - Migration Assistant
-        - Terminal
-        - Activity Monitor
-        - Console
-        - Keychain Access
-        - System Information
-        - Automator
-        - Script Editor
-        - Disk Utility
-        - Boot Camp Assistant
-        - Digital Color Meter
-        - Screenshot
-        - Bluetooth File Exchange
-        - Audio MIDI Setup
-        - Home
-    - folder: Utilities
-      pages:
-      - number: 1
-        items:
-        - Transmission
-        - Rectangle
-        - Siri
-        - Mission Control
-        - DEPNotify
-        - Calculator
+    - number: 1
+      items:
         - App Store
-        - System Preferences
-        - Voice Memos
-        - News
-        - Stocks
-        - Find My
-        - Reminders
-        - GPG Keychain
-        - Self Service
-        - AnyBar
-        - Xerox PowerENGAGE
-        - XeroxPEInstallationCompanion
-    - folder: Developer Tools
-      pages:
-      - number: 1
-        items:
-        - PSequel
-        - OpenVPN Connect
-        - Docker
-        - DiffMerge
-        - Chromebook Recovery Utility
-        - Sequel Pro
-        - ImageOptim
-        - VirtualBox
-        - VMware CBCloud
-        - Android File Transfer
-    - folder: Productivity
-      pages:
-      - number: 1
-        items:
-        - Notes
-        - Preview
-        - TextEdit
-        - Mail
-        - Contacts
-        - ColorSync Utility
-        - Stickies
-        - Maps
-        - Calendar
-    - folder: Music
-      pages:
-      - number: 1
-        items:
-        - Spotify
-        - Podcasts
-        - Audioscrobbler
-        - Music
-    - folder: Video
-      pages:
-      - number: 1
-        items:
-        - QuickTime Player
-        - TV
-        - YouTube
-        - VLC
-    - folder: Social Networking
-      pages:
-      - number: 1
-        items:
-        - FaceTime
-        - Messages
-    - folder: Entertainment
-      pages:
-      - number: 1
-        items:
-        - Photo Booth
-        - Chess
-    - folder: Reference
-      pages:
-      - number: 1
-        items:
-        - Dictionary
         - Books
-    - folder: Education
-      pages:
-      - number: 1
-        items:
-        - Grapher
+        - Bitcoin Core
+        - Brave Browser
+        - Contacts
+        - Docker
+        - iTerm
+        - Maps
+        - Messages
+        - Photos
+        - Postman
+        - Reminders
+        - Roam Research
+        - Safari
+        - Sequel Pro
+        - Signal
+        - Slack
+        - Spotify
+        - System Preferences
+        - Transmission
+        - TV
+        - zoom.us
+        - folder: Utilities
+          pages:
+            - number: 1
+              items:
+                - Calculator
+                - Digital Color Meter
+                - Disk Utility
+                - Font Book
+                - Grapher
+                - Mission Control
+                - ProtonVPN
+                - Rectangle
+                - Siri
+        - folder: Video
+          pages:
+            - number: 1
+              items:
+                - QuickTime Player
+                - iMovie
+                - OBS
+                - mpv
+                - VLC
+        - folder: Productivity
+          pages:
+            - number: 1
+              items:
+                - Calendar
+                - Google Chrome
+                - Dictionary
+                - FaceTime
+                - Mail
+                - Music
+                - Notes
+                - Numbers
+                - Preview
+                - Stickies
+                - TextEdit
+        - folder: Entertainment
+          pages:
+            - number: 1
+              items:
+                - Chess
+                - Photo Booth
+        - folder: Misc
+          pages:
+            - number: 1
+              items:
+                - Chromebook Recovery Utility
+                - Find My
+                - Home
+                - News
+                - Podcasts
+                - Stocks
+                - Shortcuts
+                - Voice Memos
+        - folder: Other
+          pages:
+            - number: 1
+              items:
+                - AirPort Utility
+                - Automator
+                - Bluetooth File Exchange
+                - ColorSync Utility
+                - Time Machine
+                - Image Capture
+                - VoiceOver Utility
+                - Migration Assistant
+                - Terminal
+                - Activity Monitor
+                - Console
+                - Keychain Access
+                - System Information
+                - Script Editor
+                - Boot Camp Assistant
+                - Screenshot
+                - Audio MIDI Setup
 widgets:
   pages: []
 dock_items:
-- Brave Browser
-- Roam Research
-- iTerm
-- ============
+  settings:
+    autohide: true
+    largesize: 128
+    magnification: false
+    minimize-to-application: true
+    mru-spaces: false
+    show-recents: false
+    tilesize: 48
 desktop: {}
