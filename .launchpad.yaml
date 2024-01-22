@@ -3,27 +3,80 @@ apps:
     - number: 1
       items:
         - App Store
-        - Books
         - Bitcoin Core
+        - Books
         - Brave Browser
         - Contacts
         - Docker
+        - iMovie
         - iTerm
         - Maps
         - Messages
+        - mpv
+        - OBS
         - Photos
         - Postman
+        - ProtonVPN
         - Reminders
-        - Roam Research
         - Safari
         - Sequel Pro
         - Signal
         - Slack
         - Spotify
         - System Preferences
+        - System Settings
         - Transmission
         - TV
+        - Weather
         - zoom.us
+        - folder: Entertainment
+          pages:
+            - number: 1
+              items:
+                - Chess
+                - Photo Booth
+        - folder: Apple
+          pages:
+            - number: 1
+              items:
+                - Calendar
+                - Clock
+                - Dictionary
+                - FaceTime
+                - Freeform
+                - Home
+                - Mail
+                - Music
+                - News
+                - Notes
+                - Podcasts
+                - QuickTime Player
+                - Stickies
+                - Stocks
+                - TextEdit
+                - Voice Memos
+        - folder: Other
+          pages:
+            - number: 1
+              items:
+                - Activity Monitor
+                - AirPort Utility
+                - Automator
+                - Audio MIDI Setup
+                - Bluetooth File Exchange
+                - Boot Camp Assistant
+                - ColorSync Utility
+                - Console
+                - Grapher
+                - Image Capture
+                - Migration Assistant
+                - Mission Control
+                - Screenshot
+                - Script Editor
+                - System Information
+                - Terminal
+                - Time Machine
+                - VoiceOver Utility
         - folder: Utilities
           pages:
             - number: 1
@@ -31,75 +84,16 @@ apps:
                 - Calculator
                 - Digital Color Meter
                 - Disk Utility
-                - Font Book
-                - Grapher
-                - Mission Control
-                - ProtonVPN
-                - Rectangle
-                - Siri
-        - folder: Video
-          pages:
-            - number: 1
-              items:
-                - QuickTime Player
-                - iMovie
-                - OBS
-                - mpv
-                - VLC
-        - folder: Productivity
-          pages:
-            - number: 1
-              items:
-                - Calendar
-                - Google Chrome
-                - Dictionary
-                - FaceTime
-                - Mail
-                - Music
-                - Notes
-                - Numbers
-                - Preview
-                - Stickies
-                - TextEdit
-        - folder: Entertainment
-          pages:
-            - number: 1
-              items:
-                - Chess
-                - Photo Booth
-        - folder: Misc
-          pages:
-            - number: 1
-              items:
-                - Chromebook Recovery Utility
                 - Find My
-                - Home
-                - News
-                - Podcasts
-                - Stocks
-                - Shortcuts
-                - Voice Memos
-        - folder: Other
-          pages:
-            - number: 1
-              items:
-                - AirPort Utility
-                - Automator
-                - Bluetooth File Exchange
-                - ColorSync Utility
-                - Time Machine
-                - Image Capture
-                - VoiceOver Utility
-                - Migration Assistant
-                - Terminal
-                - Activity Monitor
-                - Console
+                - Font Book
+                - GPG Keychain
                 - Keychain Access
-                - System Information
-                - Script Editor
-                - Boot Camp Assistant
-                - Screenshot
-                - Audio MIDI Setup
+                - Preview
+                - Print Center
+                - Rectangle
+                - Screen Sharing
+                - Shortcuts
+                - Siri
 widgets:
   pages: []
 dock_items:
