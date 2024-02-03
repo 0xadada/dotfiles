@@ -6,6 +6,10 @@ require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
   use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
+  use {
+    'prettier/vim-prettier',
+    ft = {'javascript', 'typescript', 'html', 'css', 'scss', 'json', 'graphql', 'markdown', 'yaml'}
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -109,6 +113,10 @@ cmp.setup {
   },
 }
 
+-- vim/prettier setup
+vim.g['prettier#autoformat'] = 1
+vim.g['prettier#autoformat_require_pragma'] = 0
+
 local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
@@ -126,14 +134,25 @@ lspconfig['html'].setup{
   flags = lsp_flags,
 }
 
--- GraphQL https://www.andersevenrud.net/neovim.github.io/lsp/configurations/graphql/
-lspconfig['graphql'].setup{
+-- CSS/LESS/SASS https://www.andersevenrud.net/neovim.github.io/lsp/configurations/cssls/
+lspconfig['cssls'].setup{
   on_attach = on_attach,
   flags = lsp_flags,
 }
 
--- CSS/LESS/SASS https://www.andersevenrud.net/neovim.github.io/lsp/configurations/cssls/
-lspconfig['cssls'].setup{
+-- TailwindCSS https://www.andersevenrud.net/neovim.github.io/lsp/configurations/tailwindcss/
+lspconfig['tailwindcss'].setup{
+  on_attach = on_attach,
+  flags = lsp_flags,
+}
+
+lspconfig['eslint'].setup{
+  on_attach = on_attach,
+  flags = lsp_flags,
+}
+
+-- GraphQL https://www.andersevenrud.net/neovim.github.io/lsp/configurations/graphql/
+lspconfig['graphql'].setup{
   on_attach = on_attach,
   flags = lsp_flags,
 }

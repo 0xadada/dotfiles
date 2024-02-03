@@ -26,12 +26,7 @@ function provision_vim() {
   ln -s ~/.config/nvim/init.lua ~/.vimrc
   echo
 
-  echo 'installing neovim LSP language servers'
-  npm install -g \
-    neovim \
-    typescript typescript-language-server \
-    vscode-langservers-extracted \
-    graphql-language-service-cli
+  echo 'installing neovim LSP language servers, see .nvm/default-packages'
   # gem install neovim
 
   echo 'installing vim-plug'
@@ -43,6 +38,7 @@ function provision_vim() {
 
   echo 'installing all plugins'
   nvim -c ":PlugInstall" -c ":qall"
+  nvim -c ":PackerInstall" -c ":PackerSync" -c ":qall"
   echo 'installed all vim plugins'
 }
 
