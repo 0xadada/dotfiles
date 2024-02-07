@@ -1,37 +1,6 @@
 " make Vim more useful
 set nocompatible
 
-" plugins
-call plug#begin(stdpath('data') . '/plugged')
-" Colors, visual looks
-Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
-" features
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdtree'
-" LSP
-Plug 'neovim/nvim-lspconfig' " LSP
-Plug 'hrsh7th/nvim-cmp' " Autocompletion plugin
-Plug 'hrsh7th/cmp-nvim-lsp' " LSP source for nvim-cmp
-" code formatting/highlighting
-Plug 'slashmili/alchemist.vim' " Elixir Integration
-Plug 'HerringtonDarkholme/yats.vim' " .tsx syntax highlighting
-Plug 'MaxMEllon/vim-jsx-pretty' " .jsx syntax highlighting
-Plug 'editorconfig/editorconfig-vim'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'elzr/vim-json'
-Plug 'elixir-lang/vim-elixir'
-Plug 'mhinz/vim-mix-format'
-Plug 'jparise/vim-graphql'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-call plug#end()
-
-" set the color palette - Gruvbox
-colorscheme gruvbox
-set background=dark
-
 " Show the cursor position
 set ruler
 " set the visual mode selection to be exlusive rather than inclusive

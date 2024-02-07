@@ -38,7 +38,6 @@ function provision_vim() {
 
   echo 'installing all plugins'
   nvim -c ":PlugInstall" -c ":qall"
-  nvim -c ":PackerInstall" -c ":PackerSync" -c ":qall"
   echo 'installed all vim plugins'
 }
 

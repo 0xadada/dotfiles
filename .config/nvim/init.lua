@@ -1,22 +1,39 @@
 local vimrc = vim.fn.stdpath("config") .. "/init.legacy.vim"
 vim.cmd.source(vimrc)
 
-require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
-  use 'neovim/nvim-lspconfig'
-  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-  use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
-  use {
-    'prettier/vim-prettier',
-    ft = {'javascript', 'typescript', 'html', 'css', 'scss', 'json', 'graphql', 'markdown', 'yaml'}
-  }
+-- boot Plug
+local vim = vim
+local Plug = vim.fn['plug#']
+vim.call('plug#begin')
+-- load Plugs
+Plug('morhetz/gruvbox')
+Plug('vim-airline/vim-airline')
+-- features
+Plug('tpope/vim-fugitive')
+Plug('airblade/vim-gitgutter')
+Plug('scrooloose/nerdtree')
+-- LSP
+Plug('neovim/nvim-lspconfig')
+Plug('hrsh7th/nvim-cmp') -- Autocompletion plugin
+Plug('hrsh7th/cmp-nvim-lsp') -- LSP source for nvim-cmp
+-- code formatting/highlighting
+Plug('slashmili/alchemist.vim') -- Elixir Integration
+Plug('HerringtonDarkholme/yats.vim') -- .tsx syntax highlighting
+Plug('MaxMEllon/vim-jsx-pretty') -- .jsx syntax highlighting
+Plug('editorconfig/editorconfig-vim')
+Plug('hail2u/vim-css3-syntax')
+Plug('elzr/vim-json')
+Plug('elixir-lang/vim-elixir')
+Plug('mhinz/vim-mix-format')
+Plug('jparise/vim-graphql')
+Plug('mustache/vim-mustache-handlebars')
+Plug('vim-pandoc/vim-pandoc-syntax')
+Plug('prettier/vim-prettier', { ['ft'] = {'javascript', 'typescript', 'html', 'css', 'scss', 'json', 'graphql', 'markdown', 'yaml'} })
+vim.call('plug#end')
 
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+-- Gruvbox color palette
+vim.o.background = "dark"
+vim.cmd.colorscheme("gruvbox")
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
