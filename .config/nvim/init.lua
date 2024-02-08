@@ -75,7 +75,6 @@ vim.cmd("let &colorcolumn=join(range(120,666),',')") -- highlight at column 121
 
 -- mason.nvim
 require("mason").setup()
-require("mason-lspconfig").setup()
 require('mason-lspconfig').setup({
   ensure_installed = {
     "bashls",
