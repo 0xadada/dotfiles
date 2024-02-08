@@ -1,7 +1,3 @@
 ember-cli
 neovim
-graphql-language-service-cli
-typescript
-typescript-language-server
-@tailwindcss/language-server
-vscode-langservers-extracted
+tldr

@@ -1,9 +1,11 @@
 local vim = vim
-
 -- boot Plug
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
--- load Plugs
+-- mason.nvm
+Plug('williamboman/mason.nvim')
+Plug('williamboman/mason-lspconfig.nvim')
+-- UI
 Plug('morhetz/gruvbox')
 Plug('vim-airline/vim-airline')
 -- features
@@ -26,7 +28,7 @@ Plug('mhinz/vim-mix-format')
 Plug('jparise/vim-graphql')
 Plug('mustache/vim-mustache-handlebars')
 Plug('vim-pandoc/vim-pandoc-syntax')
-Plug('prettier/vim-prettier', { ['ft'] = {'javascript', 'typescript', 'html', 'css', 'scss', 'json', 'graphql', 'markdown', 'yaml'} })
+Plug('prettier/vim-prettier', { ['ft'] = {'javascript', 'typescript', 'html', 'css', 'scss', 'json', 'graphql', 'yaml'} })
 vim.call('plug#end')
 
 -- vim options
@@ -38,7 +40,7 @@ vim.opt.backspace = "indent,eol,start" -- Allow backspace in insert mode
 vim.opt.ttyfast = true -- optimize for fast terminal connections
 vim.opt.gdefault = true -- Add the g flag to search/replace by default
 vim.opt.encoding = "utf-8" -- use UTF-8
-vim.opt.binary = true -- Don’t add empty newlines at the end of files
+vim.opt.binary = true -- don't add empty newlines at the end of files
 vim.opt.modeline = true -- Respect modeline in files
 vim.opt.modelines = 4
 vim.opt.exrc = true -- enable per-directory .vimrc files and disable unsafe commands in them
@@ -61,15 +63,40 @@ vim.opt.foldmethod = "indent" -- code folding
 vim.opt.foldnestmax = 10
 vim.opt.foldlevel = 2
 
+vim.o.lcs = [[leadmultispace:∙,tab:▸\ ,trail:·,eol:↲,nbsp:_]] -- :help litchars
+
 vim.g.mapleader = "," -- Change mapleader from "\" (default) to comma
 
 vim.cmd.syntax("on") -- enable syntax highlighting
 vim.cmd.filetype("plugin indent on") --enable plugins
 -- legacy shit
-vim.cmd [[ let &colorcolumn=join(range(120,666),",") ]] -- highlight at column 121
-vim.cmd [[setlocal noeol nofoldenable nocursorline noerrorbells nostartofline]]
-vim.cmd("set lcs+=leadmultispace:∙,tab:_,trail:∙,eol:↲")
-vim.cmd [[setlocal lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_]]
+vim.cmd("set noeol nofoldenable nocursorline noerrorbells nostartofline")
+vim.cmd("let &colorcolumn=join(range(120,666),',')") -- highlight at column 121
+
+-- mason.nvim
+require("mason").setup()
+require("mason-lspconfig").setup()
+require('mason-lspconfig').setup({
+  ensure_installed = {
+    "bashls",
+    "cssls",
+    "cssmodules_ls",
+    "ember",
+    "elixirls",
+    "eslint",
+    "graphql",
+    "html",
+    "jsonls",
+    "tailwindcss",
+    "tsserver",
+    "vimls",
+    "yamlls",
+  }
+})
+
+-- Gruvbox color palette
+vim.cmd.colorscheme("gruvbox")
+vim.o.background = "dark"
 
 -- vim-airline
 vim.opt.guifont = "Source Code Pro for Powerline:h12"
@@ -78,10 +105,6 @@ vim.g["airline_powerline_fonts"] = 1
 vim.g["airline#extensions#branch#enabled"] = 1 -- vim-airline enable branch "fugitive" extension
 vim.g["airline#extensions#branch#empty_message"] = ''
 vim.g["airline#extensions#branch#displayed_head_limit"] = 10
-
--- Gruvbox color palette
-vim.o.background = "dark"
-vim.cmd.colorscheme("gruvbox")
 
 -- HerringtonDarkholme/yats.vim
 vim.g["yats_host_keyword"] = 1 -- yats should handle specfic keywords
