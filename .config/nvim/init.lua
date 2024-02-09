@@ -9,9 +9,9 @@ Plug('williamboman/mason-lspconfig.nvim')
 Plug('morhetz/gruvbox')
 Plug('vim-airline/vim-airline')
 -- features
+Plug('scrooloose/nerdtree')
 Plug('tpope/vim-fugitive')
 Plug('airblade/vim-gitgutter')
-Plug('scrooloose/nerdtree')
 -- LSP
 Plug('neovim/nvim-lspconfig')
 Plug('hrsh7th/nvim-cmp') -- Autocompletion plugin
@@ -67,7 +67,7 @@ vim.opt.foldlevel = 2
 
 vim.o.lcs = [[leadmultispace:∙,tab:▸\ ,trail:·,eol:↲,nbsp:_]] -- :help litchars
 
-vim.g.mapleader = "," -- Change mapleader from "\" (default) to comma
+vim.g.mapleader = " " -- Change mapleader from "\" (default) to space
 
 vim.cmd.syntax("on") -- enable syntax highlighting
 vim.cmd.filetype("plugin indent on") --enable plugins
@@ -142,7 +142,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
     lint.try_lint()
   end
 })
-vim.keymap.set({"n"}, "<leader>l", function() -- enable linting on ',l' keymap
+vim.keymap.set({"n"}, "<leader>l", function() -- enable linting on ' l' keymap
   lint.try_lint()
 end, {desc = "Lint file"})
 
@@ -157,6 +157,9 @@ vim.g["airline_powerline_fonts"] = 1
 vim.g["airline#extensions#branch#enabled"] = 1 -- vim-airline enable branch "fugitive" extension
 vim.g["airline#extensions#branch#empty_message"] = ''
 vim.g["airline#extensions#branch#displayed_head_limit"] = 10
+
+-- NERDTree
+vim.keymap.set('n', '<leader>n', ':NERDTreeFocus<CR>', { noremap = true })
 
 -- HerringtonDarkholme/yats.vim
 vim.g["yats_host_keyword"] = 1 -- yats should handle specfic keywords
