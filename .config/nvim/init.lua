@@ -84,7 +84,6 @@ require('mason-lspconfig').setup({
     "cssmodules_ls",
     "ember",
     "elixirls",
-    "eslint",
     "graphql",
     "html",
     "jsonls",
@@ -96,7 +95,7 @@ require('mason-lspconfig').setup({
   automatic_installation = true, -- auto-install with lspconfig
 })
 
--- conform.nvim
+-- conform.nvim for auto code formatting
 local conform = require('conform')
 local conformFormatOpts = {
   async = false,
@@ -123,8 +122,29 @@ vim.keymap.set({"n", "v"}, "<leader>mp", function() -- enable formatting on ',mp
 end, {desc = "Format file or range (in visual mode)"})
 
 -- nvim-lint
--- local lint = require("lint")
-
+local lint = require("lint")
+lint.linters_by_ft = {
+  javascript = { "eslint_d", },
+  typescript = { "eslint_d" },
+  javascriptreact = { "eslint_d" },
+  typescriptreact = { "eslint_d" },
+  css = { "eslint_d" },
+  html = { "eslint_d" },
+  json = { "eslint_d" },
+  yaml = { "eslint_d" },
+  markdown = { "eslint_d" },
+  graphql = { "eslint_d" },
+}
+local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+  group = lint_augroup,
+  callback = function()
+    lint.try_lint()
+  end
+})
+vim.keymap.set({"n"}, "<leader>l", function() -- enable linting on ',l' keymap
+  lint.try_lint()
+end, {desc = "Lint file"})
 
 -- Gruvbox color palette
 vim.cmd.colorscheme("gruvbox")
@@ -150,22 +170,7 @@ vim.g["NERDTreeIgnore"] = { "^dist$", "^node_modules$" }
 -- vim-mix-format set to run Elixir formatter upon save
 vim.g["mix_format_on_save"] = 1
 
--- Add additional capabilities supported by nvim-cmp
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-local lspconfig = require('lspconfig')
-
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'tsserver' }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    capabilities = capabilities,
-  }
-end
-
 local opts = { noremap=true, silent=true }
-
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
@@ -195,6 +200,28 @@ local on_attach = function(client, bufnr)
   -- Show line diagnostics automatically in hover window
   vim.o.updatetime = 250
   vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+end
+local lspconfig = require('lspconfig')
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local lsp_flags = {
+  -- This is the default in Nvim 0.7+
+  debounce_text_changes = 150,
+}
+local servers = {
+  'cssls',
+  'html',
+  'tailwindcss',
+  'graphql',
+  'jsonls',
+  'tsserver'
+}
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  }
 end
 
 -- nvim-cmp setup
@@ -235,52 +262,6 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
   },
-}
-
-local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
-}
-
--- TypeScript/Javascript https://www.andersevenrud.net/neovim.github.io/lsp/configurations/tsserver/
-lspconfig['tsserver'].setup{
-  on_attach = on_attach,
-  flags = lsp_flags,
-}
-
--- HTML https://www.andersevenrud.net/neovim.github.io/lsp/configurations/html/
-lspconfig['html'].setup{
-  on_attach = on_attach,
-  flags = lsp_flags,
-}
-
--- CSS/LESS/SASS https://www.andersevenrud.net/neovim.github.io/lsp/configurations/cssls/
-lspconfig['cssls'].setup{
-  on_attach = on_attach,
-  flags = lsp_flags,
-}
-
--- TailwindCSS https://www.andersevenrud.net/neovim.github.io/lsp/configurations/tailwindcss/
-lspconfig['tailwindcss'].setup{
-  on_attach = on_attach,
-  flags = lsp_flags,
-}
-
-lspconfig['eslint'].setup{
-  on_attach = on_attach,
-  flags = lsp_flags,
-}
-
--- GraphQL https://www.andersevenrud.net/neovim.github.io/lsp/configurations/graphql/
-lspconfig['graphql'].setup{
-  on_attach = on_attach,
-  flags = lsp_flags,
-}
-
--- JSON https://www.andersevenrud.net/neovim.github.io/lsp/configurations/jsonls/
-lspconfig['jsonls'].setup{
-  on_attach = on_attach,
-  flags = lsp_flags,
 }
 
 if vim.fn.executable('volta') then
