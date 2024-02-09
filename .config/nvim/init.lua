@@ -2,7 +2,7 @@ local vim = vim
 -- boot Plug
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
--- mason.nvm
+-- mason.nvm: installs and manages LSP & tools (outside of Plug)
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 -- UI
@@ -16,7 +16,7 @@ Plug('scrooloose/nerdtree')
 Plug('neovim/nvim-lspconfig')
 Plug('hrsh7th/nvim-cmp') -- Autocompletion plugin
 Plug('hrsh7th/cmp-nvim-lsp') -- LSP source for nvim-cmp
--- code formatting/highlighting
+-- code highlighting
 Plug('slashmili/alchemist.vim') -- Elixir Integration
 Plug('HerringtonDarkholme/yats.vim') -- .tsx syntax highlighting
 Plug('MaxMEllon/vim-jsx-pretty') -- .jsx syntax highlighting
@@ -28,7 +28,9 @@ Plug('mhinz/vim-mix-format')
 Plug('jparise/vim-graphql')
 Plug('mustache/vim-mustache-handlebars')
 Plug('vim-pandoc/vim-pandoc-syntax')
-Plug('prettier/vim-prettier', { ['ft'] = {'javascript', 'typescript', 'html', 'css', 'scss', 'json', 'graphql', 'yaml'} })
+-- code formatting
+Plug('stevearc/conform.nvim')
+Plug('mfussenegger/nvim-lint')
 vim.call('plug#end')
 
 -- vim options
@@ -90,8 +92,39 @@ require('mason-lspconfig').setup({
     "tsserver",
     "vimls",
     "yamlls",
-  }
+  },
+  automatic_installation = true, -- auto-install with lspconfig
 })
+
+-- conform.nvim
+local conform = require('conform')
+local conformFormatOpts = {
+  async = false,
+  lsp_fallback = true,
+  timeout_ms = 500,
+}
+conform.setup({
+  formatters_by_ft = {
+    javascript = { "prettier" },
+    typescript = { "prettier" },
+    javascriptreact = { "prettier" },
+    typescriptreact = { "prettier" },
+    css = { "prettier" },
+    html = { "prettier" },
+    json = { "prettier" },
+    yaml = { "prettier" },
+    markdown = { "prettier" },
+    graphql = { "prettier" },
+  },
+  format_on_save = conformFormatOpts,
+})
+vim.keymap.set({"n", "v"}, "<leader>mp", function() -- enable formatting on ',mp' keymap
+  conform.format(conformFormatOpts)
+end, {desc = "Format file or range (in visual mode)"})
+
+-- nvim-lint
+-- local lint = require("lint")
+
 
 -- Gruvbox color palette
 vim.cmd.colorscheme("gruvbox")
@@ -116,10 +149,6 @@ vim.g["NERDTreeIgnore"] = { "^dist$", "^node_modules$" }
 
 -- vim-mix-format set to run Elixir formatter upon save
 vim.g["mix_format_on_save"] = 1
-
--- vim/prettier setup
-vim.g['prettier#autoformat'] = 1
-vim.g['prettier#autoformat_require_pragma'] = 0
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -161,14 +190,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
   client.server_capabilities.semanticTokensProvider = nil -- disable syntax highlighting (let other package do that)
-  -- format on save
-  if client.server_capabilities.documentFormattingProvider then
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = vim.api.nvim_create_augroup("Format", { clear = true }),
-      buffer = bufnr,
-      callback = function() vim.lsp.buf.format() end
-    })
-  end
   -- disable inline diagnostics
   vim.diagnostic.config({ virtual_text = false })
   -- Show line diagnostics automatically in hover window
