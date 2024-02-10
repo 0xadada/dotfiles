@@ -12,10 +12,18 @@ Plug('vim-airline/vim-airline')
 Plug('scrooloose/nerdtree')
 Plug('tpope/vim-fugitive')
 Plug('airblade/vim-gitgutter')
+-- telescope
+Plug('nvim-lua/plenary.nvim')
+Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.5' })
+Plug('stevearc/dressing.nvim') -- improve the default vim.ui interfaces
 -- LSP
 Plug('neovim/nvim-lspconfig')
-Plug('hrsh7th/nvim-cmp') -- Autocompletion plugin
+Plug('l3MON4D3/LuaSnip')
+Plug('saadparwaiz1/cmp_luasnip') -- LusSnip completion source for nvim-cmp
 Plug('hrsh7th/cmp-nvim-lsp') -- LSP source for nvim-cmp
+Plug('hrsh7th/nvim-cmp') -- A Lua auto-completion plugin
+Plug('hrsh7th/cmp-path') -- LSP cmp source for filesystem paths
+Plug('hrsh7th/cmp-buffer') -- LSP cmp source for text in buffer(s)
 -- code highlighting
 Plug('slashmili/alchemist.vim') -- Elixir Integration
 Plug('HerringtonDarkholme/yats.vim') -- .tsx syntax highlighting
@@ -117,7 +125,7 @@ conform.setup({
   },
   format_on_save = conformFormatOpts,
 })
-vim.keymap.set({"n", "v"}, "<leader>mp", function() -- enable formatting on ',mp' keymap
+vim.keymap.set({"n", "v"}, "<leader>mp", function() -- enable formatting on ' mp' keymap
   conform.format(conformFormatOpts)
 end, {desc = "Format file or range (in visual mode)"})
 
@@ -145,6 +153,49 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 vim.keymap.set({"n"}, "<leader>l", function() -- enable linting on ' l' keymap
   lint.try_lint()
 end, {desc = "Lint file"})
+
+-- nvim-cmp
+local cmp = require("cmp")
+local luasnip = require("luasnip")
+cmp.setup({
+  completion = {
+    completeopt = "menu,menuone,preview,noselect"
+  },
+  snippet = { -- configure how nvim-cmp interacts with snippet engine
+    expand = function(args)
+      luasnip.lsp_extend(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<Tab>'] = cmp.mapping(function(fallback) -- next suggestion
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback) -- previous suggestion
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<C-j>'] = cmp.mapping.scroll_docs(-4), -- scroll preview window up
+    ['<C-k>'] = cmp.mapping.scroll_docs(4), -- scroll preview window down
+    ['<C-Space>'] = cmp.mapping.complete(), -- show completion suggestions
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+    ['<C-e>'] = cmp.mapping.abort(), -- close completion window
+  }),
+  sources = {
+    { name = 'luasnip' }, -- snippets
+    { name = 'buffer' }, -- text within buffer
+    { name = 'path' }, -- file paths
+    { name = 'nvim_lsp' }, -- LSP
+  },
+})
 
 -- Gruvbox color palette
 vim.cmd.colorscheme("gruvbox")
@@ -179,6 +230,7 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
+-- nvim-lsp
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -198,11 +250,17 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
   client.server_capabilities.semanticTokensProvider = nil -- disable syntax highlighting (let other package do that)
-  -- disable inline diagnostics
+  -- disable line diagnostics rendering inline
   vim.diagnostic.config({ virtual_text = false })
   -- Show line diagnostics automatically in hover window
-  vim.o.updatetime = 250
-  vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+ vim.o.updatetime = 250
+ local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
+ vim.api.nvim_create_autocmd("CursorHold", {
+   callback = function()
+      vim.diagnostic.open_float(nil, { focusable = false })
+    end,
+    group = diag_float_grp,
+ })
 end
 local lspconfig = require('lspconfig')
 -- Add additional capabilities supported by nvim-cmp
@@ -226,46 +284,6 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
-
--- nvim-cmp setup
-local cmp = require('cmp')
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
-    ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
-    -- C-b (back) C-f (forward) for snippet placeholder navigation.
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  }),
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
-}
 
 if vim.fn.executable('volta') then
   vim.g.node_host_prog = vim.trim(vim.fn.system('volta which neovim-node-host | tr -d "\n"'))
