@@ -24,6 +24,8 @@ Plug('hrsh7th/cmp-nvim-lsp') -- LSP source for nvim-cmp
 Plug('hrsh7th/nvim-cmp') -- A Lua auto-completion plugin
 Plug('hrsh7th/cmp-path') -- LSP cmp source for filesystem paths
 Plug('hrsh7th/cmp-buffer') -- LSP cmp source for text in buffer(s)
+-- code linting
+Plug('mfussenegger/nvim-lint')
 -- code highlighting
 Plug('slashmili/alchemist.vim') -- Elixir Integration
 Plug('HerringtonDarkholme/yats.vim') -- .tsx syntax highlighting
@@ -38,7 +40,6 @@ Plug('mustache/vim-mustache-handlebars')
 Plug('vim-pandoc/vim-pandoc-syntax')
 -- code formatting
 Plug('stevearc/conform.nvim')
-Plug('mfussenegger/nvim-lint')
 vim.call('plug#end')
 
 -- vim options
@@ -112,16 +113,16 @@ local conformFormatOpts = {
 }
 conform.setup({
   formatters_by_ft = {
-    javascript = { "prettier" },
-    typescript = { "prettier" },
-    javascriptreact = { "prettier" },
-    typescriptreact = { "prettier" },
-    css = { "prettier" },
-    html = { "prettier" },
-    json = { "prettier" },
-    yaml = { "prettier" },
-    markdown = { "prettier" },
-    graphql = { "prettier" },
+    javascript = { { "prettierd", "prettier" } },     -- Use a sub-list to run only the first available formatter
+    typescript = { { "prettierd", "prettier" } },
+    javascriptreact = { "prettierd" },
+    typescriptreact = { "prettierd" },
+    css = { "prettierd" },
+    html = { "prettierd" },
+    json = { "prettierd" },
+    yaml = { "prettierd" },
+    markdown = { "prettierd" },
+    graphql = { "prettierd" },
   },
   format_on_save = conformFormatOpts,
 })
@@ -154,7 +155,7 @@ vim.keymap.set({"n"}, "<leader>l", function() -- enable linting on ' l' keymap
   lint.try_lint()
 end, {desc = "Lint file"})
 
--- nvim-cmp
+-- nvim-cmp for code completion
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 cmp.setup({
@@ -190,10 +191,10 @@ cmp.setup({
     ['<C-e>'] = cmp.mapping.abort(), -- close completion window
   }),
   sources = {
+    { name = 'nvim_lsp' }, -- LSP
     { name = 'luasnip' }, -- snippets
     { name = 'buffer' }, -- text within buffer
     { name = 'path' }, -- file paths
-    { name = 'nvim_lsp' }, -- LSP
   },
 })
 
@@ -224,58 +225,48 @@ vim.g["NERDTreeIgnore"] = { "^dist$", "^node_modules$" }
 -- vim-mix-format set to run Elixir formatter upon save
 vim.g["mix_format_on_save"] = 1
 
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
--- nvim-lsp
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-  client.server_capabilities.semanticTokensProvider = nil -- disable syntax highlighting (let other package do that)
-  -- disable line diagnostics rendering inline
-  vim.diagnostic.config({ virtual_text = false })
-  -- Show line diagnostics automatically in hover window
- vim.o.updatetime = 250
- local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
- vim.api.nvim_create_autocmd("CursorHold", {
-   callback = function()
-      vim.diagnostic.open_float(nil, { focusable = false })
-    end,
-    group = diag_float_grp,
- })
-end
+-- nvim-lspconfig
 local lspconfig = require('lspconfig')
--- Add additional capabilities supported by nvim-cmp
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local opts = { noremap = true, silent = true } -- useful keymap options
+local on_attach = function(client, bufnr)
+  opts.buffer = bufnr
+  -- keybindings
+  opts.desc = "Show documentation for what is under cursor"
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+  opts.desc = "Show LSP references"
+  vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
+  opts.desc = "Go to declaration"
+  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+  opts.desc = "Show LSP definitions"
+  vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+  opts.desc = "Show LSP type definitions"
+  vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+  opts.desc = "Show line diagnostics"
+  vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
+  opts.desc = "Show buffer diagnostics"
+  vim.keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+  client.server_capabilities.semanticTokensProvider = nil -- disable syntax highlighting (let other package do that)
+end
+-- used to enable autocompletion (assign to every lsp server config)
+local capabilities = cmp_nvim_lsp.default_capabilities()
 local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
 local servers = {
+  'bashls',
+  'tsserver',
   'cssls',
+  'cssmodules_ls',
+  'ember',
   'html',
-  'tailwindcss',
   'graphql',
   'jsonls',
-  'tsserver'
+  'tailwindcss',
+  'vimls',
+  'yamlls',
 }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
