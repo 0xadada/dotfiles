@@ -74,7 +74,7 @@ vim.opt.foldmethod = "indent" -- code folding
 vim.opt.foldnestmax = 10
 vim.opt.foldlevel = 2
 
-vim.o.lcs = [[leadmultispace:∙,tab:▸\ ,trail:·,eol:↲,nbsp:_]] -- :help litchars
+vim.o.lcs = [[tab:▸\ ,trail:·,eol:↲,nbsp:_]] -- :help litchars
 
 vim.g.mapleader = " " -- Change mapleader from "\" (default) to space
 
@@ -93,6 +93,7 @@ require('mason-lspconfig').setup({
     "cssmodules_ls",
     "ember",
     "elixirls",
+    "eslint",
     "graphql",
     "html",
     "jsonls",
@@ -133,16 +134,16 @@ end, {desc = "Format file or range (in visual mode)"})
 -- nvim-lint
 local lint = require("lint")
 lint.linters_by_ft = {
-  javascript = { "eslint_d", },
-  typescript = { "eslint_d" },
-  javascriptreact = { "eslint_d" },
-  typescriptreact = { "eslint_d" },
-  css = { "eslint_d" },
-  html = { "eslint_d" },
-  json = { "eslint_d" },
-  yaml = { "eslint_d" },
-  markdown = { "eslint_d" },
-  graphql = { "eslint_d" },
+  javascript = { "eslint", },
+  javascriptreact = { "eslint" },
+  typescript = { "eslint" },
+  typescriptreact = { "eslint" },
+  css = { "eslint" },
+  html = { "eslint" },
+  json = { "eslint" },
+  yaml = { "eslint" },
+  markdown = { "eslint" },
+  graphql = { "eslint" },
 }
 local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {

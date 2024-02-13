@@ -35,7 +35,7 @@ function provision_vim() {
 
   echo 'installing all plugins'
   nvim -c ":PlugInstall" -c ":qall"
-  nvim -c ":MasonInstall prettier eslint_d" -c ":qall"
+  nvim -c ":MasonInstall eslint prettier prettierd" -c ":qall"
   echo 'installed all vim plugins'
 }
 
