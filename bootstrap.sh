@@ -26,9 +26,6 @@ function provision_vim() {
   ln -s ~/.config/nvim/init.lua ~/.vimrc
   echo
 
-  echo 'installing neovim LSP language servers, see .nvm/default-packages'
-  # gem install neovim
-
   echo 'installing vim-plug'
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -66,24 +63,24 @@ if ! grep -q '/usr/local/bin/bash' /etc/shells; then
   chsh -s /usr/local/bin/bash
 fi
 
-# install nvm, and latest node
-read -r -p 'Provision nvm/nodejs? (y/n) '
-if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
-  export NVM_DIR="$HOME/.nvm"
-  git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
-  # shellcheck disable=SC2164
-  cd "$NVM_DIR"
-  git checkout "$(git describe --abbrev=0 --tags --match "v[0-9]*" "$(git rev-list --tags --max-count=1)")"
-  # shellcheck disable=SC1090,SC1091
-  \. "$NVM_DIR/nvm.sh"
-  nvm install --lts
-  npm install -g tldr yalc yarn
-fi
-
 # sync the home directory
 read -r -p 'Symlink dotfiles to home directory? (y/n) '
 if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
   sync
+fi
+
+# install Node.js LTS, Volta
+read -r -p 'Provision Node.js/Volta? (y/n) '
+if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
+  curl https://get.volta.sh | bash -s -- --skip-setup
+  volta install node
+  # install default packages
+  echo 'installing default Nodejs package binaries, see .volta/default-packages'
+  < .volta/default-packages xargs npm install -g
+  # hack to speed up neovim with Volta, see https://github.com/neovim/neovim/issues/24371
+  rm -rf "${HOME}/.config/yarn/global"
+  mkdir -p "${HOME}/.config/yarn/global"
+  ln -s "${HOME}/.volta/tools/shared" "${HOME}/.config/yarn/global/node_modules"
 fi
 
 # Provision any vim specific deps
