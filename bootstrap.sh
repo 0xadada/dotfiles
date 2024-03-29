@@ -72,8 +72,7 @@ fi
 # install Node.js LTS, Volta
 read -r -p 'Provision Node.js/Volta? (y/n) '
 if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
-  curl https://get.volta.sh | bash -s -- --skip-setup
-  volta install node
+  volta install node # volta installed by homebrew in Brewfile
   # install default packages
   echo 'installing default Nodejs package binaries, see .volta/default-packages'
   < .volta/default-packages xargs npm install -g
