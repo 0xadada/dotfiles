@@ -29,14 +29,20 @@ export LS_COLORS='no=00:fi=00:di=01;36:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 # see: https://github.com/keybase/keybase-issues/issues/2798
 # export GPG_TTY=$(tty)
 
+# homebrew
 # turn homebrew analytics off
 export HOMEBREW_NO_ANALYTICS=1
 # enable additional homebrew security options
 # HOMEBREW_NO_INSECURE_REDIRECT=1
 # HOMEBREW_CASK_OPTS=--require-sha.
-
-# add homebrew sbin to PATH
-PATH="/usr/local/sbin:${PATH}"
+if [[ $(uname -m) == 'x86_64' ]]; then
+  # support bin paths for macOS Intel
+  eval "$(/usr/local/bin/brew shellenv bash)"
+fi
+if [[ $(uname -m) == 'arm64' ]]; then
+  # support bin paths for Apple Silicon
+  eval "$(/opt/homebrew/bin/brew shellenv bash)"
+fi
 
 # add XCode to the PATH
 PATH="${PATH}:$(xcode-select --print-path)/usr/bin"
