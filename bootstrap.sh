@@ -98,7 +98,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 fi
 
 # eval some 'arbitrary code' to fetch some keys, some fucking voodoo magick
-echo 'Decrypting key fetching code'
+echo 'Decrypting key fetching code, supply bootstrap outer password'
 fetch_keys=$(echo '-----BEGIN PGP MESSAGE-----
 
 jA0ECQMCTI5gnl9FVkHr0sABAbfFWVjvv8SDVeQaxGkS6ItbJuWIXWLYdvsgqg+O
