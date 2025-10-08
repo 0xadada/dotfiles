@@ -9,16 +9,16 @@ indent=""
 
 while [ "$pid" != "0" ] && [ -n "$pid" ]; do
     # Get process info
-    pinfo=$(ps -o pid,ppid,comm -p "$pid" 2>/dev/null | tail -n 1)
+    pinfo=$(ps -f "$pid" 2>/dev/null | tail -n 1)
     if [ -z "$pinfo" ]; then
         echo "Process $pid not found"
         break
     fi
 
     # Extract PID, PPID, and command
-    current_pid=$(echo "$pinfo" | awk '{print $1}')
-    parent_pid=$(echo "$pinfo" | awk '{print $2}')
-    command=$(echo "$pinfo" | awk '{for(i=3;i<=NF;i++) printf "%s ", $i; print ""}' | sed 's/ $//')
+    current_pid=$(echo "$pinfo" | awk '{print $2}')
+    parent_pid=$(echo "$pinfo" | awk '{print $3}')
+    command=$(echo "$pinfo" | awk '{for(i=8;i<=NF;i++) printf "%s ", $i; print ""}' | sed 's/ $//')
 
     echo "${indent}${current_pid} ${command}"
 
