@@ -40,6 +40,8 @@ Plug('mustache/vim-mustache-handlebars')
 Plug('vim-pandoc/vim-pandoc-syntax')
 -- code formatting
 Plug('stevearc/conform.nvim')
+-- crowdstrike deps
+Plug('jeanCarloMachado/vim-toop')
 vim.call('plug#end')
 
 -- vim options
@@ -98,7 +100,7 @@ require('mason-lspconfig').setup({
     "html",
     "jsonls",
     "tailwindcss",
-    "tsserver",
+    "ts_ls",
     "vimls",
     "yamlls",
   },
@@ -227,8 +229,7 @@ vim.g["NERDTreeIgnore"] = { "^dist$", "^node_modules$" }
 vim.g["mix_format_on_save"] = 1
 
 
--- nvim-lspconfig
-local lspconfig = require('lspconfig')
+-- LSP configuration using vim.lsp.config
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local opts = { noremap = true, silent = true } -- useful keymap options
 local on_attach = function(client, bufnr)
@@ -252,31 +253,34 @@ local on_attach = function(client, bufnr)
 end
 -- used to enable autocompletion (assign to every lsp server config)
 local capabilities = cmp_nvim_lsp.default_capabilities()
-local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
-}
+
+-- Configure LSP servers using vim.lsp.config
 local servers = {
-  'bashls',
-  'tsserver',
-  'cssls',
-  'cssmodules_ls',
-  'ember',
-  'html',
-  'graphql',
-  'jsonls',
-  'tailwindcss',
-  'vimls',
-  'yamlls',
+  { name = 'bashls', cmd = { 'bash-language-server', 'start' } },
+  { name = 'ts_ls', cmd = { 'typescript-language-server', '--stdio' } },
+  { name = 'cssls', cmd = { 'vscode-css-language-server', '--stdio' } },
+  { name = 'cssmodules_ls', cmd = { 'cssmodules-language-server' } },
+  { name = 'ember', cmd = { 'ember-language-server', '--stdio' } },
+  { name = 'html', cmd = { 'vscode-html-language-server', '--stdio' } },
+  { name = 'graphql', cmd = { 'graphql-lsp', 'server', '-m', 'stream' } },
+  { name = 'jsonls', cmd = { 'vscode-json-language-server', '--stdio' } },
+  { name = 'tailwindcss', cmd = { 'tailwindcss-language-server', '--stdio' } },
+  { name = 'vimls', cmd = { 'vim-language-server', '--stdio' } },
+  { name = 'yamlls', cmd = { 'yaml-language-server', '--stdio' } },
 }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+
+for _, server in ipairs(servers) do
+  vim.lsp.config(server.name, {
+    cmd = server.cmd,
     on_attach = on_attach,
-    flags = lsp_flags,
     capabilities = capabilities,
-  }
+  })
 end
 
 if vim.fn.executable('volta') then
   vim.g.node_host_prog = vim.trim(vim.fn.system('volta which neovim-node-host | tr -d "\n"'))
 end
+
+-- crowdstrike
+vim.api.nvim_command("source ~/.config/nvim/autoload/intlkey.vim")
+vim.api.nvim_command("source ~/.config/nvim/autoload/intllookup.vim")
