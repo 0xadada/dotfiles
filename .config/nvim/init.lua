@@ -116,8 +116,8 @@ local conformFormatOpts = {
 }
 conform.setup({
   formatters_by_ft = {
-    javascript = { { "prettierd", "prettier" } },     -- Use a sub-list to run only the first available formatter
-    typescript = { { "prettierd", "prettier" } },
+    javascript = { "prettierd", "prettier", stop_after_first = true },
+    typescript = { "prettierd", "prettier", stop_after_first = true },
     javascriptreact = { "prettierd" },
     typescriptreact = { "prettierd" },
     css = { "prettierd" },
@@ -265,6 +265,7 @@ local servers = {
   { name = 'graphql', cmd = { 'graphql-lsp', 'server', '-m', 'stream' } },
   { name = 'jsonls', cmd = { 'vscode-json-language-server', '--stdio' } },
   { name = 'tailwindcss', cmd = { 'tailwindcss-language-server', '--stdio' } },
+  { name = 'eslint', cmd = { 'vscode-eslint-language-server', '--stdio' } },
   { name = 'vimls', cmd = { 'vim-language-server', '--stdio' } },
   { name = 'yamlls', cmd = { 'yaml-language-server', '--stdio' } },
 }
