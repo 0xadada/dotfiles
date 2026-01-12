@@ -283,5 +283,5 @@ if vim.fn.executable('volta') then
 end
 
 -- crowdstrike
-vim.api.nvim_command("source ~/.config/nvim/autoload/intlkey.vim")
-vim.api.nvim_command("source ~/.config/nvim/autoload/intllookup.vim")
+-- vim.api.nvim_command("source ~/.config/nvim/autoload/intlkey.vim")
+-- vim.api.nvim_command("source ~/.config/nvim/autoload/intllookup.vim")
