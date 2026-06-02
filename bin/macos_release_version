@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+os_major_version=$(sw_vers -productVersion | cut -d. -f1)
+os_minor_version=$(sw_vers -productVersion | cut -d. -f2)
+
+declare -A macos_names=(
+  [26]="Tahoe"
+  [15]="Sequoia"
+  [14]="Sonoma"
+  [13]="Ventura"
+  [12]="Monterey"
+  [11]="BigSur"
+)
+
+declare -A macos_minor_names=(
+  [15]="Catalina"
+  [14]="Mojave"
+  [13]="High Sierra"
+  [12]="Sierra"
+  [11]="El Capitan"
+  [10]="Yosemite"
+  [9]="Mavericks"
+  [8]="Mountain Lion"
+  [7]="Lion"
+  [6]="Snow Leopard"
+  [5]="Leopard"
+  [4]="Tiger"
+  [3]="Panther"
+  [2]="Jaguar"
+  [1]="Puma"
+  [0]="Cheetah"
+)
+
+if (( os_major_version >= 11 )); then
+  os_release="${macos_names[$os_major_version]}"
+  if [[ -z "$os_release" ]]; then
+    echo "Unknown (macOS $os_major_version)"
+    exit 1
+  fi
+elif (( os_major_version == 10 )); then
+  os_release="${macos_minor_names[$os_minor_version]}"
+  if [[ -z "$os_release" ]]; then
+    echo "Unknown (macOS $os_minor_version)"
+    exit 1
+  fi
+else
+  echo "Unknown (macOS $os_major_version $os_minor_version)"
+  exit 1
+fi
+
+echo "$os_release"
