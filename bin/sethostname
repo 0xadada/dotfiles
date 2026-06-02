@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Set computer name (as done via System Preferences → Sharing)
+# Note: LocalHostName and NetBIOSName must use only ASCII.
+read -r -p "Set hostname: " device
+# Force-transliterate computer name to ASCII
+MYNAME=$(echo "${device}" | iconv -f utf-8 -t US-ASCII//TRANSLIT | tr -cd '[:alnum:]_-')
+
+sudo scutil --set ComputerName "${MYNAME}"
+sudo scutil --set HostName "${MYNAME}"
+sudo scutil --set LocalHostName "${MYNAME}"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${MYNAME}"
